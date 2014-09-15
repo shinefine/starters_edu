@@ -1,0 +1,17 @@
+一张试卷(TestPaper)包含多个部分(Sections),每个部分( Section ) 包含多个Question（试题,试卷题目）
+
+
+
+
+
+
+
+
+
+Simple Form
+
+在表单中显示一组radio button ，传递选中radio button 的文本值
+
+    <%= f.collection_radio_buttons :exam_type, [["SAT", 'SAT'] ,["TOEFL", 'TOEFL']], :first, :last %>
+
+

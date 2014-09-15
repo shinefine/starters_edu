@@ -1,0 +1,30 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> 培训班<%=@training_class.name %> 的听写成绩</h2></div>
+<table class="ui padded table segment">
+  <thead>
+    <tr>
+      <th>听写日期</th>
+      <th>及格线</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dictations.each do |dictation| %>
+      <tr>
+        <td><%= dictation.execute_date %></td>
+        <td><%= dictation.passing_line %></td>
+
+        <td><%= link_to 'Show', '#'%></td>
+        <td><%= link_to '修改', edit_training_class_dictation_path(@training_class,dictation) %></td>
+        <td><%= link_to '删除听写信息', training_class_dictation_path(@training_class,dictation), {class:'ui red button' ,method: :delete, data: { confirm: 'Are you sure?' }} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '创建听写成绩', new_training_class_dictation_path(@training_class) ,{class:'ui blue button'}%>
+<br>
+<%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>

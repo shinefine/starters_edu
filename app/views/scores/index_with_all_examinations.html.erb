@@ -1,0 +1,230 @@
+<!--#此页面展示 指定学员的 某个培训班的 所有的 模考成绩 列表-->
+
+
+<h1></h1>
+
+<div class="ui green horizontal label"><h2>[<%=@training_class.exam_type %>培训班]<%=@training_class.name %> 模考成绩列表</h2></div>
+
+<script>
+    data_example =<%=raw scores_objects_for_nvd3_chart(@student).to_json%>
+//    data_example =[{key: "阅读",values: [{x:'入口成绩',y:600},
+//        {x:'一月目标',y:600},
+//        {x:'二月目标',y:600},
+//        {x:'2008年第一次模考',y:602},
+//        {x:'2008年第二次模考',y:603},
+//        {x:'2008年第三次模考',y:616},
+//        {x:'2008年第四次模考',y:616},
+//        {x:'2008年第五次模考',y:602},
+//        {x:'2008年第六次模考',y:603},
+//        {x:'2008年第七次模考',y:616},
+//        {x:'2008年第八次模考',y:616},
+//        {x:'2008年第九次模考',y:602},
+//        {x:'2008年第十次模考',y:603},
+//        {x:'2008年第十一次模考',y:616},
+//        {x:'2008年第十二次模考',y:616},
+//    ] } ,
+//        {key: "写作",values: [{x:'入口成绩',y:600},
+//            {x:'一月目标',y:600},
+//            {x:'二月目标',y:600},
+//            {x:'2008年第一次模考',y:602},
+//            {x:'2008年第二次模考',y:603},
+//            {x:'2008年第三次模考',y:616},
+//            {x:'2008年第四次模考',y:616},
+//            {x:'2008年第五次模考',y:602},
+//            {x:'2008年第六次模考',y:603},
+//            {x:'2008年第七次模考',y:616},
+//            {x:'2008年第八次模考',y:616},
+//            {x:'2008年第九次模考',y:602},
+//            {x:'2008年第十次模考',y:603},
+//            {x:'2008年第十一次模考',y:616},
+//            {x:'2008年第十二次模考',y:616},
+//        ] } ,
+//        {key: "数学",values: [{x:'入口成绩',y:600},
+//            {x:'一月目标',y:600},
+//            {x:'二月目标',y:600},
+//            {x:'2008年第一次模考',y:602},
+//            {x:'2008年第二次模考',y:603},
+//            {x:'2008年第三次模考',y:616},
+//            {x:'2008年第四次模考',y:616},
+//            {x:'2008年第五次模考',y:602},
+//            {x:'2008年第六次模考',y:603},
+//            {x:'2008年第七次模考',y:616},
+//            {x:'2008年第八次模考',y:616},
+//            {x:'2008年第九次模考',y:602},
+//            {x:'2008年第十次模考',y:603},
+//            {x:'2008年第十一次模考',y:616},
+//            {x:'2008年第十二次模考',y:616},
+//        ] } ]
+</script>
+
+<div id='chart1'>
+  <svg style='height:500px'> </svg>
+</div><script src="/assets/multiBar.js"></script>
+
+
+<h3>学员 <%= @student.name %> 的模考成绩列表:</h3>
+<table class ="ui celled table segment">
+  <thead>
+  <tr>
+
+    <th></th>
+    <th></th>
+    <th>总分</th>
+    <%if  @training_class.exam_type == 'SAT' %>
+
+            <th  colspan="8">Critical Reading</th>
+            <th  colspan="5">Mathematics</th>
+            <th colspan="6">Writing </th>
+    <%elsif @training_class.exam_type == 'TOEFL' %>
+
+
+        <th colspan="3" >阅读</th>
+        <th colspan="3" >听力 </th>
+        <th colspan="4" >口语 </th>
+        <th colspan="3" >写作 </th>
+
+    <%end%>
+
+
+
+  </tr>
+  </thead>
+  <tr>
+
+    <th>日期</th>
+    <th>试卷</th>
+    <th></th>
+
+    <%if  @training_class.exam_type == 'SAT' %>
+
+            <th class="ui green cell">CR总分 </th> <th>raw score </th>
+            <th>词汇正确 </th> <th>词汇错误 </th><th>词汇空 </th>
+            <th>阅读正确 </th> <th>阅读错误 </th><th>阅读空 </th>
+
+            <th>Math总分 </th> <th>raw score </th>
+            <th>正确 </th> <th>错误 </th><th>空 </th>
+
+            <th>Writing 得分</th><th>raw score </th>
+            <th>正确 </th> <th>错误 </th><th>空 </th>
+            <th>作文</th>
+
+
+    <%elsif @training_class.exam_type == 'TOEFL' %>
+        <th>阅读总分 </th><th>正确 </th> <th>错误 </th>
+        <th>听力总分 </th><th>正确 </th><th>错误 </th>
+        <th>口语总分 </th><th>1,2题 </th><th>3,4题 </th><th>5,6题 </th>
+        <th>作文总分 </th><th>综合写作 </th><th>独立写作 </th>
+
+    <%end%>
+
+
+
+  </tr>
+  <tbody>
+  <% @examinations.each do |exam| %>
+
+      <% score = @scores.where(examination_id: exam).first %>
+
+      <tr>
+        <td><%= exam.test_date %></td>
+        <td><%= exam.test_paper.name %></td>
+
+        <td class="lightgreen"><%= score.try(:final_score) %></td>
+
+        <%if  @training_class.exam_type == 'SAT' %>
+
+                <td class="lightgray"><%= score.try(:course_a_score) %></td>
+                <td><%= score.try(:stat_07) %></td>
+                <td><%= score.try(:stat_01) %></td>
+                <td><%= score.try(:stat_02) %></td>
+                <td><%= score.try(:stat_03) %></td>
+                <td><%= score.try(:stat_04) %></td>
+                <td><%= score.try(:stat_05) %></td>
+                <td><%= score.try(:stat_06) %></td>
+
+
+
+                <td class="lightgray"><%= score.try(:course_b_score) %></td>
+                <td><%= score.try(:stat_11) %></td>
+                <td><%= score.try(:stat_08) %></td>
+                <td><%= score.try(:stat_09) %></td>
+                <td><%= score.try(:stat_10) %></td>
+
+
+
+                <td class="lightgray"><%= score.try(:course_c_score) %></td>
+                <td><%= score.try(:stat_15) %></td>
+                <td><%= score.try(:stat_12) %></td>
+                <td><%= score.try(:stat_13) %></td>
+                <td><%= score.try(:stat_14) %></td>
+                <td><%= score.try(:stat_16) %></td>
+
+
+
+      <%elsif @training_class.exam_type == 'TOEFL' %>
+            <!--阅读-->
+            <td class="lightgray"><%= score.try(:course_c_score) %></td>
+            <td><%= score.try(:stat_06) %></td>
+            <td><%= score.try(:stat_07) %></td>
+            <!--听力-->
+            <td class="lightgray"><%= score.try(:course_a_score) %></td>
+            <td><%= score.try(:stat_01) %></td>
+            <td><%= score.try(:stat_02) %></td>
+            <!--口语-->
+            <td class="lightgray"><%= score.try(:course_b_score) %></td>
+            <td><%= score.try(:stat_03) %></td>
+            <td><%= score.try(:stat_04) %></td>
+            <td><%= score.try(:stat_05) %></td>
+
+            <!--写作-->
+            <td class="lightgray"><%= score.try(:course_d_score) %></td>
+            <td><%= score.try(:stat_08) %></td>
+            <td><%= score.try(:stat_09) %></td>
+
+        <%end%>
+
+
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%if  @training_class.exam_type == 'SAT' %>
+    <div class="ui teal circular label">错题难度统计</div>
+    <table class="ui collapsing table segment">
+      <thead>
+      <tr>
+
+        <th></th>
+        <th>难度一</th>
+        <th>难度二</th>
+        <th>难度三</th>
+        <th>难度四</th>
+        <th>难度五</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @examinations.each do |exam| %>
+
+          <% score = @scores.where(examination_id: exam).first %>
+           <tr>
+             <td><%=exam.name%></td>
+             <td><%= score.hard_level1%></td>
+             <td><%= score.hard_level2%></td>
+             <td><%= score.hard_level3%></td>
+             <td><%= score.hard_level4%></td>
+             <td><%= score.hard_level5%></td>
+            </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+ <%end%>
+
+<%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>
+
+
+
+

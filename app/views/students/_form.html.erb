@@ -1,0 +1,198 @@
+<%= simple_form_for @student,wrapper: :semantic do |f| %>
+  <%= f.error_notification %>
+
+    <div class="ui blue ribbon label">(一)  学员基本信息</div>
+    <br>
+
+    <%= f.fields_for(:user) do |user_f| %>
+        <div class="ui five fields">
+            <div class="field">
+              <%= user_f.input :name,label:"名称" %>
+            </div>
+
+            <div class="field">
+              <%= user_f.input :phone_number,label:"手机号" %>
+            </div>
+          <div class="field">
+            <%= f.input :identify_card,label:"身份证号" %>
+          </div>
+
+          <div class="field">
+            <%= user_f.input :email ,label:"Email"%>
+          </div>
+          <div class="field">
+            <%= f.input :school ,label:"学校"%>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="ui five fields">
+
+
+      <div class="field">
+        <%= f.input :tinypost_number ,label:"微信"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :qq_number ,label:"QQ"%>
+      </div>
+    </div>
+
+    <div class="ui five fields">
+      <div class="field">
+        <%= f.input :parent_name,label:"家长名称" %>
+      </div>
+
+      <div class="field">
+        <%= f.input :parent_tel ,label:"家长电话"%>
+      </div>
+    </div>
+
+
+
+
+    <div class="ui red ribbon label">(二)  学习背景</div>
+    <p></p>
+    <div class="ui purple horizontal label">A.学习期望</div>
+
+    <div class="ui five fields">
+        <div class="field">
+          <%= f.input :school_rank ,label:"申请学校排名"%>
+        </div>
+    </div>
+    <div class="ui two fields">
+    <div class="ui five fields">
+    <div class="field">
+      <%= f.input :target_score_toefl,label:"托福成绩(总分)" %>
+    </div>
+
+      <div class="field">
+        <%= f.input :target_toefl_listen ,label:"听力"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :target_toefl_say ,label:"口语"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :target_toefl_reading ,label:"阅读"%>
+      </div>
+      <div class="field">
+        <%= f.input :target_toefl_writing ,label:"写作"%>
+      </div>
+    </div>
+    </div>
+
+    <div class="ui two fields">
+    <div class="ui five fields">
+    <div class="field">
+      <%= f.input :target_score_sat ,label:"SAT成绩(总分)"%>
+    </div>
+
+
+      <div class="field">
+        <%= f.input :target_sat_cr ,label:"CR"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :target_sat_writing ,label:"WRITING"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :target_sat_math ,label:"MATH"%>
+      </div>
+    </div>
+    </div>
+
+
+    <div class="ui purple horizontal label">B.学习进度</div>
+    <p></p>
+    <div class="ui green circular label">
+      1.托福
+    </div>
+
+    <div class="ui five fields">
+        <div class="field">
+          <%= f.input :total_toefl_times,label:"已考试次数" %>
+        </div>
+
+      <div class="field">
+        <%= f.input :expect_toefl_times, label:"之后希望考试的次数" %>
+      </div>
+    </div>
+    <div class="ui two fields">
+    <div class="ui five fields">
+    <div class="field">
+      <%= f.input :entry_score_toefl,label:"目前最高成绩" %>
+    </div>
+
+      <div class="field">
+        <%= f.input :entry_toefl_listen ,label:"听力"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :entry_toefl_say ,label:"口语"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :entry_toefl_reading ,label:"阅读"%>
+      </div>
+      <div class="field">
+        <%= f.input :entry_toefl_writing ,label:"写作"%>
+      </div>
+    </div>
+    </div>
+
+
+
+    <div class="ui green circular label">
+      2.SAT
+    </div>
+    <div class="ui two fields">
+    <div class="ui five fields">
+        <div class="field">
+          <%= f.input :total_sat_times,label:"已考试次数" %>
+        </div>
+    </div>
+
+    <div class="ui five fields">
+    <div class="field">
+      <%= f.input :entry_score_sat,label:"目前最高成绩" %>
+    </div>
+
+
+
+      <div class="field">
+        <%= f.input :entry_sat_cr ,label:"CR"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :entry_sat_writing ,label:"WRITING"%>
+      </div>
+
+      <div class="field">
+        <%= f.input :entry_sat_math ,label:"MATH"%>
+      </div>
+    </div>
+    </div>
+    <%if nil %>
+        参加培训前做过的考题
+        <div class ="field">
+          <!--f.association :students,label:"指定学生做过的考题",   as: :check_boxes-->
+          <%= collection_check_boxes(:student, :test_paper_ids, TestPaper.all, :id, :name,{},{class:"ui"} ) do |b| %>
+
+              <div class="ui slider checkbox">
+                <%= b.check_box + b.label %>
+              </div>
+              <br>
+          <% end %>
+        </div>
+
+    <% end %>
+
+
+  <div class="form-actions">
+    <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
+    <%= link_to '返回到学员列表', students_path, {class:"ui blue submit button"} %>
+  </div>
+<% end %>

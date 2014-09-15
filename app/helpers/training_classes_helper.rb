@@ -1,0 +1,3 @@
+module TrainingClassesHelper
+
+end

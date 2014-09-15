@@ -1,0 +1,52 @@
+
+<h1></h1>
+<div class="ui green horizontal label"><h2>学员<%=@student.name %>所属的培训班列表</h2></div>
+
+
+<table class ="ui celled table segment">
+  <thead>
+  <tr>
+
+    <th>名称</th>
+    <th>编号</th>
+    <th>班级类型</th>
+    <th>培训教材</th>
+    <th>班主任</th>
+    <th>模拟考试</th>
+    <th>听写成绩</th>
+    <th>作业</th>
+    <th>出勤统计</th>
+    <th>开课日期</th>
+    <th>结束日期</th>
+
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @student.training_classes.each do |training_class| %>
+      <tr>
+
+
+        <td><%= link_to training_class.name, training_class , {class:'ui purple button'} %></td>
+        <td><%= training_class.code %></td>
+        <td><%= training_class.exam_type %></td>
+        <td><%= training_class.text_book.try(:name) %></td>
+        <td><%= training_class.master_teacher.nil? ? "":  training_class.master_teacher.name %></td>
+
+        <!--#link 培训班的模拟考列表-->
+        <td><%=link_to "#{training_class.examinations.count}次",index_with_all_examinations_training_class_student_scores_path(training_class,@student) %></td>
+        <td><%= link_to @student.summary_dictation_text(training_class), training_class_dictations_path(training_class,student_id:@student) %></td>
+        <td><%= link_to "#{training_class.homeworks.count}次", training_class_homeworks_path(training_class) %></td>
+        <td><%= link_to @student.summary_attendance_text(training_class),training_class_attendances_path(training_class,student_id:@student) %></td>
+        <td><%= training_class.start_date %></td>
+        <td><%= training_class.end_date %></td>
+
+
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+

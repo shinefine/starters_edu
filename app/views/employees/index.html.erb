@@ -1,0 +1,36 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2>员工列表 </h2><h3>共有员工 <%= @employees.length %> 人</h3></div>
+
+<table class="ui padded table segment">
+  <thead>
+  <tr>
+
+    <th>姓名</th>
+    <th>管理员</th>
+    <th>手机号</th>
+    <th>Email</th>
+
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @employees.each do |emp| %>
+      <tr>
+
+        <td><%= emp.name %></td>
+        <td><%= emp.admin? ? '是':''  %></td>
+        <td><%= emp.user.phone_number %></td>
+        <td><%= emp.user.email %></td>
+
+        <td><%= link_to '修改', edit_employee_path(emp) ,{class: 'ui green button'}%></td>
+        <td><%= link_to '删除', emp, {class:'ui red button',method: :delete, data: { confirm: '确认删除员工?' }} %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新建 员工', new_employee_path ,{class: 'ui blue button'}%>
+

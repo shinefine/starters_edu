@@ -1,0 +1,40 @@
+<h1></h1>
+
+<div class="ui horizontal label"><h2>学员列表</h2><h3>(共有学员 <%= @students.length %> 人)</h3></div>
+<table class ="ui celled table segment">
+  <thead>
+    <tr>
+
+      <th>学员名称</th>
+      <th>家长姓名及电话</th>
+      <th>身份证号</th>
+      <th>学员手机号</th>
+      <th>QQ</th>
+      <th>微信</th>
+      <th>电子邮箱</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= link_to student.user.try(:name), student, {class: 'ui purple button'}%></td>
+        <td><%=" #{student.parent_name}:#{student.parent_tel} " %></td>
+        <td><%= student.identify_card  %></td>
+        <td><%= student.user.try(:phone_number)  %></td>
+        <td><%= student.qq_number %></td>
+        <td><%= student.tinypost_number  %></td>
+        <td><%= student.user.try(:email)   %></td>
+
+
+        <td><%= link_to '修改', edit_student_path(student) ,{class: 'ui green button'}%></td>
+        <td><%= link_to '删除', student,{class: 'ui red button', method: :delete, data: { confirm: '确定删除?' } }%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新建学员', new_student_path,{class: 'ui blue button'} %>

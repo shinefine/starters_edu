@@ -1,0 +1,54 @@
+<h1></h1>
+
+<div class="ui horizontal label"><h2> 学员信息</h2></div>
+
+
+
+<p>
+  <strong>姓名:</strong>
+  <%= @student.name %>
+</p>
+
+<p>
+  <strong>邮箱:</strong>
+  <%= @student.user.email %>
+</p>
+
+<p>
+  <strong>手机号:</strong>
+  <%= @student.user.phone_number %>
+</p>
+
+<div class="ui red ribbon label">入口成绩和期望目标成绩</div>
+<p>
+  <strong>SAT入口成绩:</strong>
+  <%= @student.entry_score_sat %>
+</p>
+<p>
+  <strong>SAT期望成绩:</strong>
+  <%= @student.target_score_sat %>
+</p>
+<p>
+  <strong>TOEFL入口成绩:</strong>
+  <%= @student.entry_score_toefl %>
+</p>
+<p>
+  <strong>TOEFL期望成绩:</strong>
+  <%= @student.target_score_toefl %>
+</p>
+
+
+<% if current_user.student? || current_user.employee? %>
+    <%= link_to '修改信息', edit_student_path(@student), {class: 'ui blue button'}%>
+<% end %>
+
+<% if current_user.student? || current_user.employee? %>
+
+
+    <%= link_to '设置密码', set_password_user_path(current_user), {class: 'ui blue button'}%>
+
+<% end %>
+
+<% if current_user.teacher? || current_user.employee? %>
+    <%= link_to '返回到学员列表', students_path,{class: 'ui blue button'} %>
+<% end %>

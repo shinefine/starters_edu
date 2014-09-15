@@ -1,0 +1,29 @@
+<%= simple_form_for([@training_class,@dictation]) do |f| %>
+  <%= f.error_notification %>
+
+<div class="ui five fields">
+
+        <div class="field">
+    <%= f.input :passing_line ,label:'听写合格线'%>
+        </div>
+        <div class="field">
+    <%= f.input :execute_date,label:'听写日期' %>
+        </div>
+</div>
+    <%= f.fields_for(:dictation_scores) do |dict_scores_form|%>
+        <div class="ui inline fields">
+
+          <div class="field ">
+            <%= dict_scores_form.input_field :student_id, type:'hidden' %>
+          </div>
+
+          <div class="field ">
+            <%= dict_scores_form.input :score,label: "#{dict_scores_form.object.student.name } 听写得分:"          %>
+          </div>
+        </div>
+    <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit ,'保存听写成绩'%>
+  </div>
+<% end %>

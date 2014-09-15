@@ -1,0 +1,40 @@
+<%= simple_form_for([@training_class,@homework]) do |f| %>
+  <%= f.error_notification %>
+
+    <div class="field">
+      <%= f.input_field :subject_type, type:'hidden' %>
+    </div>
+    <div class="field">
+      <%= f.input :title, label: "题目" %>
+    </div>
+    <div class ="five fields">
+    <div class="field">
+      <%= f.label "布置日期" %>
+      <%= f.date_field :distribution_date ,{class:'ui tiny input'}%>
+
+    </div>
+      <div class="field">
+        <%= f.label "上交日期" %>
+        <%= f.date_field :submit_date ,{class:'ui small input'}%>
+
+      </div>
+    </div>
+
+    <%if  @homework.need_set_finish_status %>
+    <div class ="field">
+      <%= collection_check_boxes(:homework,
+                                 :student_ids,
+                                 @homework.training_class.students,
+                                 :id,
+                                 :name,{},{class:'ui'} ) do |b| %>
+          <div class='ui slider checkbox'>
+            <%= b.check_box + b.label %>
+          </div>
+      <% end%>
+    </div>
+    <%end%>
+
+    <div class="form-actions">
+    <%= f.button :submit ,'保存'%>
+  </div>
+<% end %>

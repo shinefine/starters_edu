@@ -1,0 +1,90 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2>培训班详细信息</h2></div>
+
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>培训班类型:</strong>
+  <%= @training_class.exam_type %>
+</p>
+<p>
+  <strong>班级名称:</strong>
+  <%= @training_class.name %>
+</p>
+
+<p>
+  <strong>编号:</strong>
+  <%= @training_class.code %>
+</p>
+
+<p>
+
+  <% days = @training_class.end_date.mjd - @training_class.start_date.mjd + 1  %>
+
+  <strong>从 </strong>
+  <%= @training_class.start_date %>
+
+  <strong>到 </strong>
+  <%= @training_class.end_date %> 共计<%=days%>天
+</p>
+<% today = Date.parse(Time.now.strftime("%Y/%m/%d"))%>
+<%if today.mjd - @training_class.end_date.mjd > 0 %>
+    <p>已结束</p>
+<%end%>
+
+<%if today.mjd - @training_class.start_date.mjd < 0 %>
+    <p>尚未开课</p>
+<%end%>
+
+    <%if today.mjd - @training_class.start_date.mjd >= 0  && today.mjd - @training_class.end_date.mjd <= 0%>
+
+        <div class="ui active blue striped progress">
+
+          <% days_passed = today.mjd - @training_class.start_date.mjd + 1 %>
+          <% percent =days_passed *100 / days %>
+          <div class="bar" style="width:<%="#{percent}"%>%" >
+
+          </div>
+        </div>
+
+    <% end %>
+
+<div class ="ui raised segment">
+  <div class="ui red circular label">班主任</div>
+  <%= @training_class.master_teacher.nil? ? "未指定": @training_class.master_teacher.name %>
+
+
+  <p></p>
+  <% @training_class.subjects.each do |sub|  %>
+
+  <div class="ui green circular label"><%= sub.name %>讲师</div>
+  <%= sub.teacher.try(:name)%>
+      <p></p>
+
+  <% end %>
+
+  <p></p>
+
+  <div class="ui ribbon label">
+    学员数量：<%= @training_class.students.count %>人
+
+  </div>
+  <div class="ui small items">
+    <% @training_class.students.each do|student| %>
+        <div class="item">
+          <div class="image">
+            <img src='<%= image_path("photo.png")%>' class="ui mini image" >
+          </div>
+          <div class="content">
+            <div class="name"><%=student.name %></div>
+            <p class="description">学生信息<br>更多详细信息。</p>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+<%= link_to '修改', edit_training_class_path(@training_class),{class:'ui blue button'} %>
+<%= link_to '返回到培训班列表', training_classes_path ,{class:'ui blue button'}%>

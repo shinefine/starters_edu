@@ -1,0 +1,30 @@
+<%= simple_form_for([@training_class, @examination]) do |f| %>
+  <%= f.error_notification %>
+
+
+
+
+
+    <div class="field">
+      <%= f.input :name ,label: "模考名称"%>
+    </div>
+
+
+    <div class="field">
+      <%= f.association :test_paper,label:"试卷",
+                        prompt:"--请选择--",
+                        input_html:{class: 'ui selection dropdown'}
+      %>
+    </div>
+
+
+    <div class="field">
+
+      <%= f.label "考试时间" %>
+      <%= f.date_field :test_date ,{class:'ui input'}%>
+
+    </div>
+  <div class="form-actions">
+    <%= f.button :submit,'保存' %>
+  </div>
+<% end %>

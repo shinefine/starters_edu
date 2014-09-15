@@ -1,0 +1,23 @@
+<%= simple_form_for(@teacher) do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.fields_for(:user) do |user_f| %>
+
+        <div class="filed">
+          <%= user_f.input :name,label:"名称" %>
+        </div>
+        <div class="filed">
+          <%= user_f.input :email ,label:"Email"%>
+        </div>
+        <div class="filed">
+          <%= user_f.input :phone_number,label:"手机号" %>
+        </div>
+
+    <% end %>
+
+
+    <div class="form-actions">
+      <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
+      <%= link_to '返回到讲师列表', teachers_path, {class:"ui blue submit button"} %>
+    </div>
+<% end %>

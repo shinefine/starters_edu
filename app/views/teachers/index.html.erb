@@ -1,0 +1,33 @@
+<h1></h1>
+<div class="ui horizontal label"><h2>讲师列表 </h2><h3>共有讲师 <%= @teachers.length %> 人</h3></div>
+
+<table class="ui padded table segment">
+  <thead>
+    <tr>
+
+      <th>姓名</th>
+      <th>手机号</th>
+      <th>Email</th>
+
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teachers.each do |teacher| %>
+      <tr>
+
+        <td><%= teacher.name %></td>
+        <td><%= teacher.user.phone_number %></td>
+        <td><%= teacher.user.email %></td>
+
+        <td><%= link_to '修改', edit_teacher_path(teacher) ,{class: 'ui green button'}%></td>
+        <td><%= link_to '删除', teacher, {class:'ui red button',method: :delete, data: { confirm: '确认删除讲师?' }} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新建 讲师', new_teacher_path ,{class: 'ui blue button'}%>

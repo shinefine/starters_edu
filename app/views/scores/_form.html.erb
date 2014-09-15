@@ -1,0 +1,214 @@
+<%= simple_form_for([@student,@examination,@score]) do |f| %>
+    <% #输出f对象的内容 f.object.inspect %>
+  <%= f.error_notification %>
+
+    <div class="field">
+
+      <%= f.input :student_id, as: :hidden %>
+      <%= f.input :examination_id, as: :hidden %>
+    </div>
+
+    <div class="field">
+      <label><%=@examination.name %></label>
+    </div>
+    <% if  @training_class.exam_type == 'SAT' %>
+        <div class="ui red circular label">SAT 各科总分和对错情况</div>
+        <div class="ui two fields">
+            <div class="ui five fields">
+                <div class="field">
+                  <%= f.input :course_a_score ,label: "CR总分"%>
+                </div>
+              <div class="field">
+                <%= f.input :stat_07 ,label: "raw score"%>
+              </div>
+            </div>
+        </div>
+        <div class="ui two fields">
+            <div class="ui five fields">
+              <div class ="field"></div>
+              <div class ="field"><label>词汇</label></div>
+              <div class="field">
+                <%= f.input :stat_01 ,label: "正确"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_02 ,label: "错误"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_03 ,label: "空"%>
+              </div>
+            </div>
+        </div>
+        <div class="ui two fields">
+            <div class="ui five fields">
+              <div class ="field"></div>
+              <div class ="field"><label>阅读</label></div>
+              <div class="field">
+                <%= f.input :stat_04 ,label: "正确"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_05 ,label: "错误"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_06 ,label: "空"%>
+              </div>
+            </div>
+        </div>
+        <div class="ui two fields">
+            <div class="ui five fields">
+                <div class="field">
+                  <%= f.input :course_b_score ,label: "数学得分"%>
+                </div>
+              <div class="field">
+                <%= f.input :stat_11 ,label: "raw score"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_08 ,label: "正确"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_09 ,label: "错误"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_10 ,label: "空"%>
+              </div>
+            </div>
+        </div>
+        <div class="ui two fields">
+            <div class="ui five fields">
+                <div class="field">
+                  <%= f.input :course_c_score,label: "写作得分" %>
+                </div>
+              <div class="field">
+                <%= f.input :stat_15 ,label: "raw score"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_12 ,label: "正确"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_13 ,label: "错误"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_14 ,label: "空"%>
+              </div>
+            </div>
+        </div>
+
+        <div class="ui five fields">
+          <div class ="field"></div>
+
+            <div class="field">
+              <%= f.input :stat_16,label: "作文" %>
+            </div>
+        </div>
+
+    <% elsif @training_class.exam_type == 'TOEFL' %>
+        <div class="ui four fields">
+            <div class="field">
+              <%= f.input :course_a_score ,label: "听力得分"%>
+            </div>
+
+          <div class="field">
+            <%= f.input :stat_01 ,label: "正确"%>
+          </div>
+
+          <div class="field">
+            <%= f.input :stat_02 ,label: "错误"%>
+          </div>
+
+
+        </div>
+        <div class="ui four fields">
+            <div class="field">
+              <%= f.input :course_b_score ,label: "口语得分"%>
+            </div>
+          <div class="field">
+            <%= f.input :stat_03 ,label: "1,2题"%>
+          </div>
+          <div class="field">
+            <%= f.input :stat_04 ,label: "3,4题"%>
+          </div>
+          <div class="field">
+            <%= f.input :stat_05 ,label: "5,6题"%>
+          </div>
+        </div>
+        <div class="ui four fields">
+            <div class="field">
+              <%= f.input :course_c_score,label: "阅读得分" %>
+            </div>
+          <div class="field">
+            <%= f.input :stat_06 ,label: "正确"%>
+          </div>
+          <div class="field">
+            <%= f.input :stat_07 ,label: "错误"%>
+          </div>
+        </div>
+
+        <div class="ui four fields">
+            <div class="field">
+              <%= f.input :course_d_score,label: "写作得分" %>
+            </div>
+          <div class="field">
+            <%= f.input :stat_08 ,label: "综合写作"%>
+          </div>
+          <div class="field">
+            <%= f.input :stat_09 ,label: "独立写作"%>
+          </div>
+        </div>
+
+    <% end %>
+    <div class="ui two fields">
+        <div class="field">
+        <%= f.input :final_score,label:'总分' %>
+            </div>
+    </div>
+
+    <% if  @training_class.exam_type == 'SAT' %>
+        <div class="ui red circular label">SAT 错题难度</div>
+        <div class="ui two fields">
+            <div class="ui five fields">
+
+              <div class="field">
+                <%= f.input :hard_level1,label: "难度1" %>
+              </div>
+              <div class="field">
+                <%= f.input :hard_level2,label: "难度2" %>
+              </div>
+              <div class="field">
+                <%= f.input :hard_level3,label: "难度3" %>
+              </div>
+              <div class="field">
+                <%= f.input :hard_level4,label: "难度4" %>
+              </div>
+              <div class="field">
+                <%= f.input :hard_level5,label: "难度5" %>
+              </div>
+            </div>
+        </div>
+     <% end %>
+
+      <!--嵌套表单用于 录入 每道试题对错得分 情况-->
+
+    <% if nil %> #本版本不输出下面的内容
+                     <% questions_groupby_section = @score.score_details.group_by{|details| details.question.section.name} %>
+
+                     <% questions_groupby_section.each do |key,questions_arr| %>
+                        <h1><%= key.to_s + ":" + questions_arr.length.to_s %></h1>
+
+                        <%= f.simple_fields_for :score_details do |builder| %>
+                            <%= render 'score_details_form_fields', f: builder,section_name:key.to_s %>
+                        <% end %>
+                     <% end %>
+
+
+
+
+
+                    <h1>每题详细情况</h1>
+
+                    <%= @score.score_details.length %>
+
+    <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit,'保存' %>
+  </div>
+<% end %>
