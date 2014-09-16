@@ -38,7 +38,7 @@
     <div class="ui red ribbon label">分配班主任</div>
     <div class ="field">
       <%= f.collection_select :master_teacher_id,
-                              Teacher.all,
+                              Employee.all,
                               :id,
                               :name,
                               :include_blank => true %>

@@ -9,13 +9,13 @@
 <br>
 
 <div class="ui purple horizontal label">[模拟考]<%=@examination.name %> <%=@examination.id %></div>
-<br>
+<br><br>
 <div class="ui purple horizontal label">[试卷]<%= @examination.test_paper.name %></div>
-<br>
+<br><br>
 <div class="ui purple horizontal label">[考试时间]<%= @examination.test_date %></div>
-<br>
+<br><br>
 <div class="ui purple horizontal label">[学员数量]<%= @training_class.students.count %>人</div>
-<br>
+<br><br>
 <h3>成绩列表:</h3>
 
 <%if  @training_class.exam_type == 'SAT' %>

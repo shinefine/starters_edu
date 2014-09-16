@@ -1,5 +1,5 @@
 class TrainingClass < ActiveRecord::Base
-  belongs_to :master_teacher, class_name: :Teacher  #班主任
+  belongs_to :master_teacher, class_name: :Employee  #班主任
   belongs_to :text_book
 
   #学员可以属于多个培训班(同时培训班包含多个学员)

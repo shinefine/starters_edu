@@ -27,39 +27,39 @@ class TeachersController < ApplicationController
   def create
     @teacher = Teacher.new(teacher_params)
 
-    respond_to do |format|
+
       if @teacher.save
-        format.html { redirect_to teachers_url, notice: '讲师已创建.' }
-        format.json { render :show, status: :created, location: @teacher }
+        redirect_to teachers_url, notice: '讲师已创建.'
+
       else
-        format.html { render :new }
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
+        render :new
+
       end
-    end
+
   end
 
   # PATCH/PUT /teachers/1
   # PATCH/PUT /teachers/1.json
   def update
-    respond_to do |format|
+
       if @teacher.update(teacher_params)
-        format.html { redirect_to teachers_url, notice: '讲师信息已保存.' }
-        format.json { render :show, status: :ok, location: @teacher }
+         redirect_to teachers_url, notice: '讲师信息已保存.'
+
       else
-        format.html { render :edit }
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
+         render :edit
+
       end
-    end
+
   end
 
   # DELETE /teachers/1
   # DELETE /teachers/1.json
   def destroy
     @teacher.destroy
-    respond_to do |format|
-      format.html { redirect_to teachers_url, notice: '讲师已删除.' }
-      format.json { head :no_content }
-    end
+
+    redirect_to teachers_url, notice: '讲师已删除.'
+
+
   end
 
   private

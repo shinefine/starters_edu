@@ -15,4 +15,6 @@ class ApplicationController < ActionController::Base
     @training_class =  TrainingClass.find(params[:training_class_id])
   end
 
+
+
 end

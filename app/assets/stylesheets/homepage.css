@@ -9,13 +9,13 @@ body {
 }
 
 body {
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  background: #FFFFFF;
-  margin: 0px;
-  padding: 0px;
-  color: #555555;
-  text-rendering: optimizeLegibility;
-  min-width: 320px;
+  /*font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;*/
+  /*background: #FFFFFF;*/
+  /*margin: 0px;*/
+  /*padding: 0px;*/
+  /*color: #555555;*/
+  /*text-rendering: optimizeLegibility;*/
+  /*min-width: 320px;*/
 }
 
 /*******************************
@@ -125,69 +125,3 @@ p a {
   background-color: transparent;
 }
 
-/*******************************
-          Responsive
-*******************************/
-
-/* Mobile Only */
-
-@media only screen and (max-width : 768px) {
-  .ui.page.grid.segment {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .menu .right.menu > .item {
-    display: none;
-  }
-
-  .menu .right.menu > .mobile.item {
-    display: block;
-  }
-
-  h1.ui.header {
-    font-size: 1.5em;
-  }
-
-  .masthead.segment {
-    -webkit-background-size: auto;
-    background-size: auto;
-  }
-
-  .masthead.segment .information {
-    margin-left: 190px;
-  }
-
-  .masthead.segment .image {
-    bottom: -65px;
-    width: 150px;
-  }
-
-  .masthead.segment .button {
-    font-size: 1rem;
-  }
-
-  .overview .divided.grid .header .icon {
-    font-size: 1.5em;
-  }
-
-  .overview .divided.grid .header + p {
-    min-height: 0px;
-  }
-
-  .masthead.segment .column {
-    font-size: 0.7rem;
-  }
-
-  .masthead.segment .column p {
-    display: none;
-  }
-
-  .selection.list .right.floated {
-    display: none;
-  }
-}
-
-@media only screen and (max-width : 1000px) {
-
-}

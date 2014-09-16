@@ -48,7 +48,9 @@ module ApplicationHelper
 
     end
       if current_user.employee
-        nav_menus={
+
+        if current_user.can_manage_basic_data?
+          nav_menus={
             "基础数据" =>
                 {
                     '试卷（套题）管理'=>test_papers_path,
@@ -66,6 +68,16 @@ module ApplicationHelper
             }
 
         }
+        else
+          nav_menus={
+
+              "培训班" =>{
+                  '我的班级'=>training_classes_path,
+              }
+
+          }
+        end
+
       end
 
     return nav_menus

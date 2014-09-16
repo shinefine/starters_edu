@@ -66,11 +66,35 @@ class User < ActiveRecord::Base
 
   end
 
+  #能否管理基本数据信息
+  def can_manage_basic_data?
+    role_name == '管理员' || role_name=='校长'
+  end
+
+  #能否给培训班设置模考
+  def can_set_training_class_examination?
+    role_name == '管理员' || role_name=='校长'
+  end
+
+  #能否看见此培训班
+  def can_view_this_training_class?(training_class)
+    return true if role_name == '管理员' || role_name=='校长'
+
+    return false if training_class.master_teacher.nil?
+
+
+    return true if training_class.master_teacher.id == id
+
+    return false
+
+  end
+
   #能否收取作业
   def can_recieve_homework?(homework)
+
     #班主任 可以收取本班的作业
     unless homework.training_class.master_teacher.nil?
-      return self.teacher.id == homework.training_class.master_teacher.id  if self.teacher?
+      return self.employee.id == homework.training_class.master_teacher.id  if self.employee?
     end
 
     return false

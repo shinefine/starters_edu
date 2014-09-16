@@ -25,17 +25,18 @@
                         index_for_all_students_examination_scores_path(exam),{class:'ui green button'} %>
         </td>
 
-        <% if current_user.teacher? %>
-            <td></td>
-            <td></td>
-        <% else %>
+        <% if current_user.can_set_training_class_examination? %>
             <td><%= link_to '修改', edit_training_class_examination_path(@training_class,exam),{class:'ui green button'} %></td>
             <td>
-                <%= link_to '删除',
-                            training_class_examination_path(@training_class, exam),{class:'ui red button',
-                            method: :delete,
-                            data: { confirm: '确认删除?' }} %>
+              <%= link_to '删除',
+                          training_class_examination_path(@training_class, exam),{class:'ui red button',
+                                                                                  method: :delete,
+                                                                                  data: { confirm: '确认删除?' }} %>
             </td>
+
+        <% else %>
+            <td></td>
+            <td></td>
         <% end %>
       </tr>
     <% end %>
@@ -44,7 +45,7 @@
 
 <br>
 
-<% if current_user.employee? %>
+<% if current_user.can_set_training_class_examination? %>
   <%= link_to '创建模拟考', new_training_class_examination_path(@training_class), {class:"ui blue  button"} %>
 <% end %>
 <%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>

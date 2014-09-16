@@ -55,7 +55,7 @@ class HomeworksController < ApplicationController
     @homework.students=Student.where(id: params[:homework][:student_ids])
 
       if @homework.update(homework_params)
-        redirect_to training_class_homeworks_path(@training_class), notice: 'Homework was successfully updated.'
+        redirect_to training_class_homeworks_path(@training_class), notice: '作业信息已保存'
 
       else
         render :edit
@@ -69,7 +69,7 @@ class HomeworksController < ApplicationController
   def destroy
     @homework.destroy
 
-    redirect_to training_class_homeworks_url(@training_class), notice: 'Homework was successfully destroyed.'
+    redirect_to training_class_homeworks_url(@training_class), notice: '作业已删除.'
 
 
   end

@@ -1,13 +1,26 @@
+
+
 <%= simple_form_for(@employee) do |f| %>
-  <%= f.error_notification %>
+    <%= f.error_notification %>
 
+    <%= f.fields_for(:user) do |user_f| %>
 
-        <div class="field">
-    <%= f.input :user_id %>
+        <div class="filed">
+          <%= user_f.input :name,label:"名称" %>
+        </div>
+        <div class="filed">
+          <%= user_f.input :email ,label:"Email"%>
+        </div>
+        <div class="filed">
+          <%= user_f.input :phone_number,label:"手机号" %>
         </div>
 
+    <% end %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <%= f.input :admin ,label:"管理员"%>
+
+    <div class="form-actions">
+      <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
+      <%= link_to '返回到员工列表', employees_path, {class:"ui blue submit button"} %>
+    </div>
 <% end %>
