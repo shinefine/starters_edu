@@ -5,9 +5,20 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+33.times {|i|
+  TestPaper.create ([{name:"TPO_#{i + 1}",exam_type:'TOEFL' }])
+}
+35.times {|i|
+  TestPaper.create ([{name:"SAT_2013年_试卷#{i + 1}",exam_type:'SAT' }])
+}
 
-TestPaper.create ([{name:'SAT_Tp001',exam_type:'SAT' }])
 
+5.times {|i|
+  TextBook.create ([{name:"SAT教材#{i + 1}",exam_type:'SAT' }])
+}
+5.times {|i|
+  TextBook.create ([{name:"TOEFL教材#{i + 1}",exam_type:'TOEFL' }])
+}
 
 User.create([
                 { name:'Admin', role_name: '管理员',email:'c1388',phone_number:'13880246012',password:'',employee:Employee.new({admin: true})},

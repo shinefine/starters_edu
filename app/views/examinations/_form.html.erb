@@ -3,27 +3,39 @@
 
 
 
+  <div class ="five fields">
 
 
-    <div class="field">
+
       <%= f.input :name ,label: "模考名称"%>
-    </div>
 
 
-    <div class="field">
-      <%= f.association :test_paper,label:"试卷",
-                        prompt:"--请选择--",
-                        input_html:{class: 'ui selection dropdown'}
-      %>
-    </div>
+
+      <div class="field string required examination_date">
+
+        <label class="string optional" for="examination_test_date">考试时间</label>
+        <%= f.date_field :test_date ,{class:'string required'}%>
+      </div>
 
 
-    <div class="field">
 
-      <%= f.label "考试时间" %>
-      <%= f.date_field :test_date ,{class:'ui input'}%>
 
-    </div>
+
+      <div class="field select required examination_test_paper">
+        <label class="select required" for="examination_test_paper_id"><abbr title="required">*</abbr> 试卷111</label>
+
+        <%= f.collection_select :test_paper_id,
+                                TestPaper.type_is(@training_class.exam_type),
+                                :id,
+                                :name,
+                                {prompt: true},
+                                {class:"select optional ui selection dropdown"} %>
+
+
+      </div>
+
+
+   </div>
   <div class="form-actions">
     <%= f.button :submit,'保存' %>
   </div>

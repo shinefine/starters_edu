@@ -16,10 +16,16 @@
 
 
       <div class="field">
-        <%= f.association :text_book,label:"培训教材",
-                          prompt:"--请选择--",
-                          input_html:{class: 'ui selection dropdown'}
-        %>
+        <div class="field select optional training_class_text_book">
+          <label class="select optional" for="training_class_text_book_id">培训教材</label>
+          <%= f.collection_select :text_book_id,
+                                  TextBook.type_is(@training_class.exam_type),
+                                  :id,
+                                  :name,
+                                  {prompt: true},
+                                  {class:"select optional ui selection dropdown"} %>
+        </div>
+
       </div>
     </div>
 

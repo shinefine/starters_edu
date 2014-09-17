@@ -4,6 +4,8 @@ class TrainingClassesController < ApplicationController
   # GET /training_classes
   # GET /training_classes.json
   def index
+
+
     if(current_user.student?)
       @student =current_user.student
       render 'index_for_special_student'

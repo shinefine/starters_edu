@@ -4,16 +4,20 @@ body {
   //font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
-  background:  url(poly_background.svg) !important;
+  background:  url(poly_background.svg) repeat-y !important;
   background-size:cover;
 
   font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   /* background: #FCFCFC url(../images/bg.jpg) repeat; */
-  margin: 0px 20px 0px 20px;
+
   padding: 0px;
   color: #555555;
   min-width: 1024px;
 
+}
+.main.container
+{
+  margin: 0px 20px 0px 20px;
 }
 body#home{
   margin: 0px 0px 0px 0px;

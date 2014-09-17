@@ -12,4 +12,9 @@ class TestPaper < ActiveRecord::Base
   validates :exam_type,presence: true
   validates :name,presence: true
 
+
+  scope :type_is , ->(exam_type) {where(exam_type:  exam_type)}
+
+
+
 end

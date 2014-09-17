@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
     return false if training_class.master_teacher.nil?
 
 
-    return true if training_class.master_teacher.id == id
+    return true if training_class.master_teacher.id == employee.id if employee?
 
     return false
 

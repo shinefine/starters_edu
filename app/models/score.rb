@@ -14,7 +14,28 @@ class Score < ActiveRecord::Base
   end
 
 
+#表字段和考试科目成绩对应关系
 
+# -----SAT-------------
+#  CR总分--> :course_a_score
 
+  #  raw score (CR)-->   :stat_07
+
+  #       CR 词汇 : 正确数量-->:stat_01 ,错误数量-->:stat_02 ,空题数量--> :stat_03
+  #       CR 阅读 : 正确数量-->:stat_04 ,错误数量-->:stat_05 ,空题数量--> :stat_06
+
+#  数学得分--> :course_b_score
+
+  #  raw score(math)-->  :stat_11
+
+  #       正确数量-->:stat_08 ,错误数量--> :stat_09 ,空题数量-->:stat_10
+
+#  写作得分--> :course_c_score
+
+  #  raw score(write)-->  :stat_15
+  #
+  #      正确数量--> :stat_12 ,错误数量--> :stat_13, 空题数量-->:stat_14
+
+  #       写作 作文子项--> :stat_16
 
 end

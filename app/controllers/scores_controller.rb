@@ -52,6 +52,33 @@ class ScoresController < ApplicationController
   # GET /scores/new
   def new
     @score = Score.new
+    if @training_class.exam_type=='SAT'
+      @score.course_a_score=0 #CR总分
+      @score.stat_01 =19 # CR 词汇 : 正确数量
+      @score.stat_02 =0 # CR 词汇 : 错误数量
+      @score.stat_03 =0 # CR 词汇 : 空题数量
+      @score.stat_04 =48 # CR 阅读 : 正确数量
+      @score.stat_05 =0 # CR 阅读 : 错误数量
+      @score.stat_06 =0 # CR 阅读 : 空题数量
+      @score.stat_07 =67 # CR raw score
+
+      @score.course_b_score=0 #数学得分
+      @score.stat_08 =54 # 数学: 正确数量
+      @score.stat_09 =0 # 数学 : 错误数量
+      @score.stat_10 =0 # 数学 : 空题数量
+      @score.stat_11 =54 # 数学 raw score
+
+      @score.course_c_score=0 #写作得分
+      @score.stat_12 =49 # 写作 : 正确数量
+      @score.stat_13 =0 # 写作 : 错误数量
+      @score.stat_14 =0 # 写作 : 空题数量
+      @score.stat_15 =49 # 写作 raw score
+      @score.stat_16 =0 # 写作 作文得分
+
+      @score.final_score =0
+    elsif @training_class.exam_type=='TOEFL'
+
+    end
     @score.examination =@examination
     @score.student =@student
     @test_paper.sections.each do |section|

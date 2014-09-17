@@ -16,10 +16,12 @@
         <div class="ui two fields">
             <div class="ui five fields">
                 <div class="field">
-                  <%= f.input :course_a_score ,label: "CR总分"%>
+                  CR总分
+                  <%= f.number_field :course_a_score,{min:0,max:800} %>
                 </div>
               <div class="field">
-                <%= f.input :stat_07 ,label: "raw score"%>
+                raw score
+                <%= f.number_field :stat_07,{min:0,max:67} %>
               </div>
             </div>
         </div>
@@ -27,14 +29,21 @@
             <div class="ui five fields">
               <div class ="field"></div>
               <div class ="field"><label>词汇</label></div>
+
               <div class="field">
-                <%= f.input :stat_01 ,label: "正确"%>
+                <i class="green checkmark icon"></i>
+                <!--正确数量-->
+                <%= f.number_field :stat_01 ,{min:0,max:19} %>
               </div>
               <div class="field">
-                <%= f.input :stat_02 ,label: "错误"%>
+                <i class="red close icon"></i>
+                <!--错误数量-->
+                <%= f.number_field :stat_02,{min:0,max:19} %>
               </div>
               <div class="field">
-                <%= f.input :stat_03 ,label: "空"%>
+                <i class="teal minus icon"></i>
+                <!--空题数量-->
+                <%= f.number_field :stat_03,{min:0,max:19} %>
               </div>
             </div>
         </div>
@@ -43,51 +52,76 @@
               <div class ="field"></div>
               <div class ="field"><label>阅读</label></div>
               <div class="field">
-                <%= f.input :stat_04 ,label: "正确"%>
+                <i class="green checkmark icon"></i>
+                <!--正确数量-->
+                <%= f.number_field :stat_04 ,{min:0,max:48}%>
               </div>
               <div class="field">
-                <%= f.input :stat_05 ,label: "错误"%>
+                <i class="red close icon"></i>
+                <!--错误数量-->
+                <%= f.number_field :stat_05 ,{min:0,max:48}%>
               </div>
               <div class="field">
-                <%= f.input :stat_06 ,label: "空"%>
-              </div>
-            </div>
-        </div>
-        <div class="ui two fields">
-            <div class="ui five fields">
-                <div class="field">
-                  <%= f.input :course_b_score ,label: "数学得分"%>
-                </div>
-              <div class="field">
-                <%= f.input :stat_11 ,label: "raw score"%>
-              </div>
-              <div class="field">
-                <%= f.input :stat_08 ,label: "正确"%>
-              </div>
-              <div class="field">
-                <%= f.input :stat_09 ,label: "错误"%>
-              </div>
-              <div class="field">
-                <%= f.input :stat_10 ,label: "空"%>
+                <i class="teal minus icon"></i>
+                <!--空题数量-->
+                <%= f.number_field :stat_06 ,{min:0,max:48}%>
               </div>
             </div>
         </div>
         <div class="ui two fields">
             <div class="ui five fields">
                 <div class="field">
-                  <%= f.input :course_c_score,label: "写作得分" %>
+
+                  数学得分
+                  <%= f.number_field :course_b_score,{min:0,max:800} %>
+                </div>
+
+              <div class="field">
+                raw score
+                <%= f.number_field :stat_11,{min:0,max:54} %>
+              </div>
+              <div class="field">
+                <i class="green checkmark icon"></i>
+                <!--正确数量-->
+                <%= f.number_field :stat_08 ,{min:0,max:54}%>
+              </div>
+              <div class="field">
+                <i class="red close icon"></i>
+                <!--错误数量-->
+                <%= f.number_field :stat_09,{min:0,max:54} %>
+              </div>
+              <div class="field">
+                <i class="teal minus icon"></i>
+                <!--空题数量-->
+                <%= f.number_field :stat_10 ,{min:0,max:54}%>
+              </div>
+            </div>
+        </div>
+        <div class="ui two fields">
+            <div class="ui five fields">
+                <div class="field">
+                  写作得分
+                  <%= f.number_field :course_c_score ,{min:0,max:800}%>
+
                 </div>
               <div class="field">
-                <%= f.input :stat_15 ,label: "raw score"%>
+                raw score
+                <%= f.number_field :stat_15 ,{min:0,max:49}%>
               </div>
               <div class="field">
-                <%= f.input :stat_12 ,label: "正确"%>
+                <i class="green checkmark icon"></i>
+                <!--正确数量-->
+                <%= f.number_field :stat_12 ,{min:0,max:49}%>
               </div>
               <div class="field">
-                <%= f.input :stat_13 ,label: "错误"%>
+                <i class="red close icon"></i>
+                <!--错误数量-->
+                <%= f.number_field :stat_13,{min:0,max:49}%>
               </div>
               <div class="field">
-                <%= f.input :stat_14 ,label: "空"%>
+                <i class="teal minus icon"></i>
+                <!--空题数量-->
+                <%= f.number_field :stat_14 ,{min:0,max:49}%>
               </div>
             </div>
         </div>
@@ -162,7 +196,7 @@
     </div>
 
     <% if  @training_class.exam_type == 'SAT' %>
-        <div class="ui red circular label">SAT 错题难度</div>
+        <div class="ui red circular label">SAT 难度 错题数量</div>
         <div class="ui two fields">
             <div class="ui five fields">
 
