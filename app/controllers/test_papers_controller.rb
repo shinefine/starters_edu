@@ -1,4 +1,5 @@
 class TestPapersController < ApplicationController
+  #试卷 控制器
   before_action :set_test_paper, only: [:show, :edit, :update, :destroy]
 
   # GET /test_papers

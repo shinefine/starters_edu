@@ -17,8 +17,9 @@
 
     <% end %>
 
+    <%if current_user.can_manage_basic_data?%>
     <%= f.input :admin ,label:"管理员"%>
-
+    <%end%>
     <div class="form-actions">
       <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
       <%= link_to '返回到员工列表', employees_path, {class:"ui blue submit button"} %>

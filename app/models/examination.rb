@@ -7,4 +7,7 @@ class Examination < ActiveRecord::Base
 
   validates :test_paper_id,presence: true
   validates :name,presence: true
+
+
+
 end

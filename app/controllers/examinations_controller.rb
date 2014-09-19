@@ -1,4 +1,5 @@
 class ExaminationsController < ApplicationController
+  #模拟考试信息 控制器
   before_action :setObj_examination, only: [:show, :edit, :update, :destroy]
 
   before_action :findObj_training_class

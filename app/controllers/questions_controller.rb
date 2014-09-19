@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  #试卷题目 控制器
   before_action :set_section_question, only: [:show, :edit, :update, :destroy]
 
   # GET /questions

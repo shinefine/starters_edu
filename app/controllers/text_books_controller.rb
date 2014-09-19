@@ -1,4 +1,5 @@
 class TextBooksController < ApplicationController
+  #教材控制器
   before_action :set_text_book, only: [:show, :edit, :update, :destroy]
 
   # GET /text_books

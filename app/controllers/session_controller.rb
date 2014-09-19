@@ -1,4 +1,5 @@
 class SessionController < ApplicationController
+  #登录登出 控制器
   def create
     #用户登陆
     login_user = User.authenticate(params[:login_name], params[:password])
@@ -7,15 +8,6 @@ class SessionController < ApplicationController
       session[:user_id] = login_user.id
 
       flash[:notice] = login_user.role_name1 + ":" + login_user.name + " 已登录"
-      if (login_user.password.empty? )
-        render 'home_page/welcome'
-        return
-      end
-
-      if(login_user.student?)
-        redirect_to(student_path(login_user.student))
-        return
-      end
 
 
       redirect_to(training_classes_path)

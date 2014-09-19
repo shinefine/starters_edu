@@ -1,54 +1,88 @@
-<!--员工使用本视图来查看 培训班信息-->
+<!--员工,学员,讲师都使用本视图来查看 培训班信息-->
 <h1></h1>
-<div class="ui green horizontal label"><h2>培训班列表</h2></div>
+<%if current_user.employee?%>
+    <div class="ui green horizontal label"><h2>培训班列表</h2></div>
+<%elsif current_user.student?%>
+    <div class="ui green horizontal label"><h2>学员<%=@student.name %>所属的培训班列表</h2></div>
+<%elsif current_user.teacher?%>
+    <div class="ui green horizontal label"><h2>讲师<%=@teacher.name %>所属的培训班列表</h2></div>
+<%end%>
 
 
 <table class ="ui celled table segment">
   <thead>
     <tr>
-
       <th>名称</th>
-      <th>编号</th>
       <th>班级类型</th>
       <th>培训教材</th>
+      <%if current_user.teacher?%>
+        <th>讲授课程科目</th>
+      <%end%>
       <th>班主任</th>
       <th>学员数量</th>
       <th>模拟考试</th>
-      <th>听写</th>
+      <th>听写成绩</th>
+      <th>考勤统计</th>
       <th>作业</th>
       <th>开课日期</th>
       <th>结束日期</th>
-      <th>考勤天数</th>
-      <th colspan="2"></th>
+      <%if current_user.student?%>
+        <th>讲师评语</th>
+      <%end%>
+
+      <!--管理员操作区-->
+      <% if current_user.can_set_training_class_info? %>
+          <th colspan="2"></th>
+      <%end%>
     </tr>
   </thead>
 
   <tbody>
     <% @training_classes.each do |training_class| %>
-      <%if current_user.can_view_this_training_class?(training_class)%>
           <tr>
             <td><%= link_to training_class.name, training_class , {class:'ui purple button'} %></td>
-            <td><%= training_class.code %></td>
+
             <td><%= training_class.exam_type %></td>
             <td><%= training_class.text_book.try(:name) %></td>
-            <td><%= training_class.master_teacher.nil? ? "":  training_class.master_teacher.name %></td>
+            <%if current_user.teacher?%>
+                <% subs = training_class.subjects.where(teacher: @teacher) %>
+                <td><%= subs.map{|sub| sub.name}.join('|') %></td>
+
+            <%end%>
+
+            <td><%= training_class.master_teacher.try(:name)  %></td>
             <td><%= training_class.students.count %>人</td>
 
-            <!--#link 培训班的模拟考列表-->
-            <td><%=link_to "#{training_class.examinations.count}次",training_class_examinations_path(training_class) %></td>
-            <td><%=link_to "#{training_class.dictations.count}次",training_class_dictations_path(training_class) %></td>
+            <!--#link 培训班的模拟考,听写成绩,出勤信息-->
+            <%if current_user.employee?||current_user.teacher? %>
+
+                <td><%=link_to "#{training_class.examinations.count}次",training_class_examinations_path(training_class) %></td>
+                <td><%=link_to "#{training_class.dictations.count}次",training_class_dictations_path(training_class) %></td>
+                <td><%=link_to "#{training_class.attendances.count}次",training_class_attendances_path(training_class) %></td>
+
+            <%elsif current_user.student?%>
+
+                <td><%=link_to "#{training_class.examinations.count}次",index_with_all_examinations_training_class_student_scores_path(training_class,@student) %></td>
+                <td><%= link_to @student.summary_dictation_text(training_class), training_class_dictations_path(training_class,student_id:@student) %></td>
+                <td><%= link_to @student.summary_attendance_text(training_class),training_class_attendances_path(training_class,student_id:@student) %></td>
+
+            <%end%>
 
             <td><%=link_to "#{training_class.homeworks.count}次",training_class_homeworks_path(training_class) %></td>
             <td><%= training_class.start_date %></td>
             <td><%= training_class.end_date %></td>
-            <td><%=link_to "#{training_class.attendances.count}天",training_class_attendances_path(training_class) %></td>
 
-            <% if current_user.employee? %>
+            <%if current_user.student?%>
+                <td><%=link_to "#{@student.comments.filter_by_training_class(training_class).count} 条",training_class_student_comments_path(training_class,@student)%></td>
+            <%end%>
+
+            <!--管理员操作区-->
+            <% if current_user.can_set_training_class_info? %>
                 <td><%= link_to '修改', edit_training_class_path(training_class), {class:'ui green button'} %></td>
                 <td><%= link_to '删除培训班', training_class, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' } }%></td>
             <% end %>
           </tr>
-        <%end%>
+
     <% end %>
   </tbody>
 </table>

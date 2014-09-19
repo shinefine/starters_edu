@@ -52,7 +52,16 @@
       <% end %>
 
     </div>
+    <div class="right menu">
 
+      <div class="item">
+        <%if current_user.password.empty?%>
+            你还没有设置登陆密码,建议你现在就去<%=link_to  set_password_user_path(current_user) do %>
+                <div class="ui teal label ">设置登录密码</div>
+                <%end%>
+        <%end%>
+      </div>
+    </div>
 
     <div class="right menu">
 

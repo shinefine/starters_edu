@@ -6,6 +6,7 @@ class Student < ActiveRecord::Base
   #学员可能登录系统,所以有一个对应的账户
   belongs_to :user
 
+  has_many :comments #学员有多条来自讲师的评语
   has_many :homework_finishs
   has_many :homeworks ,through: :homework_finishs #学员会完成讲师布置的多套作业
 

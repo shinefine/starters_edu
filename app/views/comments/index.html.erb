@@ -1,0 +1,60 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> 对学员 <%=@student.name %>  的评语</h2></div>
+
+<div class="ui blue label">
+  评语列表
+</div>
+
+<table class ="ui celled table segment">
+  <thead>
+  <tr>
+
+    <th>日期</th>
+    <th>评语</th>
+    <th>来自讲师</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @comments.each do |comment| %>
+      <%if current_user.can_see_comment?(comment)%>
+      <tr>
+
+        <td><%= comment.comment_date %></td>
+        <td><%=simple_format(comment.text)  %></td>
+        <td><%= comment.teacher.name %></td>
+
+
+        <td><%= link_to '删除', comment,{class: 'ui red button', method: :delete, data: { confirm: '确定删除?' } } if current_user.teacher? %></td>
+      </tr>
+      <%end %>
+  <% end %>
+  </tbody>
+</table>
+<!--讲师可以新增一条评语-->
+
+<%if current_user.teacher?%>
+    <%= simple_form_for([@training_class,@student,@comment_new]) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="filed">
+          <label>评语</label>
+          <%= f.text_area :text%>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
+        </div>
+    <% end %>
+<%end%>
+
+
+<%= link_to '返回到班级信息',
+            training_class_path(@training_class),
+            {class:"ui blue  button"}
+%>
+<%= link_to '返回到班级列表',
+            training_classes_path(),
+            {class:"ui blue  button"}
+%>

@@ -25,7 +25,7 @@
     <% @homeworks.each do |homework| %>
       <tr>
 
-        <td><%= homework.teacher.name %></td>
+        <td><%= homework.teacher.try(:name) %></td>
         <td><%= homework.subject_type %></td>
         <td >
           <% if current_user.student? %>
@@ -77,8 +77,21 @@
     <%= link_to('布置阅读作业', new_training_class_homework_path(@training_class,subject:'toefl_read'), {class:"ui blue  button"}) if teacher.is_TOEFL_READ_teacher?(@training_class) %>
     <%= link_to('布置写作作业', new_training_class_homework_path(@training_class,subject:'toefl_write'), {class:"ui blue  button"}) if teacher.is_TOEFL_WRITE_teacher?(@training_class) %>
 
-<%else%>
+<%elsif current_user.is_training_class_master?(@training_class)%>
+    <!--班主任也可以布置作业-->
 
+        <%if @training_class.exam_type =='SAT'%>
+        <%= link_to('布置CR作业', new_training_class_homework_path(@training_class,subject:'[sat]语法'), {class:"ui blue  button"}) %>
+        <%= link_to('布置Math作业', new_training_class_homework_path(@training_class,subject:'[sat]数学'), {class:"ui blue  button"})  %>
+        <%= link_to('布置Writing作业', new_training_class_homework_path(@training_class,subject:'[sat]写作'), {class:"ui blue  button"}) %>
+
+         <%elsif @training_class.exam_type =='TOEFL'%>
+            <%= link_to('布置听力作业', new_training_class_homework_path(@training_class,subject:'toefl_listen'), {class:"ui blue  button"}) %>
+        <%= link_to('布置口语作业', new_training_class_homework_path(@training_class,subject:'toefl_talk'), {class:"ui blue  button"})  %>
+        <%= link_to('布置阅读作业', new_training_class_homework_path(@training_class,subject:'toefl_read'), {class:"ui blue  button"}) %>
+        <%= link_to('布置写作作业', new_training_class_homework_path(@training_class,subject:'toefl_write'), {class:"ui blue  button"}) %>
+
+         <%end%>
 
 <% end %>
 <br>

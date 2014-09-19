@@ -1,4 +1,5 @@
 class TeachersController < ApplicationController
+  #讲师控制器
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
 
   # GET /teachers
@@ -70,6 +71,6 @@ class TeachersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(  user_attributes: [:name,:card_number,:phone_number])
+      params.require(:teacher).permit(  user_attributes: [:name,:email,:phone_number,:id])
     end
 end

@@ -3,4 +3,24 @@ class HomePageController < ApplicationController
     
     render layout: false
   end
+
+
+  def training_class_schedule
+    #列出所有培训班的课程表
+    dir =Dir.open(Rails.root.join('public', 'uploads'))
+    @files =dir.reject { |d| d == '.' || d == '..'}
+
+  end
+
+
+  def upload
+    uploaded_io = params[:picture]
+    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+    end
+
+    redirect_to action: :training_class_schedule
+
+
+  end
 end

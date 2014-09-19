@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140906022318) do
+ActiveRecord::Schema.define(version: 20140918031120) do
 
   create_table "attendances", force: true do |t|
     t.integer  "training_class_id"
     t.date     "attendance_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "training_class_id"
+    t.integer  "student_id"
+    t.string   "text"
+    t.date     "comment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -174,6 +184,9 @@ ActiveRecord::Schema.define(version: 20140906022318) do
     t.integer  "expect_sat_exam_month_11"
     t.integer  "expect_sat_exam_month_12"
     t.string   "identify_card"
+    t.date     "birth_day"
+    t.string   "parent2_name"
+    t.string   "parent2_tel"
   end
 
   create_table "students_test_papers", id: false, force: true do |t|

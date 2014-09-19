@@ -1,4 +1,5 @@
 class DictationsController < ApplicationController
+  #听写成绩 控制器
   before_action :set_training_class
   before_action :set_dictation, only: [:show, :edit, :update, :destroy]
 

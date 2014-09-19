@@ -1,4 +1,5 @@
 class ScoresController < ApplicationController
+  #模考分数 控制器
   before_action :set_simulate_test_score, only: [:show, :edit, :update, :destroy]
   before_action :find_student,except: [:index_for_all_students]
   before_action :find_simulate_test, except:[:index,:index_with_all_examinations]

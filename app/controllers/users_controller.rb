@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  #用户控制器
   before_action :set_user, only: [:show, :edit, :update, :destroy,:set_password]
 
   # GET /users
@@ -15,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @user.role_name="学员"
+    @user.role_name='学员'
     @user.student =Student.new
   end
 
@@ -30,7 +31,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: '用户已创建' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -45,16 +46,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-
       if @user.update(user_params)
-        unless params[:user][:password].nil?
-          render 'home_page/welcome'
-        else
-          puts '---------password is empty-------'
-          redirect_to @user, notice: '信息已更新'
-        end
+         redirect_to training_classes_path,notice: '用户信息已更新'
       end
-
   end
 
   # DELETE /users/1

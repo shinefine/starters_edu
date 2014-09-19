@@ -38,15 +38,9 @@
 </p>
 
 
-<% if current_user.student? || current_user.employee? %>
+<% if current_user.can_set_student_info?(@student) %>
     <%= link_to '修改信息', edit_student_path(@student), {class: 'ui blue button'}%>
-<% end %>
-
-<% if current_user.student? || current_user.employee? %>
-
-
-    <%= link_to '设置密码', set_password_user_path(current_user), {class: 'ui blue button'}%>
-
+    <%= link_to '设置密码', set_password_user_path(@student.user), {class: 'ui blue button'}%>
 <% end %>
 
 <% if current_user.teacher? || current_user.employee? %>

@@ -1,4 +1,5 @@
 class SubjectsController < ApplicationController
+  #课程信息 控制器
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /subjects

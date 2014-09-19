@@ -14,11 +14,16 @@
   <%= @teacher.user.phone_number %>
 </p>
 
-<p>
-  <strong>证件号:</strong>
-  <%= @teacher.user.card_number %>
-</p>
+
 </div>
 
-<%= link_to '修改', edit_teacher_path(@teacher),{class: 'ui blue button'} %> |
-<%= link_to '返回到讲师列表', teachers_path ,{class: 'ui blue button'}%>
+<% if current_user.can_set_teacher_info?(@teacher) %>
+    <%= link_to '修改信息', edit_teacher_path(@teacher), {class: 'ui blue button'}%>
+    <%= link_to '设置密码', set_password_user_path(@teacher.user), {class: 'ui blue button'}%>
+<% end %>
+
+
+<% if  current_user.employee? %>
+    <%= link_to '返回到讲师列表', teachers_path ,{class: 'ui blue button'}%>
+<% end %>
+

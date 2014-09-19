@@ -12,11 +12,6 @@
 </p>
 
 <p>
-  <strong>编号:</strong>
-  <%= @training_class.code %>
-</p>
-
-<p>
 
   <% days = @training_class.end_date.mjd - @training_class.start_date.mjd + 1  %>
 
@@ -70,21 +65,32 @@
   </div>
   <div class="ui small items">
     <% @training_class.students.each do|student| %>
-        <div class="item">
-          <div class="image">
-            <img src='<%= image_path("photo.png")%>' class="ui mini image" >
-          </div>
-          <div class="content">
-            <div class="name"><%=student.name %></div>
-            <p class="description">学生信息<br>更多详细信息。</p>
-          </div>
-        </div>
+
+            <div class="item">
+
+              <%if nil%>
+                  <div class="image">
+                    <img src='<%= image_path("photo.png")%>' class="ui mini image" >
+                  </div>
+              <%end%>
+
+              <div class="content">
+                <div class="name"><%=student.name %></div>
+                <p class="description">学生信息<br><%= link_to '更多详细信息' ,student_path(student) %></p>
+                <br>
+
+                <%comments= helper_get_student_comments(student)%>
+                <%= link_to "讲师评语(#{comments.count})",training_class_student_comments_path(@training_class,student)%>
+              </div>
+            </div>
+
     <% end %>
   </div>
 </div>
 
 
 
-
-<%= link_to '修改', edit_training_class_path(@training_class),{class:'ui blue button'} %>
+<%if current_user.can_set_training_class_info? %>
+    <%= link_to '修改', edit_training_class_path(@training_class),{class:'ui blue button'} %>
+    <%end%>
 <%= link_to '返回到培训班列表', training_classes_path ,{class:'ui blue button'}%>

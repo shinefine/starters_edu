@@ -22,7 +22,7 @@
 
 User.create([
                 { name:'Admin', role_name: '管理员',email:'c1388',phone_number:'13880246012',password:'',employee:Employee.new({admin: true})},
-                { name:'张倩', role_name: '校长',email:'c1800',phone_number:'18008013880',password:'',employee:Employee.new({admin: true})},
+                { name:'张倩', role_name: '管理员',email:'c1800',phone_number:'18008013880',password:'',employee:Employee.new({admin: true})},
 
                 { name:'员工01', role_name: '员工',email:'c1234',phone_number:'1388123456',password:'',employee:Employee.new},
                 { name:'员工01', role_name: '员工',email:'c4321',phone_number:'1388654321',password:'',employee:Employee.new},

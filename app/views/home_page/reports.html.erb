@@ -78,3 +78,11 @@
 <div id='chart1'>
   <svg style='height:500px'> </svg>
 </div><script src="/assets/multiBar.js"></script>
+
+
+<%= form_tag({:action => :upload}, :multipart => true) do %>
+    <%= file_field_tag 'picture' %>
+    <%= submit_tag 'submit' %>
+<% end %>
+<a href="/uploads/111.tar.gz">ffffffffff</a>
+

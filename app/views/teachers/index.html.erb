@@ -1,5 +1,5 @@
 <h1></h1>
-<div class="ui horizontal label"><h2>讲师列表 </h2><h3>共有讲师 <%= @teachers.length %> 人</h3></div>
+<div class="ui green horizontal label"><h2>讲师列表 </h2><h3>共有讲师 <%= @teachers.length %> 人</h3></div>
 
 <table class="ui padded table segment">
   <thead>
@@ -21,13 +21,19 @@
         <td><%= teacher.user.phone_number %></td>
         <td><%= teacher.user.email %></td>
 
-        <td><%= link_to '修改', edit_teacher_path(teacher) ,{class: 'ui green button'}%></td>
+        <%if current_user.can_manage_basic_data?%>
+        <td>
+          <%= link_to '修改', edit_teacher_path(teacher) ,{class: 'ui green button'}%>
+          <%= link_to '设置密码', set_password_user_path(teacher.user), {class: 'ui blue button'}%>
+        </td>
         <td><%= link_to '删除', teacher, {class:'ui red button',method: :delete, data: { confirm: '确认删除讲师?' }} %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<%if current_user.can_manage_basic_data?%>
 <%= link_to '新建 讲师', new_teacher_path ,{class: 'ui blue button'}%>
+<%end%>

@@ -1,7 +1,0 @@
-<h1></h1>
-
-  <%if current_user.password.empty?%>
-你还没有设置登陆密码,建议你现在就<%=link_to '设置密码', set_password_user_path(current_user) %>.
-    <%else%>
-    已设置登录密码
-  <%end%>

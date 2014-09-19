@@ -1,4 +1,5 @@
 class TrainingClassesController < ApplicationController
+  #培训班 控制器
   before_action :set_training_class, only: [:show, :edit, :update, :destroy,:set_teachers_students]
 
   # GET /training_classes
@@ -8,22 +9,27 @@ class TrainingClassesController < ApplicationController
 
     if(current_user.student?)
       @student =current_user.student
-      render 'index_for_special_student'
-      return
+      @training_classes=@student.training_classes
     end
 
     if (current_user.teacher?)
       @teacher =current_user.teacher
-      render 'index_for_special_teacher'
+      @training_classes=@teacher.training_classes.distinct
     end
 
-    @training_classes = TrainingClass.all
-
+    if (current_user.employee?)
+      if current_user.can_set_training_class_info?  #管理员/校长
+        @training_classes = TrainingClass.all
+      else
+        @training_classes =TrainingClass.where(master_teacher_id: current_user.employee.id )
+      end
+    end
   end
 
   # GET /training_classes/1
   # GET /training_classes/1.json
   def show
+
   end
 
   # GET /training_classes/new
@@ -116,6 +122,8 @@ class TrainingClassesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_training_class
       @training_class = TrainingClass.find(params[:id])
+
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

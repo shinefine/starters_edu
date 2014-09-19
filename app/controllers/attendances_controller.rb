@@ -1,4 +1,5 @@
 class AttendancesController < ApplicationController
+  #考勤 控制器
   before_action :set_training_class
   before_action :set_attendance, only: [:show, :edit, :update, :destroy]
 

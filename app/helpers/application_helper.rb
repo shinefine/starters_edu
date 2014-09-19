@@ -18,9 +18,11 @@ module ApplicationHelper
 
     if current_user.teacher?
       nav_menus={
-          "班级"=>
+          "关于"=>
               {
                   '我的培训班'=>training_classes_path,
+                  '我的个人信息'=>teacher_url(current_user.teacher),
+
                   '我的课程表'=>'/422.html',
 
               },
@@ -32,16 +34,14 @@ module ApplicationHelper
     if current_user.student?
 
       nav_menus={
-          "个人信息" =>
+          "关于" =>
               {
 
-                  '入口成绩和目标'=>student_url(current_user.student),
-
-              },
-          "培训班" =>
-              {
+                  '我的个人信息'=>student_url(current_user.student),
                   '我的培训班'=>training_classes_url(),
+
               },
+
 
 
       }
@@ -71,8 +71,11 @@ module ApplicationHelper
         else
           nav_menus={
 
-              "培训班" =>{
+              "关于" =>{
                   '我的班级'=>training_classes_path,
+                  '我的个人信息'=>employee_url(current_user.employee),
+                  '员工列表'=> employees_path,
+                  '学员管理'=>students_path,
               }
 
           }

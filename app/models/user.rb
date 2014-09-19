@@ -53,14 +53,63 @@ class User < ActiveRecord::Base
      self.employee? && self.employee.admin?
   end
 
+
+  #判断当前用户是否是指定培训班的班主任(如果当前用户是员工的情况)
+  def is_training_class_master?(training_class)
+    return false if training_class.master_teacher.nil?
+
+    return false unless employee?
+
+    return training_class.master_teacher.id == employee.id
+
+  end
   #用户权限判定的函数
+
+  #能否查看针对某学员的某条评语信息
+  def can_see_comment?(comment)
+
+
+    return false if self.teacher? && self.teacher.id != comment.teacher.id #老师只能看到自己写的评语
+
+    return true  # 学员,员工(包括管理员) 都能查看所有评语信息
+  end
+
+  def can_set_user_password?(z_user)
+    return can_set_employee_info?(z_user.employee) if  z_user.employee?
+    return can_set_student_info?(z_user.student) if z_user.student?
+    return can_set_teacher_info?(z_user.teacher) if z_user.teacher?
+
+    return false
+  end
+
+  def can_set_student_info?(z_student)
+    return true if employee?
+
+    return z_student == self.student if self.student?
+
+    return false
+  end
+
+  def can_set_teacher_info?(z_teacher)
+    return true if employee?
+    return z_teacher == self.teacher if self.teacher?
+    return false
+  end
+
+  def can_set_employee_info?(z_employee)
+    return true if role_name=="校长" || role_name=='管理员'
+    return z_employee == self.employee if self.employee?
+    return false
+  end
 
   #能否新增,修改,删除 作业
   def can_edit_homework?(homework)
     #老师有创建作业对功能,老师能够修改,删除自己创建的作业
     return self.teacher? if homework.nil?
 
-    return homework.teacher.id == self.teacher.id  if self.teacher?
+    return homework.teacher.id == teacher.id  if teacher?
+
+    return true if employee? && is_training_class_master?(homework.training_class)
 
     return false
 
@@ -75,19 +124,23 @@ class User < ActiveRecord::Base
   def can_set_training_class_examination?
     role_name == '管理员' || role_name=='校长'
   end
-
-  #能否看见此培训班
-  def can_view_this_training_class?(training_class)
-    return true if role_name == '管理员' || role_name=='校长'
-
-    return false if training_class.master_teacher.nil?
-
-
-    return true if training_class.master_teacher.id == employee.id if employee?
-
-    return false
-
+  #能否给设置(新增,修改,删除)培训班信息
+  def can_set_training_class_info?
+    role_name == '管理员' || role_name=='校长'
   end
+
+  # #能否看见此培训班
+  # def can_view_all_training_class?(training_class)
+  #   return true if role_name == '管理员' || role_name=='校长'
+  #
+  #   return false if training_class.master_teacher.nil?
+  #
+  #
+  #   return true if training_class.master_teacher.id == employee.id if employee?
+  #
+  #   return false
+  #
+  # end
 
   #能否收取作业
   def can_recieve_homework?(homework)

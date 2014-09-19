@@ -5,7 +5,9 @@
     <tr>
       <th>听写日期</th>
       <th>及格线</th>
-      <th colspan="3"></th>
+      <%if current_user.is_training_class_master?(@training_class)%>
+        <th colspan="2"></th>
+      <%end%>
     </tr>
   </thead>
 
@@ -15,16 +17,20 @@
         <td><%= dictation.execute_date %></td>
         <td><%= dictation.passing_line %></td>
 
-        <td><%= link_to 'Show', '#'%></td>
-        <td><%= link_to '修改', edit_training_class_dictation_path(@training_class,dictation) %></td>
-        <td><%= link_to '删除听写信息', training_class_dictation_path(@training_class,dictation), {class:'ui red button' ,method: :delete, data: { confirm: 'Are you sure?' }} %></td>
+
+        <%if current_user.is_training_class_master?(@training_class)%>
+            <td><%= link_to '修改', edit_training_class_dictation_path(@training_class,dictation) %></td>
+            <td><%= link_to '删除听写信息', training_class_dictation_path(@training_class,dictation), {class:'ui red button' ,method: :delete, data: { confirm: 'Are you sure?' }} %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<%if current_user.is_training_class_master?(@training_class)%>
+    <%= link_to '创建听写成绩', new_training_class_dictation_path(@training_class) ,{class:'ui blue button'}%>
+    <br>
+<%end%>
 
-<%= link_to '创建听写成绩', new_training_class_dictation_path(@training_class) ,{class:'ui blue button'}%>
-<br>
 <%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>

@@ -36,6 +36,10 @@
       <div class="field">
         <%= f.input :qq_number ,label:"QQ"%>
       </div>
+
+      <div class="field">
+        <%= f.input :birth_day ,label:"生日"%>
+      </div>
     </div>
 
     <div class="ui five fields">
@@ -46,6 +50,15 @@
       <div class="field">
         <%= f.input :parent_tel ,label:"家长电话"%>
       </div>
+
+      <div class="field">
+        <%= f.input :parent2_name,label:"家长名称2" %>
+      </div>
+
+      <div class="field">
+        <%= f.input :parent2_tel ,label:"家长电话2"%>
+      </div>
+
     </div>
 
 
@@ -193,6 +206,8 @@
 
   <div class="form-actions">
     <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
-    <%= link_to '返回到学员列表', students_path, {class:"ui blue submit button"} %>
+    <% if current_user.can_manage_basic_data? %>
+        <%= link_to '返回到学员列表', students_path, {class:"ui blue submit button"} %>
+    <%end%>
   </div>
 <% end %>

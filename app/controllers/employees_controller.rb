@@ -1,4 +1,6 @@
 class EmployeesController < ApplicationController
+  #员工信息 控制器
+
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   # GET /employees
@@ -27,7 +29,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
 
-
+    @employee.user.role_name='员工'
       if @employee.save
          redirect_to employees_path, notice: '员工信息已保存.'
 
@@ -43,7 +45,7 @@ class EmployeesController < ApplicationController
   def update
 
       if @employee.update(employee_params)
-        redirect_to @employee, notice: '员工信息已保存.'
+        redirect_to employees_path, notice: '员工信息已保存.'
 
       else
         render :edit
@@ -70,7 +72,7 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:admin,user_attributes: [:name,:card_number,:phone_number])
+      params.require(:employee).permit(:admin,user_attributes: [:name,:card_number,:phone_number,:id,:email])
     end
 
 

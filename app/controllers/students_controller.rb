@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  #学员 控制器
   before_action :set_student, only: [:show, :edit, :update, :destroy,
                                      :show_target,:save_target,
                                      :simulate_score_list]
@@ -36,15 +37,15 @@ class StudentsController < ApplicationController
 
 
    # @student.test_papers=TestPaper.where(id: params[:student][:test_paper_ids])  #设置学员做过的试卷信息
-    respond_to do |format|
+
       if @student.save
-        format.html { redirect_to students_url, notice: '学员已创建' }
-        format.json { render :show, status: :created, location: @student }
+        redirect_to students_url, notice: '学员已创建'
+
       else
-        format.html { render :new }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
+        render :new
+
       end
-    end
+
   end
 
   # PATCH/PUT /students/1
@@ -53,15 +54,13 @@ class StudentsController < ApplicationController
 
     #@student.test_papers=TestPaper.where(id: params[:student][:test_paper_ids])
 
-    respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to students_url, notice: '学员信息已保存' }
-        format.json { render :show, status: :ok, location: @student }
+        redirect_to students_url, notice: '学员信息已保存'
+
       else
-        format.html { render :edit }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
+
   end
 
   # DELETE /students/1
@@ -86,8 +85,11 @@ class StudentsController < ApplicationController
                                       :target_score_sat, :entry_score_toefl, :target_score_toefl,
                                       :parent_name,
                                       :parent_tel,
+                                      :parent2_name,
+                                      :parent2_tel,
                                       :school,
                                       :qq_number,
+                                      :birth_day,
                                       :tinypost_number,
                                       :entry_sat_cr,
                                       :entry_sat_math,
@@ -113,7 +115,7 @@ class StudentsController < ApplicationController
                                       :expect_sat_exam_month_11,
                                       :expect_sat_exam_month_12,
                                       :identify_card,
-                                      user_attributes: [:name,:email,:phone_number]
+                                      user_attributes: [:name,:email,:phone_number,:id]
       )
 
 

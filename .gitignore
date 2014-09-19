@@ -20,6 +20,7 @@
 /.idea
 .swp
 /public/assets/
+/public/uploads/
 /public/assets/*.*
 
 .keep
