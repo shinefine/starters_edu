@@ -21,22 +21,24 @@
 }
 
 User.create([
-                { name:'Admin', role_name: '管理员',email:'c1388',phone_number:'13880246012',password:'',employee:Employee.new({admin: true})},
-                { name:'张倩', role_name: '管理员',email:'c1800',phone_number:'18008013880',password:'',employee:Employee.new({admin: true})},
+                { name:'Admin', role_name: '管理员',phone_number:'13880246012',password:'',employee:Employee.new({admin: true})},
+                { name:'张倩', role_name: '管理员',phone_number:'18008013880',password:'',employee:Employee.new({admin: true})},
 
-                { name:'员工01', role_name: '员工',email:'c1234',phone_number:'1388123456',password:'',employee:Employee.new},
-                { name:'员工01', role_name: '员工',email:'c4321',phone_number:'1388654321',password:'',employee:Employee.new},
+                { name:'李燕', role_name: '员工',phone_number:'15828698143',password:'',employee:Employee.new},
+                { name:'房颖伶', role_name: '员工',phone_number:'13540270755',password:'',employee:Employee.new},
+                { name:'彭媛媛', role_name: '员工',phone_number:'18683798783',password:'',employee:Employee.new},
+                { name:'李洁', role_name: '员工',phone_number:'13880957989',password:'',employee:Employee.new},
 
-                { name:'Tom scotte', role_name: '讲师',email:'c8888',phone_number:'1388888888',password:'',teacher: Teacher.new},
-                { name:'Jastin will', role_name: '讲师',email:'c9999',phone_number:'1388999999',password:'',teacher: Teacher.new},
-                { name:'Alex', role_name: '讲师',email:'c7777',phone_number:'1388777777',password:'',teacher: Teacher.new},
-
-                { name:'张小白', role_name: '学员',email:'stu001',phone_number:'0001',password:'',student: Student.new({entry_score_sat: 500 , target_score_sat: 651}) },
-                { name:'余静', role_name: '学员',email:'stu002',phone_number:'0002',password:'',student: Student.new({entry_score_sat: 500 , target_score_sat: 651}) },
-                { name:'张天', role_name: '学员',email:'stu003',phone_number:'0003',password:'',student: Student.new({entry_score_sat: 520 , target_score_sat: 671}) },
-                { name:'李煜', role_name: '学员',email:'stu004',phone_number:'0004',password:'',student: Student.new({entry_score_sat: 530 , target_score_sat: 681}) },
-                { name:'齐明', role_name: '学员',email:'stu005',phone_number:'0005',password:'',student: Student.new({entry_score_sat: 540 , target_score_sat: 691}) },
-                { name:'周浩', role_name: '学员',email:'stu006',phone_number:'0006',password:'',student: Student.new({entry_score_sat: 550 , target_score_sat: 601}) }
+                # { name:'Tom scotte', role_name: '讲师',email:'c8888',phone_number:'1388888888',password:'',teacher: Teacher.new},
+                # { name:'Jastin will', role_name: '讲师',email:'c9999',phone_number:'1388999999',password:'',teacher: Teacher.new},
+                # { name:'Alex', role_name: '讲师',email:'c7777',phone_number:'1388777777',password:'',teacher: Teacher.new},
+                #
+                # { name:'张小白', role_name: '学员',email:'stu001',phone_number:'0001',password:'',student: Student.new({entry_score_sat: 500 , target_score_sat: 651}) },
+                # { name:'余静', role_name: '学员',email:'stu002',phone_number:'0002',password:'',student: Student.new({entry_score_sat: 500 , target_score_sat: 651}) },
+                # { name:'张天', role_name: '学员',email:'stu003',phone_number:'0003',password:'',student: Student.new({entry_score_sat: 520 , target_score_sat: 671}) },
+                # { name:'李煜', role_name: '学员',email:'stu004',phone_number:'0004',password:'',student: Student.new({entry_score_sat: 530 , target_score_sat: 681}) },
+                # { name:'齐明', role_name: '学员',email:'stu005',phone_number:'0005',password:'',student: Student.new({entry_score_sat: 540 , target_score_sat: 691}) },
+                # { name:'周浩', role_name: '学员',email:'stu006',phone_number:'0006',password:'',student: Student.new({entry_score_sat: 550 , target_score_sat: 601}) }
 
             ])
 
