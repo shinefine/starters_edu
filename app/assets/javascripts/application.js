@@ -53,7 +53,9 @@ $(function(){
 
     }
 
+
     calculate_raw_score = function(){
+        //计算SAT的所有科目的raw score
         //计算cr raw score
         raw_score=get_score('sat_cr_word_right')+get_score('sat_cr_read_right') - Math.round((get_score('sat_cr_word_wrong')+get_score('sat_cr_read_wrong'))*0.25) ;
         if (raw_score < 0)
@@ -100,6 +102,7 @@ $(function(){
 
     })
 
+    //输入SAT 某科目的错误和空题数量时,自动计算正确数量和raw score
     $('.input.sat.score').on('input',function(){
         switch (this.id)
         {
