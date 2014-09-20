@@ -29,11 +29,11 @@
     <th>学员</th>
     <th ></th>
     <% if can_view_subject('阅读' , @training_class,current_user) %>
-    <th>阅读总分 </th><th>正确 </th> <th>错误 </th>
+    <th>阅读总分 </th><th> <i class="green checkmark icon"></i> </th> <th> <i class="red close icon"></i> </th>
     <% end %>
 
     <% if can_view_subject('听力' , @training_class,current_user) %>
-    <th>听力总分 </th><th>正确 </th><th>错误 </th>
+    <th>听力总分 </th><th> <i class="green checkmark icon"></i> </th><th> <i class="red close icon"></i> </th>
         <%end%>
 
     <% if can_view_subject('口语' , @training_class,current_user) %>

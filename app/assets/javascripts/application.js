@@ -22,6 +22,117 @@
 $(function(){
     $('.ui.dropdown').dropdown();
 
+    get_score = function(course_name) {
+        switch (course_name) {
+            case 'sat_cr_word_right':
+                return parseInt($('#score_stat_01').val());
+            case 'sat_cr_word_wrong':
+                return parseInt($('#score_stat_02').val());
+            case 'sat_cr_word_empty':
+                return parseInt($('#score_stat_03').val());
+            case 'sat_cr_read_right':
+                return parseInt($('#score_stat_04').val());
+            case 'sat_cr_read_wrong':
+                return parseInt($('#score_stat_05').val());
+            case 'sat_cr_read_empty':
+                return parseInt($('#score_stat_06').val());
+            case 'sat_math_right':
+                return parseInt($('#score_stat_08').val());
+            case 'sat_math_wrong':
+                return parseInt($('#score_stat_09').val());
+            case 'sat_math_empty':
+                return parseInt($('#score_stat_10').val());
+            case 'sat_writting_right':
+                return parseInt($('#score_stat_12').val());
+            case 'sat_writting_wrong':
+                return parseInt($('#score_stat_13').val());
+            case 'sat_writting_empty':
+                return parseInt($('#score_stat_14').val());
+        }
+
+
+    }
+
+    calculate_raw_score = function(){
+        //计算cr raw score
+        raw_score=get_score('sat_cr_word_right')+get_score('sat_cr_read_right') - Math.round((get_score('sat_cr_word_wrong')+get_score('sat_cr_read_wrong'))*0.25) ;
+        if (raw_score < 0)
+        {
+            raw_score =0;
+        }
+        $('#score_stat_07').val(raw_score);
+
+        //计算math raw score
+        raw_score=get_score('sat_math_right') - Math.round(get_score('sat_math_wrong')*0.25) ;
+        if (raw_score < 0)
+        {
+            raw_score =0;
+        }
+        $('#score_stat_11').val(raw_score);
+
+        //计算 writting raw score
+        raw_score=get_score('sat_writting_right')- Math.round(get_score('sat_writting_wrong')*0.25) ;
+        if (raw_score < 0)
+        {
+            raw_score =0;
+        }
+        $('#score_stat_15').val(raw_score);
+
+    }
+    //计算SAT考试成绩的各个科目总分
+    $('.input.sat.course.score').on('input',function(){
+        $('#score_final_score').val(
+                parseInt($('#score_course_a_score').val())
+                +parseInt($('#score_course_b_score').val())
+                +parseInt($('#score_course_c_score').val())
+        );
+
+    })
+    //计算toefl考试成绩的各个科目总分
+    $('.input.toefl.course.score').on('input',function(){
+
+        $('#score_final_score').val(
+                parseInt($('#score_course_a_score').val())
+                +parseInt($('#score_course_b_score').val())
+                +parseInt($('#score_course_c_score').val())
+                +parseInt($('#score_course_d_score').val())
+        );
+
+    })
+
+    $('.input.sat.score').on('input',function(){
+        switch (this.id)
+        {
+            case 'score_stat_02':
+            case 'score_stat_03':
+                $('#score_stat_01').val(19 - get_score('sat_cr_word_wrong')- get_score('sat_cr_word_empty'));
+                calculate_raw_score();
+                break;
+            case 'score_stat_05':
+            case 'score_stat_06':
+                $('#score_stat_04').val(48 - get_score('sat_cr_read_wrong')- get_score('sat_cr_read_empty'));
+                calculate_raw_score();
+                break;
+            case 'score_stat_09':
+            case 'score_stat_10':
+                $('#score_stat_08').val(54 - get_score('sat_math_wrong')- get_score('sat_math_empty'));
+                calculate_raw_score();
+                break;
+            case 'score_stat_13':
+            case 'score_stat_14':
+                $('#score_stat_12').val(49 - get_score('sat_writting_wrong')- get_score('sat_writting_empty'));
+                calculate_raw_score();
+                break;
+
+            case 'score_stat_01':
+            case 'score_stat_04':
+                //计算CR的raw score
+                calculate_raw_score();
+
+                break;
+        }
+    })
+
     $('div#login_button').on('click', function(event){
         alert("ajax submit");
 //        $.ajax({

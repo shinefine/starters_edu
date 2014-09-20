@@ -14,12 +14,12 @@ class HomePageController < ApplicationController
 
 
   def upload
-    uploaded_io = params[:picture]
+    uploaded_io = params[:schedule]
     File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
       file.write(uploaded_io.read)
     end
 
-    redirect_to action: :training_class_schedule
+    redirect_to  home_page_training_class_schedule_url
 
 
   end

@@ -22,7 +22,8 @@
 
 <br>
 
-
-<%= link_to '创建考勤信息', new_training_class_attendance_path(@training_class),{class:'ui blue button'} %>
+<%if current_user.is_training_class_master?(@training_class)%>
+    <%= link_to '创建考勤信息', new_training_class_attendance_path(@training_class),{class:'ui blue button'} %>
+<%end%>
 <br>
 <%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>

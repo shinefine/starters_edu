@@ -23,7 +23,7 @@ module ApplicationHelper
                   '我的培训班'=>training_classes_path,
                   '我的个人信息'=>teacher_url(current_user.teacher),
 
-                  '我的课程表'=>'/422.html',
+                  '课程表'=> home_page_training_class_schedule_url,
 
               },
 
@@ -39,7 +39,7 @@ module ApplicationHelper
 
                   '我的个人信息'=>student_url(current_user.student),
                   '我的培训班'=>training_classes_url(),
-
+                  '课程表'=> home_page_training_class_schedule_url,
               },
 
 
@@ -55,6 +55,7 @@ module ApplicationHelper
                 {
                     '试卷（套题）管理'=>test_papers_path,
                     '培训教材管理'=>text_books_path,
+                    '课程表'=> home_page_training_class_schedule_url,
 
                 },
             "讲师,学员,员工" =>
@@ -65,6 +66,7 @@ module ApplicationHelper
                 },
             "培训班" =>{
                 '班级管理'=>training_classes_path,
+
             }
 
         }
@@ -76,6 +78,7 @@ module ApplicationHelper
                   '我的个人信息'=>employee_url(current_user.employee),
                   '员工列表'=> employees_path,
                   '学员管理'=>students_path,
+                  '课程表'=> home_page_training_class_schedule_url,
               }
 
           }

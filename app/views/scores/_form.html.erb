@@ -17,7 +17,7 @@
             <div class="ui five fields">
                 <div class="field">
                   CR总分
-                  <%= f.number_field :course_a_score,{min:0,max:800} %>
+                  <%= f.number_field :course_a_score,{min:0,max:800,class:'input sat course score'}%>
                 </div>
               <div class="field">
                 raw score
@@ -33,17 +33,17 @@
               <div class="field">
                 <i class="green checkmark icon"></i>
                 <!--正确数量-->
-                <%= f.number_field :stat_01 ,{min:0,max:19} %>
+                <%= f.number_field :stat_01 ,{min:0,max:19,class:'input sat score'}%>
               </div>
               <div class="field">
                 <i class="red close icon"></i>
                 <!--错误数量-->
-                <%= f.number_field :stat_02,{min:0,max:19} %>
+                <%= f.number_field :stat_02,{min:0,max:19,class:'input sat score'} %>
               </div>
               <div class="field">
                 <i class="teal minus icon"></i>
                 <!--空题数量-->
-                <%= f.number_field :stat_03,{min:0,max:19} %>
+                <%= f.number_field :stat_03,{min:0,max:19,class:'input sat score'} %>
               </div>
             </div>
         </div>
@@ -54,17 +54,17 @@
               <div class="field">
                 <i class="green checkmark icon"></i>
                 <!--正确数量-->
-                <%= f.number_field :stat_04 ,{min:0,max:48}%>
+                <%= f.number_field :stat_04 ,{min:0,max:48,class:'input sat score'}%>
               </div>
               <div class="field">
                 <i class="red close icon"></i>
                 <!--错误数量-->
-                <%= f.number_field :stat_05 ,{min:0,max:48}%>
+                <%= f.number_field :stat_05 ,{min:0,max:48,class:'input sat score'}%>
               </div>
               <div class="field">
                 <i class="teal minus icon"></i>
                 <!--空题数量-->
-                <%= f.number_field :stat_06 ,{min:0,max:48}%>
+                <%= f.number_field :stat_06 ,{min:0,max:48,class:'input sat score'}%>
               </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 <div class="field">
 
                   数学得分
-                  <%= f.number_field :course_b_score,{min:0,max:800} %>
+                  <%= f.number_field :course_b_score,{min:0,max:800,class:'input sat course score'} %>
                 </div>
 
               <div class="field">
@@ -83,17 +83,17 @@
               <div class="field">
                 <i class="green checkmark icon"></i>
                 <!--正确数量-->
-                <%= f.number_field :stat_08 ,{min:0,max:54}%>
+                <%= f.number_field :stat_08 ,{min:0,max:54,class:'input sat score'}%>
               </div>
               <div class="field">
                 <i class="red close icon"></i>
                 <!--错误数量-->
-                <%= f.number_field :stat_09,{min:0,max:54} %>
+                <%= f.number_field :stat_09,{min:0,max:54,class:'input sat score'} %>
               </div>
               <div class="field">
                 <i class="teal minus icon"></i>
                 <!--空题数量-->
-                <%= f.number_field :stat_10 ,{min:0,max:54}%>
+                <%= f.number_field :stat_10 ,{min:0,max:54,class:'input sat score'}%>
               </div>
             </div>
         </div>
@@ -101,7 +101,7 @@
             <div class="ui five fields">
                 <div class="field">
                   写作得分
-                  <%= f.number_field :course_c_score ,{min:0,max:800}%>
+                  <%= f.number_field :course_c_score ,{min:0,max:800,class:'input sat course score'}%>
 
                 </div>
               <div class="field">
@@ -111,17 +111,17 @@
               <div class="field">
                 <i class="green checkmark icon"></i>
                 <!--正确数量-->
-                <%= f.number_field :stat_12 ,{min:0,max:49}%>
+                <%= f.number_field :stat_12 ,{min:0,max:49,class:'input sat score'}%>
               </div>
               <div class="field">
                 <i class="red close icon"></i>
                 <!--错误数量-->
-                <%= f.number_field :stat_13,{min:0,max:49}%>
+                <%= f.number_field :stat_13,{min:0,max:49,class:'input sat score'}%>
               </div>
               <div class="field">
                 <i class="teal minus icon"></i>
                 <!--空题数量-->
-                <%= f.number_field :stat_14 ,{min:0,max:49}%>
+                <%= f.number_field :stat_14 ,{min:0,max:49,class:'input sat score'}%>
               </div>
             </div>
         </div>
@@ -135,61 +135,75 @@
         </div>
 
     <% elsif @training_class.exam_type == 'TOEFL' %>
-        <div class="ui four fields">
-            <div class="field">
-              <%= f.input :course_a_score ,label: "听力得分"%>
+
+        <div class="ui two fields">
+            <div class="ui five fields">
+                <div class="field">
+                  听力得分
+                  <%= f.number_field :course_a_score,{min:0,max:30,class:'input toefl course score'}%>
+                </div>
+
+              <div class="field">
+                <%= f.input :stat_01 ,label: "正确"%>
+              </div>
+
+              <div class="field">
+                <%= f.input :stat_02 ,label: "错误"%>
+              </div>
+
+
             </div>
-
-          <div class="field">
-            <%= f.input :stat_01 ,label: "正确"%>
-          </div>
-
-          <div class="field">
-            <%= f.input :stat_02 ,label: "错误"%>
-          </div>
-
-
-        </div>
-        <div class="ui four fields">
-            <div class="field">
-              <%= f.input :course_b_score ,label: "口语得分"%>
-            </div>
-          <div class="field">
-            <%= f.input :stat_03 ,label: "1,2题"%>
-          </div>
-          <div class="field">
-            <%= f.input :stat_04 ,label: "3,4题"%>
-          </div>
-          <div class="field">
-            <%= f.input :stat_05 ,label: "5,6题"%>
-          </div>
-        </div>
-        <div class="ui four fields">
-            <div class="field">
-              <%= f.input :course_c_score,label: "阅读得分" %>
-            </div>
-          <div class="field">
-            <%= f.input :stat_06 ,label: "正确"%>
-          </div>
-          <div class="field">
-            <%= f.input :stat_07 ,label: "错误"%>
-          </div>
         </div>
 
-        <div class="ui four fields">
-            <div class="field">
-              <%= f.input :course_d_score,label: "写作得分" %>
+        <div class="ui two fields">
+            <div class="ui five fields">
+                <div class="field">
+                  口语得分
+                  <%= f.number_field :course_b_score,{min:0,max:30,class:'input toefl course score'}%>
+                </div>
+              <div class="field">
+                <%= f.input :stat_03 ,label: "1,2题"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_04 ,label: "3,4题"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_05 ,label: "5,6题"%>
+              </div>
             </div>
-          <div class="field">
-            <%= f.input :stat_08 ,label: "综合写作"%>
-          </div>
-          <div class="field">
-            <%= f.input :stat_09 ,label: "独立写作"%>
-          </div>
         </div>
 
+        <div class="ui two fields">
+            <div class="ui five fields">
+                <div class="field">
+                  阅读得分
+                  <%= f.number_field :course_c_score,{min:0,max:30,class:'input toefl course score'}%>
+                </div>
+              <div class="field">
+                <%= f.input :stat_06 ,label: "正确"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_07 ,label: "错误"%>
+              </div>
+            </div>
+        </div>
+
+        <div class="ui two fields">
+            <div class="ui five fields">
+                <div class="field">
+                  写作得分
+                  <%= f.number_field :course_d_score,{min:0,max:30,class:'input toefl course score'}%>
+                </div>
+              <div class="field">
+                <%= f.input :stat_08 ,label: "综合写作"%>
+              </div>
+              <div class="field">
+                <%= f.input :stat_09 ,label: "独立写作"%>
+              </div>
+            </div>
+        </div>
     <% end %>
-    <div class="ui two fields">
+    <div class="ui five fields">
         <div class="field">
         <%= f.input :final_score,label:'总分' %>
             </div>

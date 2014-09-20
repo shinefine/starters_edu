@@ -29,18 +29,18 @@
 
     <%if can_view_subject('语法' , @training_class,current_user) %>
     <th>CR总分 </th> <th>raw score </th>
-    <th>词汇正确 </th> <th>词汇错误 </th><th>词汇空 </th>
-    <th>阅读正确 </th> <th>阅读错误 </th><th>阅读空 </th>
+    <th>词汇<i class="green checkmark icon"></i> </th> <th>词汇<i class="red close icon"></i> </th><th>词汇<i class="teal minus icon"></i> </th>
+    <th>阅读<i class="green checkmark icon"></i> </th> <th>阅读<i class="red close icon"></i> </th><th>阅读<i class="teal minus icon"></i> </th>
     <%end%>
 
     <%if can_view_subject('数学' , @training_class,current_user) %>
     <th>Math总分 </th> <th>raw score </th>
-    <th>正确 </th> <th>错误 </th><th>空 </th>
+    <th> <i class="green checkmark icon"></i> </th> <th><i class="red close icon"></i> </th><th><i class="teal minus icon"></i> </th>
     <%end%>
 
     <%if can_view_subject('写作' , @training_class,current_user) %>
     <th>Writing 得分</th><th>raw score </th>
-    <th>正确 </th> <th>错误 </th><th>空 </th>
+    <th> <i class="green checkmark icon"></i> </th> <th><i class="red close icon"></i> </th><th><i class="teal minus icon"></i> </th>
     <th>作文</th>
     <%end%>
     <th></th>

@@ -1,4 +1,6 @@
 <h1></h1>
+<div class="ui green horizontal label"><h2> 培训班课程表</h2></div>
+
 <%@files.each do|file|%>
     <p>
     <a href ="/uploads/<%= file %>"><%=file%></a>
@@ -7,4 +9,14 @@
 
 <%end%>
 
-<a href="/uploads/111.tar.gz">ffffffffff</a>
+<%if current_user.employee?%>
+    <div class="ui fitted divider"></div>
+    <label>上传课程表</label>
+    <%= form_tag({:action => :upload}, :multipart => true) do %>
+        <p>
+        <%= file_field_tag 'schedule',{class:'ui green button'} %>
+        </p>
+        <br>
+        <%= submit_tag '上传',{class:'ui blue button'} %>
+    <% end %>
+<%end%>

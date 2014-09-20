@@ -78,7 +78,10 @@ class ScoresController < ApplicationController
 
       @score.final_score =0
     elsif @training_class.exam_type=='TOEFL'
-
+      @score.course_a_score=0 #听总分
+      @score.course_b_score=0 #说总分
+      @score.course_c_score=0 #读总分
+      @score.course_d_score=0 #写总分
     end
     @score.examination =@examination
     @score.student =@student
