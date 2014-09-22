@@ -29,7 +29,13 @@
 
         <%if current_user.can_manage_basic_data?%>
             <td><%= link_to '修改', edit_employee_path(emp) ,{class: 'ui green button'}%></td>
-            <td><%= link_to '删除', emp, {class:'ui red button',method: :delete, data: { confirm: '确认删除员工?' }} %></td>
+            <td>
+            <%if emp.freezing_flag%>
+                <%= link_to '解冻', unfreezing_employee_path(emp),{class: 'ui green button', method: :patch }%>
+            <%else%>
+                <%= link_to '冻结', freezing_employee_path(emp),{class: 'ui blue button', method: :patch }%>
+            <%end%>
+            <%= link_to '删除', emp, {class:'ui red button',method: :delete, data: { confirm: '确认删除员工?' }} %></td>
         <%end%>
 
       </tr>

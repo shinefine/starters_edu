@@ -12,7 +12,7 @@ class Teacher < ActiveRecord::Base
 
   #定义讲师信息时的Form 能够同时定义其登录账户的信息
   accepts_nested_attributes_for :user
-
+  default_scope {where delete_flag: false}
 
 
   def name

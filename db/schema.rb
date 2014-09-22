@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922062804) do
+ActiveRecord::Schema.define(version: 20140922114655) do
 
   create_table "attendances", force: true do |t|
     t.integer  "training_class_id"
@@ -48,9 +48,11 @@ ActiveRecord::Schema.define(version: 20140922062804) do
 
   create_table "employees", force: true do |t|
     t.integer  "user_id"
-    t.boolean  "admin",      default: false
+    t.boolean  "admin",         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delete_flag",   default: false
+    t.boolean  "freezing_flag", default: false
   end
 
   create_table "entry_and_target_scores", force: true do |t|
@@ -179,6 +181,8 @@ ActiveRecord::Schema.define(version: 20140922062804) do
     t.date     "birth_day"
     t.string   "parent2_name"
     t.string   "parent2_tel"
+    t.boolean  "delete_flag",        default: false
+    t.boolean  "freezing_flag",      default: false
   end
 
   create_table "students_test_papers", id: false, force: true do |t|
@@ -207,6 +211,8 @@ ActiveRecord::Schema.define(version: 20140922062804) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delete_flag",   default: false
+    t.boolean  "freezing_flag", default: false
   end
 
   create_table "test_papers", force: true do |t|

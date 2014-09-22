@@ -3,10 +3,16 @@ Rails.application.routes.draw do
   get 'home_page/upload'
   get 'home_page/training_class_schedule'
   post 'home_page/upload'
+
+
+
   resources :subjects
 
   resources :text_books
-  resources :employees
+  resources :employees do
+    patch :unfreezing, on: :member
+    patch :freezing, on: :member
+  end
   resources :users do
     get :set_password , on: :member
   end
@@ -17,7 +23,10 @@ Rails.application.routes.draw do
   resources :students do
 
 
+    patch :unfreezing, on: :member
+    patch :freezing, on: :member
 
+    get :set_finished_test_papers ,on: :member
 
     resources :examinations  do #学员包含多个模拟考试
       resources :scores ,only: [:new,:create,:edit,:update]
@@ -35,7 +44,7 @@ Rails.application.routes.draw do
 
 
 
-  get 'students/:id/simulate_score_list'=>'students#simulate_score_list',as: 'student_simulate_score_list'
+  # 无用 get 'students/:id/simulate_score_list'=>'students#simulate_score_list',as: 'student_simulate_score_list'
 
   post 'session/create'
 
@@ -68,7 +77,10 @@ Rails.application.routes.draw do
 
 
   end
-  resources :teachers
+  resources :teachers do
+    patch :unfreezing, on: :member
+    patch :freezing, on: :member
+  end
 
   root 'home_page#index'
 

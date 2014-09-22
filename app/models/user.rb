@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
       return nil
     end
 
+    return nil if user.employee? && user.employee.freezing_flag
+    return nil if user.teacher? && user.teacher.freezing_flag
+    return nil if user.student? && user.student.freezing_flag
+
     if  user.password.nil?
       return user
     end

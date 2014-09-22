@@ -7,6 +7,8 @@ class Employee < ActiveRecord::Base
   #定义员工信息时的Form 能够同时定义其登录账户的信息
   accepts_nested_attributes_for :user
 
+  default_scope {where delete_flag: false}
+
   def name
     self.user.name
   end

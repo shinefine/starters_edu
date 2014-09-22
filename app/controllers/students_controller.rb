@@ -1,8 +1,8 @@
 class StudentsController < ApplicationController
   #学员 控制器
-  before_action :set_student, only: [:show, :edit, :update, :destroy,
+  before_action :set_student, only: [:show, :edit, :update, :destroy,:freezing,:unfreezing,
                                      :show_target,:save_target,
-                                     :simulate_score_list]
+                                     :set_finished_test_papers]
 
   # GET /students
   # GET /students.json
@@ -31,9 +31,21 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+
+
+    if(@student.entry_and_target_scores.count ==0)
+      @student.entry_and_target_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
+      @student.entry_and_target_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
+
+      @student.entry_and_target_scores.build(exam_type: 'SAT',score_type:'入口成绩')
+      @student.entry_and_target_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
+    end
   end
 
 
+  def set_finished_test_papers
+
+  end
   def simulate_score_list
 
   end
@@ -60,7 +72,9 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1.json
   def update
 
-    #@student.test_papers=TestPaper.where(id: params[:student][:test_paper_ids])
+    @student.test_papers=TestPaper.where(id: params[:student][:test_paper_ids])
+
+
 
       if @student.update(student_params)
         redirect_to students_url, notice: '学员信息已保存'
@@ -74,13 +88,20 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
-    @student.destroy
-    respond_to do |format|
-      format.html { redirect_to students_url, notice: '学员已删除' }
-      format.json { head :no_content }
-    end
+    @student.update_attribute(:delete_flag,true)
+    redirect_to students_url, notice: '学员已删除'
+
   end
 
+  def freezing
+    @student.update_attribute(:freezing_flag,true)
+    redirect_to students_url, notice: '学员已冻结'
+  end
+
+  def unfreezing
+    @student.update_attribute(:freezing_flag,false)
+    redirect_to students_url, notice: '学员已恢复'
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
@@ -105,8 +126,11 @@ class StudentsController < ApplicationController
                                       :expect_toefl_times,
 
                                       :identify_card,
+                                      :test_paper_ids,
                                       user_attributes: [:name,:email,:phone_number,:id],
                                       entry_and_target_scores_attributes:[:_destroy,:id,:student_id,:exam_type,:score_type,:final_score,:course_a_score,:course_b_score,:course_c_score,:course_d_score]
+
+
       )
 
 

@@ -1,6 +1,6 @@
 class TeachersController < ApplicationController
   #讲师控制器
-  before_action :set_teacher, only: [:show, :edit, :update, :destroy]
+  before_action :set_teacher, only: [:show, :edit, :update, :destroy,:freezing,:unfreezing,]
 
   # GET /teachers
   # GET /teachers.json
@@ -56,13 +56,21 @@ class TeachersController < ApplicationController
   # DELETE /teachers/1
   # DELETE /teachers/1.json
   def destroy
-    @teacher.destroy
 
+    @teacher.update_attribute(:delete_flag,true)
     redirect_to teachers_url, notice: '讲师已删除.'
 
 
   end
+  def freezing
+    @teacher.update_attribute(:freezing_flag,true)
+    redirect_to teachers_url, notice: '讲师已冻结'
+  end
 
+  def unfreezing
+    @teacher.update_attribute(:freezing_flag,false)
+    redirect_to teachers_url, notice: '讲师已恢复'
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher

@@ -20,15 +20,26 @@ module ScoresHelper
       math_scores = []
       writing_scores = []
       #插入入口成绩
-      cr_scores<<{x:'入口成绩',y:500}
-      math_scores<<{x:'入口成绩',y:550}
-      writing_scores<<{x:'入口成绩',y:560}
+      entry_score = student.entry_and_target_scores.where(exam_type:'SAT',score_type:'入口成绩').first
+      unless entry_score.nil?
+        cr_scores<<{x:'入口成绩',y:entry_score.course_a_score}
+        math_scores<<{x:'入口成绩',y:entry_score.course_b_score}
+        writing_scores<<{x:'入口成绩',y:entry_score.course_c_score}
 
+      end
+
+      entry_score = student.entry_and_target_scores.where(exam_type:'SAT',score_type:'最终期望成绩').first
+      unless entry_score.nil?
+        cr_scores<<{x:'最终期望成绩',y:entry_score.course_a_score}
+        math_scores<<{x:'最终期望成绩',y:entry_score.course_b_score}
+        writing_scores<<{x:'最终期望成绩',y:entry_score.course_c_score}
+
+      end
       #插入目标成绩 理想目标和某月目标的值
       #...
       #...
 
-      fix_num = 1 #fix_num值为入口成绩和目标成绩的数量
+      fix_num = cr_scores.count #fix_num值为入口成绩和目标成绩的数量
 
       #插入模考成绩
       scores.each_with_index do |score,i |
@@ -58,17 +69,28 @@ module ScoresHelper
       talk_scores = []
       read_scores = []
       writing_scores=[]
+
+      entry_score = student.entry_and_target_scores.where(exam_type:'TOEFL',score_type:'入口成绩').first
+      unless entry_score.nil?
+        listen_scores<<{x:'入口成绩',y:entry_score.course_a_score}
+        talk_scores<<{x:'入口成绩',y:entry_score.course_b_score}
+        read_scores<<{x:'入口成绩',y:entry_score.course_c_score}
+        writing_scores<<{x:'入口成绩',y:entry_score.course_d_score}
+      end
       #插入入口成绩
-      listen_scores<<{x:'入口成绩',y:100}
-      talk_scores<<{x:'入口成绩',y:10}
-      read_scores<<{x:'入口成绩',y:60}
-      writing_scores<<{x:'入口成绩',y:60}
+      entry_score = student.entry_and_target_scores.where(exam_type:'TOEFL',score_type:'最终期望成绩').first
+      unless entry_score.nil?
+        cr_scores<<{x:'最终期望成绩',y:entry_score.course_a_score}
+        math_scores<<{x:'最终期望成绩',y:entry_score.course_b_score}
+        writing_scores<<{x:'最终期望成绩',y:entry_score.course_c_score}
+
+      end
 
       #插入目标成绩 理想目标和某月目标的值
       #...
       #...
 
-      fix_num = 1 #fix_num值为入口成绩和目标成绩的数量
+      fix_num = cr_scores.count #fix_num值为入口成绩和目标成绩的数量
 
       #插入模考成绩
       scores.each_with_index do |score,i |

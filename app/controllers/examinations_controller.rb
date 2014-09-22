@@ -20,10 +20,14 @@ class ExaminationsController < ApplicationController
     @examination = Examination.new
     @examination.name=Time.now.strftime("%y年%m月%d日 第#{@training_class.examinations.count + 1}次模考")
     @examination.test_date = Time.now
+
+    set_suggest_test_papers
+
   end
 
   # GET /examinations/1/edit
   def edit
+    set_suggest_test_papers
 
   end
 
@@ -71,6 +75,19 @@ class ExaminationsController < ApplicationController
   end
 
   private
+
+    def set_suggest_test_papers
+      used_testpapers = @training_class.examinations.map{|ex| ex.test_paper}
+      @suggest_test_papers =  TestPaper.where(exam_type: @training_class.exam_type) - used_testpapers
+
+      @testpaper_used_status=Hash.new(0)
+      @training_class.students.each {|stu|
+        stu.test_papers.each { |tp|
+          @testpaper_used_status[tp.id]= @testpaper_used_status[tp.id]+1
+        }
+
+      }
+    end
     # Use callbacks to share common setup or constraints between actions.
     def setObj_examination
       @examination = Examination.find(params[:id])

@@ -36,6 +36,48 @@
 
 
    </div>
+    <!--模考试卷推荐建议区域-->
+    <div class="ui  basic vertical fluid accordion">
+
+      <div class="item">
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <a class="ui teal circular large label">试卷建议</a>
+
+        </div>
+        <div class="content">
+          <table class="ui collapsing table segment">
+            <thead>
+            <tr>
+
+
+              <th>试卷</th>
+              <th>使用情况</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @suggest_test_papers.each do |tp| %>
+
+
+                <tr>
+                  <td><%=tp.name%></td>
+                  <td>
+                    <%if @testpaper_used_status[tp.id] == 0 %>
+                        <i class ="green checkmark icon"></i>
+                    <%end%>
+                    <%=@testpaper_used_status[tp.id]%>人使用
+                  </td>
+                </tr>
+            <%end%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
   <div class="form-actions">
     <%= f.button :submit,'保存' %>
   </div>

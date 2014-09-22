@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   #员工信息 控制器
 
-  before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :set_employee, only: [:show, :edit, :update, :destroy,:freezing,:unfreezing,]
 
   # GET /employees
   # GET /employees.json
@@ -57,12 +57,19 @@ class EmployeesController < ApplicationController
   # DELETE /employees/1
   # DELETE /employees/1.json
   def destroy
-    @employee.destroy
-    respond_to do |format|
-      format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @employee.update_attribute(:delete_flag,true)
+    redirect_to employees_url, notice: '员工已删除.'
   end
+  def freezing
+    @employee.update_attribute(:freezing_flag,true)
+    redirect_to employees_url, notice: '员工已冻结'
+  end
+
+  def unfreezing
+    @employee.update_attribute(:freezing_flag,false)
+    redirect_to employees_url, notice: '员工已恢复'
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

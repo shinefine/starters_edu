@@ -34,8 +34,21 @@
 
 
         <%if current_user.employee?%>
-        <td><%= link_to '修改', edit_student_path(student) ,{class: 'ui green button'}%><%= link_to '设置密码', set_password_user_path(student.user), {class: 'ui blue button'}%></td>
-        <td><%= link_to '删除', student,{class: 'ui red button', method: :delete, data: { confirm: '确定删除?' } }%></td>
+        <td>
+          <%= link_to '修改', edit_student_path(student) ,{class: 'ui green button'}%>
+          <%= link_to '设置密码', set_password_user_path(student.user), {class: 'ui blue button'}%>
+        </td>
+        <td>
+          <%if student.freezing_flag%>
+            <%= link_to '解冻', unfreezing_student_path(student),{class: 'ui green button', method: :patch }%>
+          <%else%>
+            <%= link_to '冻结', freezing_student_path(student),{class: 'ui blue button', method: :patch }%>
+          <%end%>
+
+          <%= link_to '删除', student,{class: 'ui red button', method: :delete, data: { confirm: '确定删除?' } }%>
+
+        </td>
+
         <%end%>
 
       </tr>
