@@ -21,34 +21,56 @@
 
 $(function(){
     $('.ui.dropdown').dropdown();
-
+    $('.ui.accordion')
+        .accordion()
+    ;
     get_score = function(course_name) {
+        field_name='';
         switch (course_name) {
             case 'sat_cr_word_right':
-                return parseInt($('#score_stat_01').val());
+                field_name='#score_stat_01';
+                break;
             case 'sat_cr_word_wrong':
-                return parseInt($('#score_stat_02').val());
+                field_name='#score_stat_02';
+                break;
             case 'sat_cr_word_empty':
-                return parseInt($('#score_stat_03').val());
+                field_name='#score_stat_03';
+                break;
             case 'sat_cr_read_right':
-                return parseInt($('#score_stat_04').val());
+                field_name='#score_stat_04';
+                break;
             case 'sat_cr_read_wrong':
-                return parseInt($('#score_stat_05').val());
+                field_name='#score_stat_05';
+                break;
             case 'sat_cr_read_empty':
-                return parseInt($('#score_stat_06').val());
+                field_name='#score_stat_06';
+                break;
             case 'sat_math_right':
-                return parseInt($('#score_stat_08').val());
+                field_name='#score_stat_08';
+                break;
             case 'sat_math_wrong':
-                return parseInt($('#score_stat_09').val());
+                field_name='#score_stat_09';
+                break;
             case 'sat_math_empty':
-                return parseInt($('#score_stat_10').val());
+                field_name='#score_stat_10';
+                break;
             case 'sat_writting_right':
-                return parseInt($('#score_stat_12').val());
+                field_name='#score_stat_12';
+                break;
             case 'sat_writting_wrong':
-                return parseInt($('#score_stat_13').val());
+                field_name='#score_stat_13';
+                break;
             case 'sat_writting_empty':
-                return parseInt($('#score_stat_14').val());
+                field_name='#score_stat_14';
+                break;
+
         }
+
+       var result = parseInt($(field_name).val());
+        if (!result) {
+            return 0;
+        }
+        return result;
 
 
     }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918031120) do
+ActiveRecord::Schema.define(version: 20140922062804) do
 
   create_table "attendances", force: true do |t|
     t.integer  "training_class_id"
@@ -49,6 +49,21 @@ ActiveRecord::Schema.define(version: 20140918031120) do
   create_table "employees", force: true do |t|
     t.integer  "user_id"
     t.boolean  "admin",      default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "entry_and_target_scores", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "training_class_id"
+    t.integer  "final_score"
+    t.integer  "course_a_score"
+    t.integer  "course_b_score"
+    t.integer  "course_c_score"
+    t.integer  "course_d_score"
+    t.string   "exam_type"
+    t.string   "score_type"
+    t.string   "expect_month"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -149,10 +164,6 @@ ActiveRecord::Schema.define(version: 20140918031120) do
 
   create_table "students", force: true do |t|
     t.integer  "user_id"
-    t.integer  "entry_score_sat"
-    t.integer  "target_score_sat"
-    t.integer  "entry_score_toefl"
-    t.integer  "target_score_toefl"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "parent_name"
@@ -160,29 +171,10 @@ ActiveRecord::Schema.define(version: 20140918031120) do
     t.string   "school"
     t.string   "qq_number"
     t.string   "tinypost_number"
-    t.integer  "entry_sat_cr"
-    t.integer  "entry_sat_math"
-    t.integer  "entry_sat_writing"
-    t.integer  "target_sat_cr"
-    t.integer  "target_sat_math"
-    t.integer  "target_sat_writing"
-    t.integer  "entry_toefl_reading"
-    t.integer  "entry_toefl_listen"
-    t.integer  "entry_toefl_say"
-    t.integer  "entry_toefl_writing"
-    t.integer  "target_toefl_reading"
-    t.integer  "target_toefl_listen"
-    t.integer  "target_toefl_say"
-    t.integer  "target_toefl_writing"
     t.integer  "school_rank"
     t.integer  "total_toefl_times"
     t.integer  "total_sat_times"
     t.integer  "expect_toefl_times"
-    t.integer  "expect_sat_exam_month_5"
-    t.integer  "expect_sat_exam_month_6"
-    t.integer  "expect_sat_exam_month_10"
-    t.integer  "expect_sat_exam_month_11"
-    t.integer  "expect_sat_exam_month_12"
     t.string   "identify_card"
     t.date     "birth_day"
     t.string   "parent2_name"

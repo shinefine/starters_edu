@@ -19,6 +19,14 @@ class StudentsController < ApplicationController
   def new
     @student = Student.new
     @student.user =User.new
+
+    @student.entry_and_target_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
+    @student.entry_and_target_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
+
+    @student.entry_and_target_scores.build(exam_type: 'SAT',score_type:'入口成绩')
+    @student.entry_and_target_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
+
+    @cc=@student.entry_and_target_scores.count
   end
 
   # GET /students/1/edit
@@ -81,8 +89,7 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:entry_score_sat,
-                                      :target_score_sat, :entry_score_toefl, :target_score_toefl,
+      params.require(:student).permit(
                                       :parent_name,
                                       :parent_tel,
                                       :parent2_name,
@@ -91,31 +98,15 @@ class StudentsController < ApplicationController
                                       :qq_number,
                                       :birth_day,
                                       :tinypost_number,
-                                      :entry_sat_cr,
-                                      :entry_sat_math,
-                                      :entry_sat_writing,
-                                      :target_sat_cr,
-                                      :target_sat_math,
-                                      :target_sat_writing,
-                                      :entry_toefl_reading,
-                                      :entry_toefl_listen,
-                                      :entry_toefl_say,
-                                      :entry_toefl_writing,
-                                      :target_toefl_reading,
-                                      :target_toefl_listen,
-                                      :target_toefl_say,
-                                      :target_toefl_writing,
+
                                       :school_rank,
                                       :total_toefl_times,
                                       :total_sat_times,
                                       :expect_toefl_times,
-                                      :expect_sat_exam_month_5,
-                                      :expect_sat_exam_month_6,
-                                      :expect_sat_exam_month_10,
-                                      :expect_sat_exam_month_11,
-                                      :expect_sat_exam_month_12,
+
                                       :identify_card,
-                                      user_attributes: [:name,:email,:phone_number,:id]
+                                      user_attributes: [:name,:email,:phone_number,:id],
+                                      entry_and_target_scores_attributes:[:_destroy,:id,:student_id,:exam_type,:score_type,:final_score,:course_a_score,:course_b_score,:course_c_score,:course_d_score]
       )
 
 

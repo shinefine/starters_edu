@@ -165,7 +165,7 @@ class ScoresController < ApplicationController
                                     :course_a_score,:course_b_score,:course_c_score,:course_d_score,
 
                                     :stat_01,:stat_02,:stat_03,:stat_04,:stat_05,:stat_06,:stat_07,:stat_08,:stat_09,
-                                    :stat_10,:stat_11,:stat_12,:stat_13,
+                                    :stat_10,:stat_11,:stat_12,:stat_13,:stat_14,:stat_15,:stat_16,
                                     :hard_level1,:hard_level2,:hard_level3,:hard_level4,:hard_level5,
 
                                     score_details_attributes: [:id,:answer_result,:score_number,:section_question_id])

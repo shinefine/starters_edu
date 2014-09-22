@@ -9,9 +9,10 @@ module ScoresHelper
     end
   end
 
-  def scores_objects_for_nvd3_chart(student)
+  def scores_objects_for_nvd3_chart(student,z_training_class)
     objs =[]
-    scores= student.scores
+
+    scores= student.scores.joins(:examination).where(examinations:{training_class_id:z_training_class})
     scores_count =scores.count
 
     if @training_class.exam_type =='SAT'

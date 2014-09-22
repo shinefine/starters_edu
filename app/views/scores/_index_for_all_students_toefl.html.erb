@@ -54,6 +54,7 @@
       <tr>
         <td><%= student.name %> </td>
 
+
         <td class="lightgreen"><%= score.try(:final_score) %> </td>
         <!--阅读-->
         <% if can_view_subject('阅读' , @training_class,current_user) %>
