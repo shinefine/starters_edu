@@ -42,7 +42,10 @@
           <tr>
             <td><%= link_to training_class.name, training_class , {class:'ui purple button'} %></td>
 
-            <td><%= training_class.exam_type %></td>
+            <td>
+              <%=training_class.exam_type if training_class.training_class_type.blank?%>
+              <%=training_class.training_class_type%>
+            </td>
             <td><%= training_class.text_book.try(:name) %></td>
             <%if current_user.teacher?%>
                 <% subs = training_class.subjects.where(teacher: @teacher) %>

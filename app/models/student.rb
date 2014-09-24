@@ -30,6 +30,11 @@ class Student < ActiveRecord::Base
     self.user.name
   end
 
+  def summary_training_class_names_list
+    training_classes.map{|tc| "#{tc.training_class_type}(#{tc.name})"}.join("\n")
+
+  end
+
   def month_target_scores
     entry_and_target_scores.where(score_type:'月份目标成绩')
   end

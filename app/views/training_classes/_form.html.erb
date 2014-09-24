@@ -24,6 +24,19 @@
         </div>
 
       </div>
+      <div class="field">
+        <div class="field select optional training_class_type">
+          <label class="select optional" for="training_class_type_id">培训班种类</label>
+          <%= f.collection_select :training_class_type,
+                                  @training_class_types,
+                                  :first,
+                                  :last,
+                                  {prompt: true},
+                                  {class:"select optional ui selection dropdown"} %>
+        </div>
+
+      </div>
+
     </div>
 
     <div class="ui five fields">

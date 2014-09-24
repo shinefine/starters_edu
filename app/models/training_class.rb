@@ -27,6 +27,8 @@ class TrainingClass < ActiveRecord::Base
   validates :end_date,presence: true
   validates :start_date,presence: true
 
+
+
   def student_attendance(student)
     #返回指定学生的所有出勤记录(针对本培训班的)
     return student.student_attendances.where(attendance_id: self.attendance_ids )

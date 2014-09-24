@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922114655) do
+ActiveRecord::Schema.define(version: 20140924031514) do
 
   create_table "attendances", force: true do |t|
     t.integer  "training_class_id"
@@ -65,9 +65,10 @@ ActiveRecord::Schema.define(version: 20140922114655) do
     t.integer  "course_d_score"
     t.string   "exam_type"
     t.string   "score_type"
-    t.string   "expect_month"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "month"
+    t.integer  "year"
   end
 
   create_table "examinations", force: true do |t|
@@ -238,8 +239,9 @@ ActiveRecord::Schema.define(version: 20140922114655) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "master_teacher_id"
-    t.string   "exam_type",         default: "SAT"
+    t.string   "exam_type",           default: "SAT"
     t.integer  "text_book_id"
+    t.string   "training_class_type"
   end
 
   create_table "users", force: true do |t|

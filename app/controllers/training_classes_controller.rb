@@ -39,12 +39,14 @@ class TrainingClassesController < ApplicationController
     @training_class.end_date =1.months.from_now
     @training_class.exam_type= params[:exam_type]
 
+    set_training_class_types
     set_subject_types
   end
 
 
   # GET /training_classes/1/edit
   def edit
+    set_training_class_types
     set_subject_types
   end
 
@@ -108,10 +110,18 @@ class TrainingClassesController < ApplicationController
 
   private
 
+  def set_training_class_types
+    if( @training_class.exam_type=='SAT')
+      @training_class_types =TrainingClassType.sat_types
+    elsif(@training_class.exam_type=='TOEFL')
+      @training_class_types =TrainingClassType.toefl_types
+    end
+  end
+
   def set_subject_types
 
     if(@training_class.exam_type == 'SAT')
-      @subject_types =[['SAT_CR', '语法'] ,['SAT_Math', '数学'],['SAT_Writing', '写作']]
+      @subject_types =[['SAT_CR', 'CR'] ,['SAT_Math', 'Math'],['SAT_Writing', 'Writting']]
     elsif (@training_class.exam_type == 'TOEFL')
       @subject_types =[['TOEFL_Listen', '听力'] ,['TOEFL_Talk', '口语'],['TOEFL_Read', '阅读'],['TOEFL_Write', '写作']]
     else
@@ -128,7 +138,8 @@ class TrainingClassesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def training_class_params
-      params.require(:training_class).permit(:name, :code, :start_date, :end_date,:exam_type,
+      params.require(:training_class).permit(:name, :code, :start_date, :end_date,
+                                             :exam_type,:training_class_type,
                                              :text_book_id,
                                              :master_teacher_id,
                                              :sat_writing_teacher_id,
