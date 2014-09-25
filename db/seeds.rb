@@ -42,7 +42,7 @@ User.create([
 
             ])
 
-TrainingClass.create ([{name:'SAT培训班',code:'tc0001',exam_type:'SAT' }])
+#TrainingClass.create ([{name:'SAT培训班',exam_type:'SAT' }])
 
 
 
