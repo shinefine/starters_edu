@@ -13,7 +13,7 @@
     <% @attendances.each do |attendance| %>
       <tr>
         <td><%= attendance.attendance_date %></td>
-        <td><%= link_to attendance.summary_text, edit_training_class_attendance_path(@training_class, attendance) %></td>
+        <td><%= link_to simple_format(attendance.summary_text), edit_training_class_attendance_path(@training_class, attendance) %></td>
         <td><%= link_to '删除考勤信息', training_class_attendance_path(@training_class,attendance), {class:'ui red button' , method: :delete, data: { confirm: '确定要删除此考勤信息?' }} %></td>
       </tr>
     <% end %>

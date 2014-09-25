@@ -61,7 +61,7 @@ class AttendancesController < ApplicationController
   # PATCH/PUT /attendances/1.json
   def update
 
-    @attendance.student_attendances.each{|e| e.attendance_date =params[:attendance_date]}
+    @attendance.attendance_date =params[:attendance_date]
       if @attendance.update(attendance_params)
         redirect_to training_class_attendances_path(@training_class), notice: 'Attendance was successfully updated.'
 
@@ -87,6 +87,7 @@ class AttendancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attendance_params
-      params.require(:attendance).permit(:attendance_date, :explain,student_attendances_attributes:[:id,:student_id,:attendance_id,:description])
+      params.require(:attendance).permit(:attendance_date, :explain,
+                                         student_attendances_attributes:[:id,:student_id,:attendance_id,:description,:status_morning,:status_afternoon,:status_evening])
     end
 end

@@ -18,7 +18,7 @@
 </div>
 
 
-<table class ="ui celled table segment">
+<table class ="ui celled collapsing table segment">
   <thead>
   <tr>
     <th>周日</th>
@@ -43,7 +43,7 @@
             <% str_description =  week.get_student_dictation_score_with_day(i).description if week.has_day_dictation_score?(i) %>
             <td class="<%=str_css %>">
               <%=week.get_day(i).strftime("%m-%d")   if week.get_day(i) >= @training_class.start_date &&  week.get_day(i)<= @training_class.end_date%>
-              <%= str_description%>
+              <br><%= str_description%>
             </td>
         <%end%>
         <tr>

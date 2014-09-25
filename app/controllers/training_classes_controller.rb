@@ -64,9 +64,7 @@ class TrainingClassesController < ApplicationController
       set_subject_types
       set_training_class_types
       render :new
-
     end
-
   end
 
 
@@ -78,14 +76,11 @@ class TrainingClassesController < ApplicationController
 
       if @training_class.update(training_class_params)
         redirect_to training_classes_url, notice: "培训班#{@training_class.name}信息已保存"
-
       else
         set_subject_types
         set_training_class_types
         render :edit
-
       end
-
   end
 
   # DELETE /training_classes/1
