@@ -7,7 +7,13 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    #学员列表有权限过滤数据需求,
+    # 管理员能看到所有,
+    # 普通员工只能看到他自己创建出的学员
+    # 普通员工也能看到不是由他创建的,但属于他的培训班的学员(该员工是培训班的班主任)
+
+    set_permission_students
+
   end
 
   # GET /students/1
@@ -55,15 +61,14 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
 
+    @student.creator = current_user.employee if current_user.employee?
 
    # @student.test_papers=TestPaper.where(id: params[:student][:test_paper_ids])  #设置学员做过的试卷信息
 
       if @student.save
         redirect_to students_url, notice: '学员已创建'
-
       else
         render :new
-
       end
 
   end
@@ -103,6 +108,24 @@ class StudentsController < ApplicationController
     redirect_to students_url, notice: '学员已恢复'
   end
   private
+
+
+  def set_permission_students
+    #根据登录用户的身份权限,筛选其能够操作的学员列表
+
+    #Todo 此方法有重复,在training_class controller 内
+    if current_user.admin?
+      @students = Student.all
+    elsif current_user.employee?
+
+      @students = Student.where(creator: current_user.employee)
+      students_2= current_user.employee.training_classes.reduce{|tc1,tc2| tc1.students | tc2.students }
+      @students = @students | students_2
+    else
+      @students=[]
+    end
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_student
       @student = Student.find(params[:id])

@@ -1,6 +1,6 @@
 class TrainingClass < ActiveRecord::Base
   belongs_to :master_teacher, class_name: :Employee  #班主任
-  belongs_to :text_book
+  has_and_belongs_to_many :text_books
 
   #学员可以属于多个培训班(同时培训班包含多个学员)
   has_and_belongs_to_many :students
@@ -57,6 +57,9 @@ class TrainingClass < ActiveRecord::Base
 
   end
 
+  def summary_text_book_names_list
+    return text_books.map{|tb| tb.name}.join("\n")
+  end
 
   def sat_cr_teachers
     self.subjects.where(name:'SAT_CR').map{|sub| sub.teacher}

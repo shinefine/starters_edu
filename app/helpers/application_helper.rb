@@ -47,7 +47,7 @@ module ApplicationHelper
       }
 
     end
-      if current_user.employee
+      if current_user.employee?
 
         if current_user.can_manage_basic_data?
           nav_menus={

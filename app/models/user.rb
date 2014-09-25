@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   end
 
   def can_set_employee_info?(z_employee)
-    return true if role_name=="校长" || role_name=='管理员'
+    return true if admin?
     return z_employee == self.employee if self.employee?
     return false
   end
@@ -121,16 +121,16 @@ class User < ActiveRecord::Base
 
   #能否管理基本数据信息
   def can_manage_basic_data?
-    role_name == '管理员' || role_name=='校长'
+    admin?
   end
 
   #能否给培训班设置模考
   def can_set_training_class_examination?
-    role_name == '管理员' || role_name=='校长'
+    admin?
   end
   #能否给设置(新增,修改,删除)培训班信息
   def can_set_training_class_info?
-    role_name == '管理员' || role_name=='校长'
+    admin?
   end
 
   # #能否看见此培训班

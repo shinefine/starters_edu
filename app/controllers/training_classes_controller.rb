@@ -41,6 +41,7 @@ class TrainingClassesController < ApplicationController
 
     set_training_class_types
     set_subject_types
+    set_permission_students
   end
 
 
@@ -48,26 +49,23 @@ class TrainingClassesController < ApplicationController
   def edit
     set_training_class_types
     set_subject_types
+    set_permission_students
   end
 
   # POST /training_classes
   # POST /training_classes.json
   def create
     @training_class = TrainingClass.new(training_class_params)
-    @training_class.students=Student.where(id: params[:training_class][:student_ids])
 
-    set_subject_types
+    if @training_class.save
+      redirect_to training_classes_url, notice: "培训班#{@training_class.name}已创建"
 
-    #render inline:  s.inspect #params[:training_class][:student_ids].to_s
-    #render inline: @training_class.students.inspect
+    else
+      set_subject_types
+      set_training_class_types
+      render :new
 
-      if @training_class.save
-        redirect_to training_classes_url, notice: "培训班#{@training_class.name}已创建"
-
-      else
-        render :new
-
-      end
+    end
 
   end
 
@@ -76,18 +74,18 @@ class TrainingClassesController < ApplicationController
   # PATCH/PUT /training_classes/1.json
   def update
     #render inline: params.inspect
-    set_subject_types
-    @training_class.students=Student.where(id: params[:training_class][:student_ids])
 
-    respond_to do |format|
+
       if @training_class.update(training_class_params)
-        format.html { redirect_to training_classes_url, notice: '培训班#{@training_class.name}信息已保存' }
-        format.json { render :show, status: :ok, location: @training_class }
+        redirect_to training_classes_url, notice: "培训班#{@training_class.name}信息已保存"
+
       else
-        format.html { render :edit }
-        format.json { render json: @training_class.errors, status: :unprocessable_entity }
+        set_subject_types
+        set_training_class_types
+        render :edit
+
       end
-    end
+
   end
 
   # DELETE /training_classes/1
@@ -99,14 +97,6 @@ class TrainingClassesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-
-  def set_teachers_students
-
-  end
-
-
-
 
   private
 
@@ -132,9 +122,23 @@ class TrainingClassesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_training_class
       @training_class = TrainingClass.find(params[:id])
-
-
     end
+
+  def set_permission_students
+    #根据登录用户的身份权限,筛选其能够操作的学员列表
+
+    #Todo 此方法有重复,在 student controller 内
+    if current_user.admin?
+      @students = Student.all
+    elsif current_user.employee?
+
+      @students = Student.where(creator: current_user.employee)
+      students_2= current_user.employee.training_classes.reduce{|tc1,tc2| tc1.students | tc2.students }
+      @students = @students | students_2
+    else
+      @students=[]
+    end
+  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def training_class_params
@@ -149,7 +153,8 @@ class TrainingClassesController < ApplicationController
                                              :toefl_talk_teacher_id,
                                              :toefl_read_teacher_id,
                                              :toefl_write_teacher_id,
-                                             :student_ids,
+                                             student_ids:[],
+                                             text_book_ids:[],
                                              subjects_attributes: [:_destroy,:id,:name,:teacher_id]
       )
     end

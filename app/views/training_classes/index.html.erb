@@ -31,7 +31,7 @@
       <%end%>
 
       <!--管理员操作区-->
-      <% if current_user.can_set_training_class_info? %>
+      <% if current_user.employee? %>
           <th colspan="2"></th>
       <%end%>
     </tr>
@@ -46,7 +46,7 @@
               <%=training_class.exam_type if training_class.training_class_type.blank?%>
               <%=training_class.training_class_type%>
             </td>
-            <td><%= training_class.text_book.try(:name) %></td>
+            <td><%= simple_format(training_class.summary_text_book_names_list)%></td>
             <%if current_user.teacher?%>
                 <% subs = training_class.subjects.where(teacher: @teacher) %>
                 <td><%= subs.map{|sub| sub.name}.join('|') %></td>
@@ -80,9 +80,13 @@
             <%end%>
 
             <!--管理员操作区-->
-            <% if current_user.can_set_training_class_info? %>
+            <% if current_user.employee? %>
                 <td><%= link_to '修改', edit_training_class_path(training_class), {class:'ui green button'} %></td>
-                <td><%= link_to '删除培训班', training_class, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' } }%></td>
+                <td>
+                  <%if current_user.admin?%>
+                    <%= link_to '删除培训班', training_class, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' } }%>
+                  <%end%>
+                </td>
             <% end %>
           </tr>
 

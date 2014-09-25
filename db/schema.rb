@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924031514) do
+ActiveRecord::Schema.define(version: 20140925024114) do
 
   create_table "attendances", force: true do |t|
     t.integer  "training_class_id"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 20140924031514) do
     t.string   "parent2_tel"
     t.boolean  "delete_flag",        default: false
     t.boolean  "freezing_flag",      default: false
+    t.integer  "creator_id"
   end
 
   create_table "students_test_papers", id: false, force: true do |t|
@@ -231,16 +232,21 @@ ActiveRecord::Schema.define(version: 20140924031514) do
     t.datetime "updated_at"
   end
 
+  create_table "text_books_training_classes", id: false, force: true do |t|
+    t.integer  "text_book_id"
+    t.integer  "training_class_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "training_classes", force: true do |t|
     t.string   "name"
-    t.string   "code"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "master_teacher_id"
     t.string   "exam_type",           default: "SAT"
-    t.integer  "text_book_id"
     t.string   "training_class_type"
   end
 

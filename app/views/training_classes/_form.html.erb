@@ -12,18 +12,7 @@
       </div>
 
 
-      <div class="field">
-        <div class="field select optional training_class_text_book">
-          <label class="select optional" for="training_class_text_book_id">培训教材</label>
-          <%= f.collection_select :text_book_id,
-                                  TextBook.type_is(@training_class.exam_type),
-                                  :id,
-                                  :name,
-                                  {prompt: true},
-                                  {class:"select optional ui selection dropdown"} %>
-        </div>
 
-      </div>
       <div class="field">
         <div class="field select optional training_class_type">
           <label class="select optional" for="training_class_type_id">培训班种类</label>
@@ -51,15 +40,16 @@
       </div>
     </div>
 
-    <div class="ui red ribbon label">分配班主任</div>
-    <div class ="field">
-      <%= f.collection_select :master_teacher_id,
-                              Employee.all,
-                              :id,
-                              :name,
-                              :include_blank => true %>
-    </div>
-
+    <%if current_user.admin? %>
+        <div class="ui red ribbon label">分配班主任</div>
+        <div class ="field">
+          <%= f.collection_select :master_teacher_id,
+                                  Employee.all,
+                                  :id,
+                                  :name,
+                                  :include_blank => true %>
+        </div>
+    <%end%>
     <div class="ui red ribbon label">分配科目讲师</div>
     <div class="field">
       <!--嵌套表单用于 增改删 相关试卷-->
@@ -72,11 +62,24 @@
 
 
 
+    <div class="ui teal ribbon label">培训教材</div>
+    <div class ="field">
+      <%= collection_check_boxes(:training_class,
+                                 :text_book_ids,
+                                 TextBook.type_is(@training_class.exam_type),
+                                 :id,
+                                 :name,{},{class:'ui'} ) do |b| %>
+          <div class='ui slider checkbox'>
+            <%= b.check_box + b.label %>
+          </div>
+      <% end%>
+    </div>
+
     <div class="ui teal ribbon label">班级学员</div>
     <div class ="field">
       <%= collection_check_boxes(:training_class,
                                  :student_ids,
-                                 Student.all,
+                                 @students,
                                  :id,
                                  :name,{},{class:'ui'} ) do |b| %>
           <div class='ui slider checkbox'>

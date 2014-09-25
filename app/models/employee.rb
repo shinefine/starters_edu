@@ -1,5 +1,6 @@
 class Employee < ActiveRecord::Base
 
+  has_many :training_classes,foreign_key: 'master_teacher_id'
   #员工可能登录系统,所以有一个对应的账户
   belongs_to :user
 
