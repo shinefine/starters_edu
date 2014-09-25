@@ -21,7 +21,7 @@
 }
 
 User.create([
-                { name:'Admin', role_name: '管理员',phone_number:'13880246012',password:'',employee:Employee.new({admin: true})},
+                { name:'Admin', role_name: '管理员',phone_number:'13880246012',password:'skyfly',employee:Employee.new({admin: true})},
                 { name:'张倩', role_name: '管理员',phone_number:'18008013880',password:'',employee:Employee.new({admin: true})},
 
                 { name:'李燕', role_name: '员工',phone_number:'15828698143',password:'',employee:Employee.new},

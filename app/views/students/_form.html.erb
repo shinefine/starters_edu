@@ -10,19 +10,26 @@
             <div class="field">
               <%= user_f.input :name,label:"名称" %>
             </div>
-
+        </div>
+          <div class="ui five fields">
             <div class="field">
               <%= user_f.input :phone_number,label:"手机号" %>
             </div>
           <div class="field">
-            <%= f.input :identify_card,label:"身份证号" %>
+            <%= user_f.input :identify_card,label:"身份证号" %>
           </div>
 
           <div class="field">
             <%= user_f.input :email ,label:"Email"%>
           </div>
+
+
           <div class="field">
-            <%= f.input :school ,label:"学校"%>
+            <%= user_f.input :tinypost_number ,label:"微信"%>
+          </div>
+
+          <div class="field">
+            <%= user_f.input :qq_number ,label:"QQ"%>
           </div>
         </div>
 
@@ -32,14 +39,10 @@
     <div class="ui five fields">
 
 
-      <div class="field">
-        <%= f.input :tinypost_number ,label:"微信"%>
-      </div>
 
       <div class="field">
-        <%= f.input :qq_number ,label:"QQ"%>
+        <%= f.input :school ,label:"学校"%>
       </div>
-
       <div class="field">
         <%= f.input :birth_day ,label:"生日"%>
       </div>

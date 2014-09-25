@@ -17,15 +17,15 @@
         <%= @student.name %>
       </p>
 
-      <p>
-        <strong>邮箱:</strong>
-        <%= @student.user.email %>
-      </p>
+      <p><strong>联系人电话:</strong><%=" #{@student.parent_name}:#{@student.parent_tel} " %></p>
+      <p><strong>联系人2电话:</strong><%=" #{@student.parent2_name}:#{@student.parent2_tel} " %></p>
+      <p><strong>身份证号:</strong><%= @student.user.try(:identify_card)  %></p>
+      <p><strong>手机号:</strong><%= @student.user.try(:phone_number)  %></p>
+      <p><strong>qq:</strong><%= @student.user.try(:qq_number) %></p>
+      <p><strong>微信号:</strong><%= @student.user.try(:tinypost_number)  %></p>
+      <p><strong>Email:</strong><%= @student.user.try(:email)   %></p>
+      
 
-      <p>
-        <strong>手机号:</strong>
-        <%= @student.user.phone_number %>
-      </p>
     </div>
   </div>
 

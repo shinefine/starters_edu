@@ -6,9 +6,12 @@
     <tr>
 
       <th>姓名</th>
-      <th>手机号</th>
-      <th>Email</th>
 
+      <th>身份证号</th>
+      <th>手机号</th>
+      <th>QQ</th>
+      <th>微信</th>
+      <th>电子邮箱</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -18,8 +21,11 @@
       <tr>
 
         <td><%= teacher.name %></td>
-        <td><%= teacher.user.phone_number %></td>
-        <td><%= teacher.user.email %></td>
+        <td><%= teacher.user.try(:identify_card)  %></td>
+        <td><%= teacher.user.try(:phone_number)  %></td>
+        <td><%= teacher.user.try(:qq_number) %></td>
+        <td><%= teacher.user.try(:tinypost_number)  %></td>
+        <td><%= teacher.user.try(:email)   %></td>
 
         <%if current_user.can_manage_basic_data?%>
         <td>

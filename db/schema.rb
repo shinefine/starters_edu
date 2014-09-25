@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140925084947) do
+ActiveRecord::Schema.define(version: 20140925122835) do
 
   create_table "attendances", force: true do |t|
     t.integer  "training_class_id"
@@ -176,13 +176,10 @@ ActiveRecord::Schema.define(version: 20140925084947) do
     t.string   "parent_name"
     t.string   "parent_tel"
     t.string   "school"
-    t.string   "qq_number"
-    t.string   "tinypost_number"
     t.integer  "school_rank"
     t.integer  "total_toefl_times"
     t.integer  "total_sat_times"
     t.integer  "expect_toefl_times"
-    t.string   "identify_card"
     t.date     "birth_day"
     t.string   "parent2_name"
     t.string   "parent2_tel"
@@ -258,10 +255,13 @@ ActiveRecord::Schema.define(version: 20140925084947) do
     t.string   "name"
     t.string   "email"
     t.string   "phone_number"
-    t.string   "password",     default: ""
+    t.string   "password",        default: ""
     t.string   "role_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "qq_number"
+    t.string   "tinypost_number"
+    t.string   "identify_card"
   end
 
 end

@@ -139,18 +139,21 @@ class StudentsController < ApplicationController
                                       :parent2_name,
                                       :parent2_tel,
                                       :school,
-                                      :qq_number,
+
                                       :birth_day,
-                                      :tinypost_number,
 
                                       :school_rank,
                                       :total_toefl_times,
                                       :total_sat_times,
                                       :expect_toefl_times,
 
-                                      :identify_card,
+
                                       :test_paper_ids,
-                                      user_attributes: [:name,:email,:phone_number,:id],
+                                      user_attributes: [:name,:email,:id,
+                                                        :phone_number,
+                                                        :qq_number,
+                                                        :tinypost_number,
+                                                        :identify_card,],
                                       entry_and_target_scores_attributes:[:_destroy,:id,:student_id,:exam_type,:score_type,:final_score,:course_a_score,:course_b_score,:course_c_score,:course_d_score]
 
 
