@@ -19,6 +19,20 @@
       <%= f.input :course_c_score, label: "WRITING" %>
     </div>
 
+      <div class ="field">
+        <%= f.collection_select :year,
+                                @years,
+                                :first,
+                                :last,
+                                :include_blank => false %>
+      </div>
+      <div class ="field">
+        <%= f.collection_select :month,
+                                @months,
+                                :first,
+                                :last,
+                                :include_blank => false %>
+      </div>
 
     <%= f.hidden_field :_destroy %>     <!-- accepts_nested_attributes_for的删除操作需要提供"_destroy" -->
     <a href="#" class ="remove_nest_form_field_link"><i class="red close icon"></i></a>

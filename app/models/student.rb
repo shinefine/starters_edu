@@ -1,5 +1,5 @@
 class Student < ActiveRecord::Base
-  has_many :entry_and_target_scores
+  has_many :real_scores
   #学员可以属于多个培训班(同时培训班包含多个学员)
   has_and_belongs_to_many :training_classes
 
@@ -22,7 +22,7 @@ class Student < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
 
-  accepts_nested_attributes_for :entry_and_target_scores,:reject_if => lambda { |a| a[:final_score].blank? },
+  accepts_nested_attributes_for :real_scores,:reject_if => lambda { |a| a[:final_score].blank? },
                                 allow_destroy: true
 
 

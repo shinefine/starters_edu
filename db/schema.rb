@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140925122835) do
+ActiveRecord::Schema.define(version: 20140929025007) do
 
   create_table "attendances", force: true do |t|
     t.integer  "training_class_id"
@@ -55,22 +55,6 @@ ActiveRecord::Schema.define(version: 20140925122835) do
     t.boolean  "freezing_flag", default: false
   end
 
-  create_table "entry_and_target_scores", force: true do |t|
-    t.integer  "student_id"
-    t.integer  "training_class_id"
-    t.integer  "final_score"
-    t.integer  "course_a_score"
-    t.integer  "course_b_score"
-    t.integer  "course_c_score"
-    t.integer  "course_d_score"
-    t.string   "exam_type"
-    t.string   "score_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "month"
-    t.integer  "year"
-  end
-
   create_table "examinations", force: true do |t|
     t.integer  "training_class_id"
     t.integer  "test_paper_id"
@@ -105,6 +89,22 @@ ActiveRecord::Schema.define(version: 20140925122835) do
     t.integer  "section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "real_scores", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "training_class_id"
+    t.integer  "final_score"
+    t.integer  "course_a_score"
+    t.integer  "course_b_score"
+    t.integer  "course_c_score"
+    t.integer  "course_d_score"
+    t.string   "exam_type"
+    t.string   "score_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "month"
+    t.integer  "year"
   end
 
   create_table "score_details", force: true do |t|

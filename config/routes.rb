@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :students do
 
+    resources :real_scores
 
     patch :unfreezing, on: :member
     patch :freezing, on: :member
@@ -68,11 +69,12 @@ Rails.application.routes.draw do
     resources :homeworks #作业
 
     resources :students do #培训班包含多个学员
+
       resources :scores do
         get :index_with_all_examinations ,on: :collection #列出某个培训班下 某个学员的 所有模考成绩
       end
 
-      resources :comments ,only: [:index,:create]
+      resources :comments ,only: [:index,:create]  #讲师可以给学员创建评语
     end
 
 

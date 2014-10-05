@@ -67,7 +67,10 @@
       <tr>
 
 
-        <td><%= score.score_type %></td>
+        <td>
+          <%= score.score_type %>
+          <%= "(#{score.year}年#{score.month}月)" if score.score_type== '月份目标成绩' %>
+        </td>
 
         <td class="lightgreen"><%= score.try(:final_score) %></td>
 

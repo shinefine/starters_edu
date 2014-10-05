@@ -26,25 +26,31 @@ class StudentsController < ApplicationController
     @student = Student.new
     @student.user =User.new
 
-    @student.entry_and_target_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
-    @student.entry_and_target_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
+    @years=[['2014','2014年'],['2015','2015年'],['2016','2016年']]
+    @months=[['01','01月'],['05','05月'],['06','06月'],['10','10月'],['11','11月'],['12','12月']]
 
-    @student.entry_and_target_scores.build(exam_type: 'SAT',score_type:'入口成绩')
-    @student.entry_and_target_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
+    @student.real_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
+    @student.real_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
 
-    @cc=@student.entry_and_target_scores.count
+    @student.real_scores.build(exam_type: 'SAT',score_type:'入口成绩')
+    @student.real_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
+
+
   end
 
   # GET /students/1/edit
   def edit
 
+    @years=[['2014','2014年'],['2015','2015年'],['2016','2016年']]
+    @months=[['01','01月'],['05','05月'],['06','06月'],['10','10月'],['11','11月'],['12','12月']]
 
-    if(@student.entry_and_target_scores.count ==0)
-      @student.entry_and_target_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
-      @student.entry_and_target_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
+    if(@student.real_scores.count ==0)
+      @student.real_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
+      @student.real_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
 
-      @student.entry_and_target_scores.build(exam_type: 'SAT',score_type:'入口成绩')
-      @student.entry_and_target_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
+      @student.real_scores.build(exam_type: 'SAT',score_type:'入口成绩')
+      @student.real_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
+
     end
   end
 
@@ -120,7 +126,7 @@ class StudentsController < ApplicationController
 
       @students = Student.where(creator: current_user.employee)
       students_2= current_user.employee.training_classes.reduce{|tc1,tc2| tc1.students | tc2.students }
-      @students = @students | students_2
+      @students = @students || students_2
     else
       @students=[]
     end
@@ -153,8 +159,14 @@ class StudentsController < ApplicationController
                                                         :phone_number,
                                                         :qq_number,
                                                         :tinypost_number,
-                                                        :identify_card,],
-                                      entry_and_target_scores_attributes:[:_destroy,:id,:student_id,:exam_type,:score_type,:final_score,:course_a_score,:course_b_score,:course_c_score,:course_d_score]
+                                                        :identify_card,
+                                      ],
+                                      entry_and_target_scores_attributes:[
+                                          :_destroy,:id,:student_id,
+                                          :exam_type,:score_type,:final_score,
+                                          :course_a_score,:course_b_score,:course_c_score,:course_d_score,
+                                          :year,:month
+                                      ]
 
 
       )
