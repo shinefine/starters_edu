@@ -161,7 +161,7 @@ class StudentsController < ApplicationController
                                                         :tinypost_number,
                                                         :identify_card,
                                       ],
-                                      entry_and_target_scores_attributes:[
+                                      real_scores_attributes:[
                                           :_destroy,:id,:student_id,
                                           :exam_type,:score_type,:final_score,
                                           :course_a_score,:course_b_score,:course_c_score,:course_d_score,

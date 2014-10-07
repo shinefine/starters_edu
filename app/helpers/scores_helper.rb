@@ -20,19 +20,19 @@ module ScoresHelper
       math_scores = []
       writing_scores = []
       #插入入口成绩
-      entry_score = student.entry_and_target_scores.where(exam_type:'SAT',score_type:'入口成绩').first
-      unless entry_score.nil?
-        cr_scores<<{x:'入口成绩',y:entry_score.course_a_score}
-        math_scores<<{x:'入口成绩',y:entry_score.course_b_score}
-        writing_scores<<{x:'入口成绩',y:entry_score.course_c_score}
+      real_score = student.real_scores.where(exam_type:'SAT',score_type:'入口成绩').first
+      unless real_score.nil?
+        cr_scores<<{x:'入口成绩',y:real_score.course_a_score}
+        math_scores<<{x:'入口成绩',y:real_score.course_b_score}
+        writing_scores<<{x:'入口成绩',y:real_score.course_c_score}
 
       end
 
-      entry_score = student.entry_and_target_scores.where(exam_type:'SAT',score_type:'最终期望成绩').first
+      real_score = student.real_scores.where(exam_type:'SAT',score_type:'最终期望成绩').first
       unless entry_score.nil?
-        cr_scores<<{x:'最终期望成绩',y:entry_score.course_a_score}
-        math_scores<<{x:'最终期望成绩',y:entry_score.course_b_score}
-        writing_scores<<{x:'最终期望成绩',y:entry_score.course_c_score}
+        cr_scores<<{x:'最终期望成绩',y:real_score.course_a_score}
+        math_scores<<{x:'最终期望成绩',y:real_score.course_b_score}
+        writing_scores<<{x:'最终期望成绩',y:real_score.course_c_score}
 
       end
       #插入目标成绩 理想目标和某月目标的值
@@ -70,19 +70,19 @@ module ScoresHelper
       read_scores = []
       writing_scores=[]
 
-      entry_score = student.entry_and_target_scores.where(exam_type:'TOEFL',score_type:'入口成绩').first
-      unless entry_score.nil?
-        listen_scores<<{x:'入口成绩',y:entry_score.course_a_score}
-        talk_scores<<{x:'入口成绩',y:entry_score.course_b_score}
-        read_scores<<{x:'入口成绩',y:entry_score.course_c_score}
-        writing_scores<<{x:'入口成绩',y:entry_score.course_d_score}
+      real_score = student.real_scores.where(exam_type:'TOEFL',score_type:'入口成绩').first
+      unless real_score.nil?
+        listen_scores<<{x:'入口成绩',y:real_score.course_a_score}
+        talk_scores<<{x:'入口成绩',y:real_score.course_b_score}
+        read_scores<<{x:'入口成绩',y:real_score.course_c_score}
+        writing_scores<<{x:'入口成绩',y:real_score.course_d_score}
       end
       #插入入口成绩
-      entry_score = student.entry_and_target_scores.where(exam_type:'TOEFL',score_type:'最终期望成绩').first
+      real_score = student.real_scores.where(exam_type:'TOEFL',score_type:'最终期望成绩').first
       unless entry_score.nil?
-        cr_scores<<{x:'最终期望成绩',y:entry_score.course_a_score}
-        math_scores<<{x:'最终期望成绩',y:entry_score.course_b_score}
-        writing_scores<<{x:'最终期望成绩',y:entry_score.course_c_score}
+        cr_scores<<{x:'最终期望成绩',y:real_score.course_a_score}
+        math_scores<<{x:'最终期望成绩',y:real_score.course_b_score}
+        writing_scores<<{x:'最终期望成绩',y:real_score.course_c_score}
 
       end
 

@@ -37,7 +37,7 @@ class Student < ActiveRecord::Base
   end
 
   def month_target_scores
-    entry_and_target_scores.where(score_type:'月份目标成绩')
+    real_scores.where(score_type:'月份目标成绩')
   end
 
   def summary_attendance_text(training_class)

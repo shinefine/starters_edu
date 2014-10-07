@@ -18,7 +18,7 @@
   </thead>
 
   <tbody>
-  <% @student.entry_and_target_scores.where(exam_type:'TOEFL').each do |score|%>
+  <% @student.real_scores.where(exam_type:'TOEFL').each do |score|%>
       <tr>
 
         <td><%= score.score_type %></td>
@@ -63,7 +63,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @student.entry_and_target_scores.where(exam_type:'SAT').each do |score|%>
+  <% @student.real_scores.where(exam_type:'SAT').each do |score|%>
       <tr>
 
 

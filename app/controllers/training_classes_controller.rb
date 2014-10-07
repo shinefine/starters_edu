@@ -63,6 +63,7 @@ class TrainingClassesController < ApplicationController
     else
       set_subject_types
       set_training_class_types
+      set_permission_students
       render :new
     end
   end
