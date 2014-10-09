@@ -1,0 +1,202 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> 学员考试成绩分析</h2></div>
+
+
+
+<div class="ui  basic vertical fluid accordion">
+  <!--基本信息-->
+
+    <div class="active title">
+      <i class="dropdown icon"></i>
+      <a class="ui teal circular large label">成绩统计</a>
+
+    </div>
+    <div class="active content">
+
+      <table class ="ui celled collapsing table segment">
+        <thead>
+        <tr>
+
+          <th>学员</th>
+          <th>参加的培训班</th>
+          <th >类别</th>
+          <th >1月</th>
+          <th >5月</th>
+          <th >6月</th>
+          <th >10月</th>
+          <th >11月</th>
+          <th >12月</th>
+
+        </tr>
+        </thead>
+
+
+        <tbody>
+        <% @scores_grp_by_student.each do |key_id,value_realscores| %>
+
+            <% student = Student.find(key_id)%>
+
+            <tr>
+              <td rowspan="5"><%= student.name %></td>
+              <td rowspan="5">班级名称</td>
+
+              <td >总分</td>
+              <td><%=seek_sat_scores(value_realscores,1,'总分')%></td>
+              <td><%=seek_sat_scores(value_realscores,5,'总分')%></td>
+              <td><%=seek_sat_scores(value_realscores,6,'总分')%></td>
+              <td><%=seek_sat_scores(value_realscores,10,'总分')%></td>
+              <td><%=seek_sat_scores(value_realscores,11,'总分')%></td>
+              <td><%=seek_sat_scores(value_realscores,12,'总分')%></td>
+
+            </tr>
+
+            <tr>
+
+              <td >Reading</td>
+              <td><%=seek_sat_scores(value_realscores,1,'Reading')%></td>
+              <td><%=seek_sat_scores(value_realscores,5,'Reading')%></td>
+              <td><%=seek_sat_scores(value_realscores,6,'Reading')%></td>
+              <td><%=seek_sat_scores(value_realscores,10,'Reading')%></td>
+              <td><%=seek_sat_scores(value_realscores,11,'Reading')%></td>
+              <td><%=seek_sat_scores(value_realscores,12,'Reading')%></td>
+            </tr>
+            <tr>
+
+              <td >Math</td>
+              <td><%=seek_sat_scores(value_realscores,1,'Math')%></td>
+              <td><%=seek_sat_scores(value_realscores,5,'Math')%></td>
+              <td><%=seek_sat_scores(value_realscores,6,'Math')%></td>
+              <td><%=seek_sat_scores(value_realscores,10,'Math')%></td>
+              <td><%=seek_sat_scores(value_realscores,11,'Math')%></td>
+              <td><%=seek_sat_scores(value_realscores,12,'Math')%></td>
+            </tr>
+            <tr>
+
+              <td >Grammar</td>
+              <td><%=seek_sat_scores(value_realscores,1,'Grammar')%></td>
+              <td><%=seek_sat_scores(value_realscores,5,'Grammar')%></td>
+              <td><%=seek_sat_scores(value_realscores,6,'Grammar')%></td>
+              <td><%=seek_sat_scores(value_realscores,10,'Grammar')%></td>
+              <td><%=seek_sat_scores(value_realscores,11,'Grammar')%></td>
+              <td><%=seek_sat_scores(value_realscores,12,'Grammar')%></td>
+            </tr>
+            <tr>
+
+              <td >Writing</td>
+              <td><%=seek_sat_scores(value_realscores,1,'Writing')%></td>
+              <td><%=seek_sat_scores(value_realscores,5,'Writing')%></td>
+              <td><%=seek_sat_scores(value_realscores,6,'Writing')%></td>
+              <td><%=seek_sat_scores(value_realscores,10,'Writing')%></td>
+              <td><%=seek_sat_scores(value_realscores,11,'Writing')%></td>
+              <td><%=seek_sat_scores(value_realscores,12,'Writing')%></td>
+            </tr>
+
+          <tr></tr>
+
+
+        <% end %>
+        </tbody>
+
+
+      </table>
+
+
+    </div>
+
+
+
+
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a class="ui teal circular large label">涨分情况</a>
+
+    </div>
+    <div class="content">
+      <table class ="ui celled collapsing table segment">
+        <thead>
+        <tr>
+
+          <th>语法涨分情况</th>
+          <th>数学涨分情况</th>
+          <th >阅读涨分情况</th>
+          <th >总分涨分情况</th>
+
+        </tr>
+        </thead>
+
+
+        <tbody>
+        <tr>
+          <td>
+            <table class ="ui celled collapsing table segment">
+              <thead>
+
+              <tr>
+                <th colspan="3" >进步150以上2个</th>
+              </tr>
+
+              <tr>
+
+                <th>学员</th>
+                <th>最高分</th>
+                <th >分数变化</th>
+
+              </tr>
+
+              </thead>
+
+
+              <tbody>
+
+
+              </tbody>
+            </table>
+
+            <table class ="ui celled collapsing table segment">
+              <thead>
+
+              <tr>
+                <th colspan="3" >进步200以上3个</th>
+              </tr>
+
+              <tr>
+
+                <th>学员</th>
+                <th>最高分</th>
+                <th >分数变化</th>
+
+              </tr>
+
+              </thead>
+
+
+              <tbody>
+
+
+              </tbody>
+            </table>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        </tbody>
+        </table>
+
+    </div>
+
+
+
+
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a class="ui teal circular large label">分数情况</a>
+
+    </div>
+    <div class="content">
+
+
+    </div>
+
+</div>
