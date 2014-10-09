@@ -89,10 +89,19 @@ module ApplicationHelper
     return nav_menus
   end
 
-  def link_to_add_nest_form_fields(name, f, association)
+  def link_to_add_nest_form_fields(name, f, association,init_values={}  )
     #此方法用于在表单页面中帮助生成嵌套表单的模板（动态生成嵌套表单的域空间）
     new_object = f.object.send(association).klass.new     #相当于XxxxxxField.new
     id = new_object.object_id
+
+    #设置动态创建出来的obj的初始属性值
+    unless init_values.nil?
+        init_values.each{|key,value|
+          method_name =key.to_s+"="
+          new_object.send(method_name,value) if new_object.respond_to?(method_name)
+        }
+
+    end
     #取得嵌套表单模板的render 文本
     html_content_with_nest_form_fields = f.fields_for(association, new_object, child_index: id) do |builder|
       render(association.to_s.singularize + "_form_fields", f: builder)

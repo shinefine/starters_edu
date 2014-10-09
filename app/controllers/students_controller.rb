@@ -2,7 +2,10 @@ class StudentsController < ApplicationController
   #学员 控制器
   before_action :set_student, only: [:show, :edit, :update, :destroy,:freezing,:unfreezing,
                                      :show_target,:save_target,
-                                     :set_finished_test_papers]
+                                     :set_finished_test_papers,:set_real_scores,:set_entry_and_target_scores]
+
+  before_action :set_years_and_months,only: [:new, :edit,:set_real_scores,:set_entry_and_target_scores]
+
 
   # GET /students
   # GET /students.json
@@ -26,8 +29,7 @@ class StudentsController < ApplicationController
     @student = Student.new
     @student.user =User.new
 
-    @years=[['2014','2014年'],['2015','2015年'],['2016','2016年']]
-    @months=[['01','01月'],['05','05月'],['06','06月'],['10','10月'],['11','11月'],['12','12月']]
+
 
     @student.real_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
     @student.real_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
@@ -41,9 +43,6 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
 
-    @years=[['2014','2014年'],['2015','2015年'],['2016','2016年']]
-    @months=[['01','01月'],['05','05月'],['06','06月'],['10','10月'],['11','11月'],['12','12月']]
-
     if(@student.real_scores.count ==0)
       @student.real_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
       @student.real_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
@@ -54,10 +53,22 @@ class StudentsController < ApplicationController
     end
   end
 
+  def set_real_scores
+    @real_score_exam_type =params[:exam_type]
+    @score_type =params[:score_type]
+
+  end
+
+  def set_entry_and_target_scores
+    @real_score_exam_type =params[:exam_type]
+    @score_type =params[:score_type]
+
+  end
 
   def set_finished_test_papers
 
   end
+
   def simulate_score_list
 
   end
@@ -115,6 +126,17 @@ class StudentsController < ApplicationController
   end
   private
 
+
+  def set_years_and_months
+    @years=[['2014','2014年'],['2015','2015年'],['2016','2016年']]
+    @sat_months=[['01','01月'],['05','05月'],['06','06月'],['10','10月'],['11','11月'],['12','12月']]
+    @toefl_months=[['01','01月'],['02','02月'],['03','03月'],['04','04月'],['05','05月'],['06','06月'],
+                  ['07','07月'],['08','08月'],['09','09月'],['10','10月'],['11','11月'],['12','12月']]
+
+
+
+
+  end
 
   def set_permission_students
     #根据登录用户的身份权限,筛选其能够操作的学员列表

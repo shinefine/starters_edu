@@ -23,11 +23,16 @@ Rails.application.routes.draw do
   resources :students do
 
     resources :real_scores
+    #二留一
+    get :set_real_scores ,on: :member
+    get :set_entry_and_target_scores ,on: :member
+
 
     patch :unfreezing, on: :member
     patch :freezing, on: :member
 
     get :set_finished_test_papers ,on: :member
+
 
     resources :examinations  do #学员包含多个模拟考试
       resources :scores ,only: [:new,:create,:edit,:update]

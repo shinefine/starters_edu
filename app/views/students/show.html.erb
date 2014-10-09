@@ -27,25 +27,94 @@
       
 
     </div>
+
+    <% if current_user.can_set_student_info?(@student) %>
+        <%= link_to '设置已考试卷', set_finished_test_papers_student_path(@student), {class: 'ui green button'}%>
+
+        <%= link_to '修改信息', edit_student_path(@student), {class: 'ui blue button'}%>
+        <%= link_to '设置密码', set_password_user_path(@student.user), {class: 'ui blue button'}%>
+        <br><br>
+    <% end %>
+
   </div>
 
-  <!--学员入口成绩和目标成绩-->
+  <!--过期 学员入口成绩和目标成绩-->
+  <!--<div class="item">-->
+    <!--<div class="active title">-->
+      <!--<i class="dropdown icon"></i>-->
+      <!--<a class="ui teal circular large label">---过期 入口和目标成绩---</a>-->
+    <!--</div>-->
+    <!--<div class="active content">-->
+      <!---->
+    <!--</div>-->
+  <!--</div>-->
+
+
+  <!-- 学员入口成绩和目标成绩-->
   <div class="item">
     <div class="active title">
       <i class="dropdown icon"></i>
-      <a class="ui teal circular large label">入口和目标成绩</a>
+      <a class="ui teal circular large label"> 入口和目标成绩</a>
     </div>
     <div class="active content">
-      <%=render 'scores/real_scores'%>
+      <%=render 'real_scores/show',:locals => {
+              exam_type_filter:'TOEFL',
+              real_scores:@student.real_scores.toefl.entry_and_target_and_month_target }%>
+
+      <% if current_user.can_set_student_info?(@student) %>
+          <%= link_to '输入 TOEFL 入口成绩和目标成绩', set_entry_and_target_scores_student_path(@student,exam_type:'TOEFL',score_type:'entry_and_target'), {class: 'ui red button'}%>
+          <br><br>
+      <%end%>
+
+
+
+      <%=render 'real_scores/show',:locals => {
+              exam_type_filter:'SAT',
+              real_scores:@student.real_scores.sat.entry_and_target_and_month_target}%>
+
+      <% if current_user.can_set_student_info?(@student) %>
+          <%= link_to '输入 SAT 入口成绩和目标成绩', set_entry_and_target_scores_student_path(@student,exam_type:'SAT',score_type:'entry_and_target'), {class: 'ui red button'}%>
+          <br><br>
+      <%end%>
+
+
+
+
+    </div>
+
+
+  </div>
+
+  <!--学员真实考试成绩-->
+  <div class="item">
+    <div class="active title">
+      <i class="dropdown icon"></i>
+      <a class="ui teal circular large label">真实考试成绩</a>
+    </div>
+    <div class="active content">
+      <%=render 'real_scores/show',:locals => {
+              exam_type_filter:'TOEFL',
+              real_scores:@student.real_scores.toefl.true_real }%>
+
+      <% if current_user.can_set_student_info?(@student) %>
+         <%= link_to '输入 TOEFL 真实考试成绩', set_real_scores_student_path(@student,exam_type:'TOEFL',score_type:'true_real'), {class: 'ui red button'}%>
+          <br><br>
+      <%end%>
+
+
+
+      <%=render 'real_scores/show',:locals => {
+              exam_type_filter:'SAT',
+              real_scores:@student.real_scores.sat.true_real}%>
+      <% if current_user.can_set_student_info?(@student) %>
+         <%= link_to '输入 SAT 真实考试成绩', set_real_scores_student_path(@student,exam_type:'SAT',score_type:'true_real'), {class: 'ui red button'}%>
+
+      <%end%>
     </div>
   </div>
+
 </div>
 
-<% if current_user.can_set_student_info?(@student) %>
-    <%= link_to '设置已考试卷', set_finished_test_papers_student_path(@student), {class: 'ui green button'}%>
-    <%= link_to '修改信息', edit_student_path(@student), {class: 'ui blue button'}%>
-    <%= link_to '设置密码', set_password_user_path(@student.user), {class: 'ui blue button'}%>
-<% end %>
 
 <% if current_user.teacher? || current_user.employee? %>
     <%= link_to '返回到学员列表', students_path,{class: 'ui blue button'} %>

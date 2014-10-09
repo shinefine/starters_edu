@@ -40,6 +40,10 @@ class Student < ActiveRecord::Base
     real_scores.where(score_type:'月份目标成绩')
   end
 
+  def entry_and_target_scores
+    real_scores.where(score_type:[''])
+  end
+
   def summary_attendance_text(training_class)
     return training_class.student_attendance_summary(self)
   end
