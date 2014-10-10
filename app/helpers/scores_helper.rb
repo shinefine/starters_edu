@@ -20,7 +20,7 @@ module ScoresHelper
       math_scores = []
       writing_scores = []
       #插入入口成绩
-      real_score = student.real_scores.where(exam_type:'SAT',score_type:'入口成绩').first
+      real_score = student.real_scores.sat.entry.first
       unless real_score.nil?
         cr_scores<<{x:'入口成绩',y:real_score.course_a_score}
         math_scores<<{x:'入口成绩',y:real_score.course_b_score}
@@ -28,8 +28,8 @@ module ScoresHelper
 
       end
 
-      real_score = student.real_scores.where(exam_type:'SAT',score_type:'最终期望成绩').first
-      unless entry_score.nil?
+      real_score = student.real_scores.sat.target.first
+      unless real_score.nil?
         cr_scores<<{x:'最终期望成绩',y:real_score.course_a_score}
         math_scores<<{x:'最终期望成绩',y:real_score.course_b_score}
         writing_scores<<{x:'最终期望成绩',y:real_score.course_c_score}

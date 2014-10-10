@@ -67,9 +67,14 @@ module ApplicationHelper
             "培训班" =>{
                 '班级管理'=>training_classes_path,
 
-            }
+            },
+           "大数据" =>{
+              '学员成绩分析'=>home_page_big_data_report_scores_url,
 
-        }
+          }
+
+
+          }
         else
           nav_menus={
 

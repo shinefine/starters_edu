@@ -28,29 +28,12 @@ class StudentsController < ApplicationController
   def new
     @student = Student.new
     @student.user =User.new
-
-
-
-    @student.real_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
-    @student.real_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
-
-    @student.real_scores.build(exam_type: 'SAT',score_type:'入口成绩')
-    @student.real_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
-
-
   end
 
   # GET /students/1/edit
   def edit
 
-    if(@student.real_scores.count ==0)
-      @student.real_scores.build({exam_type: 'TOEFL',score_type:'入口成绩'})
-      @student.real_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
 
-      @student.real_scores.build(exam_type: 'SAT',score_type:'入口成绩')
-      @student.real_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
-
-    end
   end
 
   def set_real_scores
@@ -62,6 +45,22 @@ class StudentsController < ApplicationController
   def set_entry_and_target_scores
     @real_score_exam_type =params[:exam_type]
     @score_type =params[:score_type]
+
+    if @student.real_scores.sat.entry.count==0
+      @student.real_scores.build(exam_type: 'SAT',score_type:'入口成绩')
+    end
+
+    if @student.real_scores.sat.target.count==0
+      @student.real_scores.build(exam_type: 'SAT',score_type:'最终期望成绩')
+    end
+
+    if @student.real_scores.toefl.target.count==0
+      @student.real_scores.build(exam_type: 'TOEFL',score_type:'入口成绩')
+    end
+
+    if @student.real_scores.toefl.target.count==0
+      @student.real_scores.build(exam_type: 'TOEFL',score_type:'最终期望成绩')
+    end
 
   end
 
@@ -99,7 +98,7 @@ class StudentsController < ApplicationController
 
 
       if @student.update(student_params)
-        redirect_to students_url, notice: '学员信息已保存'
+        redirect_to student_url(@student), notice: '学员信息已保存'
 
       else
         render :edit

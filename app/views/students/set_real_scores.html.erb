@@ -30,4 +30,10 @@
     <div class="form-actions">
       <%= f.button :submit ,"保存"%>
     </div>
+
+    <% if current_user.can_manage_basic_data? %>
+        <%= link_to '返回到学员列表', students_path, {class:"ui blue submit button"} %>
+
+        <%= link_to '返回到学员详细信息', student_path(@student), {class:"ui blue submit button"} %>
+    <%end%>
 <%end%>
