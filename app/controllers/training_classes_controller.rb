@@ -129,7 +129,7 @@ class TrainingClassesController < ApplicationController
     elsif current_user.employee?
 
       @students = Student.where(creator: current_user.employee)
-      students_2= current_user.employee.training_classes.reduce{|tc1,tc2| tc1.students | tc2.students }
+      students_2= current_user.employee.training_classes.inject([]){|result,element| result | element.students }
       @students = @students | students_2
     else
       @students=[]
