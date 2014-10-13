@@ -219,4 +219,12 @@ class Student < ActiveRecord::Base
   def summary_dictation_text(training_class)
     return training_class.student_dictation_summary(self)
   end
+
+  def dictation_score_pass?(score,pass_line)
+    #计算某次听写成绩是否及格
+    if score && pass_line
+        return score < pass_line
+    end
+    return false
+  end
 end

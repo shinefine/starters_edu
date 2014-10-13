@@ -18,21 +18,26 @@ module ScoresHelper
     if @training_class.exam_type =='SAT'
       cr_scores = []
       math_scores = []
-      writing_scores = []
+      grammar_scores = []
       #插入入口成绩
       real_score = student.real_scores.sat.entry.first
       unless real_score.nil?
-        cr_scores<<{x:'入口成绩',y:real_score.course_a_score}
-        math_scores<<{x:'入口成绩',y:real_score.course_b_score}
-        writing_scores<<{x:'入口成绩',y:real_score.course_c_score}
+        total_score = real_score.course_a_score + real_score.course_b_score+ real_score.course_c_score
+        cr_scores<<{x:"入口成绩(#{total_score})",y:real_score.course_a_score}
+        math_scores<<{x:"入口成绩(#{total_score})",y:real_score.course_b_score}
+        grammar_scores<<{x:"入口成绩(#{total_score})",y:real_score.course_c_score}
 
       end
 
       real_score = student.real_scores.sat.target.first
       unless real_score.nil?
-        cr_scores<<{x:'最终期望成绩',y:real_score.course_a_score}
-        math_scores<<{x:'最终期望成绩',y:real_score.course_b_score}
-        writing_scores<<{x:'最终期望成绩',y:real_score.course_c_score}
+
+        total_score = real_score.course_a_score + real_score.course_b_score+ real_score.course_c_score
+
+
+        cr_scores<<{x:"最终期望成绩(#{total_score})",y:real_score.course_a_score}
+        math_scores<<{x:"最终期望成绩(#{total_score})",y:real_score.course_b_score}
+        grammar_scores<<{x:"最终期望成绩(#{total_score})",y:real_score.course_c_score}
 
       end
       #插入目标成绩 理想目标和某月目标的值
@@ -43,23 +48,27 @@ module ScoresHelper
 
       #插入模考成绩
       scores.each_with_index do |score,i |
-        cr_scores<<  {x:"模考#{i + 1 }",y: score.course_a_score}
-        math_scores<<  {x:"模考#{i + 1}",y: score.course_b_score}
-        writing_scores<<  {x:"模考#{i + 1}",y: score.course_c_score}
+        total_score = score.course_a_score + score.course_b_score+ score.course_c_score
+
+
+        cr_scores<<  {x:"模考#{i + 1 }(#{total_score})",y: score.course_a_score}
+        math_scores<<  {x:"模考#{i + 1}(#{total_score})",y: score.course_b_score}
+        grammar_scores<<  {x:"模考#{i + 1}(#{total_score})",y: score.course_c_score}
       end
 
 
 
+      #插入更多未考的模考成绩
       num = 15-(scores_count+fix_num)
       if num>0
         num.times{|i|
         cr_scores<<{x:"模考#{scores_count + 1 + i }",y:0}
         math_scores<<{x:"模考#{scores_count + 1 + i }",y:0}
-        writing_scores<<{x:"模考#{scores_count + 1 + i }",y:0}
+        grammar_scores<<{x:"模考#{scores_count + 1 + i }",y:0}
         }
       end
 
-      objs=[{key:'语法',values:cr_scores},{key:'数学',values:math_scores},{key:'作文',values:writing_scores}]
+      objs=[{key:'阅读',values:cr_scores},{key:'数学',values:math_scores},{key:'语法',values:grammar_scores}]
 
 
 
@@ -70,7 +79,7 @@ module ScoresHelper
       read_scores = []
       writing_scores=[]
 
-      real_score = student.real_scores.where(exam_type:'TOEFL',score_type:'入口成绩').first
+      real_score = student.real_scores.toefl.entry.first
       unless real_score.nil?
         listen_scores<<{x:'入口成绩',y:real_score.course_a_score}
         talk_scores<<{x:'入口成绩',y:real_score.course_b_score}
@@ -78,11 +87,12 @@ module ScoresHelper
         writing_scores<<{x:'入口成绩',y:real_score.course_d_score}
       end
       #插入入口成绩
-      real_score = student.real_scores.where(exam_type:'TOEFL',score_type:'最终期望成绩').first
-      unless entry_score.nil?
-        cr_scores<<{x:'最终期望成绩',y:real_score.course_a_score}
-        math_scores<<{x:'最终期望成绩',y:real_score.course_b_score}
-        writing_scores<<{x:'最终期望成绩',y:real_score.course_c_score}
+      real_score = student.real_scores.toefl.target.first
+      unless real_score.nil?
+        listen_scores<<{x:'最终期望成绩',y:real_score.course_a_score}
+        talk_scores<<{x:'最终期望成绩',y:real_score.course_b_score}
+        read_scores<<{x:'最终期望成绩',y:real_score.course_c_score}
+        writing_scores<<{x:'最终期望成绩',y:real_score.course_d_score}
 
       end
 
@@ -90,7 +100,7 @@ module ScoresHelper
       #...
       #...
 
-      fix_num = cr_scores.count #fix_num值为入口成绩和目标成绩的数量
+      fix_num = listen_scores.count #fix_num值为入口成绩和目标成绩的数量
 
       #插入模考成绩
       scores.each_with_index do |score,i |

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'home_page/upload'
   get 'home_page/training_class_schedule'
+  get 'home_page/delete_schedule'
   post 'home_page/upload'
 
 
@@ -22,10 +23,14 @@ Rails.application.routes.draw do
 
   resources :students do
 
-    resources :real_scores
+    resources :real_scores do
+      get :index_with_all_examinations ,on: :collection #列出某个学员的 所有真实考试成绩 (统计报表)
+    end
     #二留一
     get :set_real_scores ,on: :member
     get :set_entry_and_target_scores ,on: :member
+
+
 
 
     patch :unfreezing, on: :member
@@ -76,7 +81,7 @@ Rails.application.routes.draw do
     resources :students do #培训班包含多个学员
 
       resources :scores do
-        get :index_with_all_examinations ,on: :collection #列出某个培训班下 某个学员的 所有模考成绩
+        get :index_with_all_examinations ,on: :collection #列出某个培训班下 某个学员的 所有模考成绩 (统计报表)
       end
 
       resources :comments ,only: [:index,:create]  #讲师可以给学员创建评语

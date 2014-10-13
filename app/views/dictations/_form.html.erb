@@ -11,6 +11,7 @@
         </div>
 </div>
     <%= f.fields_for(:dictation_scores) do |dict_scores_form|%>
+        <%student =dict_scores_form.object.student%>
         <div class="ui inline fields">
 
           <div class="field ">
@@ -18,8 +19,16 @@
           </div>
 
           <div class="field ">
-            <%= dict_scores_form.input :score,label: "#{dict_scores_form.object.student.name } 听写得分:"          %>
+            <% label_text = dict_scores_form.object.score ==0 ? " 听写得分(未听写)": "听写得分"%>
+            <%= dict_scores_form.input :score,{label: "#{student.name } #{label_text}:",inner_html:{class:"ui red label"}}          %>
           </div>
+          <%unless student.dictation_score_pass?(dict_scores_form.object.score,f.object.passing_line)%>
+                <div class="field">
+                  <div class="field">
+                  <label class="ui red label ">不合格</label>
+                  </div>
+              </div>
+          <%end%>
         </div>
     <% end %>
 

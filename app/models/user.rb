@@ -125,8 +125,8 @@ class User < ActiveRecord::Base
   end
 
   #能否给培训班设置模考
-  def can_set_training_class_examination?
-    admin?
+  def can_set_training_class_examination?(training_class)
+    admin?  || training_class.master_teacher.user == self
   end
   #能否给设置(新增,修改,删除)培训班信息
   def can_set_training_class_info?

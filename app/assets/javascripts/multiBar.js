@@ -25,7 +25,6 @@ nv.addGraph(function() {
     return chart;
 });
 
-
 d3.selectAll(".menu_item")
     .on("click", function() {
         nv.addGraph(function() {
@@ -73,7 +72,7 @@ function exampleData() {
               course_name="阅读";
               break;
           case 1:
-              course_name="写作";
+              course_name="语法";
               break;
           case 2:
               course_name="数学";
@@ -87,7 +86,7 @@ function exampleData() {
     //exampleData 函数返回值为
     // [
     //      {key: "阅读",values: [{x:1,y:600},{x:2,y:602},{x:3,y:603},....{x,16,y:616}] } ,
-    //      {key: "写作",values: [{x:1,y:500},{x:2,y:502},{x:3,y:303},....{x,16,y:346}] } ,
+    //      {key: "zzz",values: [{x:1,y:500},{x:2,y:502},{x:3,y:303},....{x,16,y:346}] } ,
     //      {key: "数学",values: [{x:1,y:600},{x:2,y:602},{x:3,y:603},....{x,16,y:616}] }
 
     // ]

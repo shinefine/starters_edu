@@ -94,6 +94,8 @@ table {
   background-color: rgba(255, 255, 255, 0.6) !important;
 
 }
+
+
 th {
   text-align:center  !important;
 }
@@ -101,6 +103,11 @@ th {
   background-color: rgba(255, 255, 255, 0.6) !important;
 
 }
+
+table .ui.table.red_table{
+  background-color: #FDD !important;
+}
+
 .ui.form {
   background-color: rgba(255, 255, 255, 0.6) !important;
 

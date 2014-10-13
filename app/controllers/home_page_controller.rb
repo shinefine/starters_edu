@@ -36,4 +36,10 @@ class HomePageController < ApplicationController
 
 
   end
+  def delete_schedule
+    File.delete(Rails.root.join('public', 'uploads', params[:filename]))
+
+
+    redirect_to  home_page_training_class_schedule_url
+  end
 end

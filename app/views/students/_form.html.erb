@@ -44,7 +44,9 @@
         <%= f.input :school ,label:"学校"%>
       </div>
       <div class="field">
-        <%= f.input :birth_day ,label:"生日"%>
+        <%= f.label "生日" %>
+        <%= f.date_field :birth_day ,{class:'ui tiny input'}%>
+
       </div>
     </div>
 

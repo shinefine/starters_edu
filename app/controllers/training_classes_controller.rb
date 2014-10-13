@@ -107,7 +107,7 @@ class TrainingClassesController < ApplicationController
   def set_subject_types
 
     if(@training_class.exam_type == 'SAT')
-      @subject_types =[['SAT_CR', 'CR'] ,['SAT_Math', 'Math'],['SAT_Writing', 'Writting']]
+      @subject_types =[['SAT_CR', 'CR'] ,['SAT_Math', 'Math'],['SAT_Grammar', 'Grammar'],['SAT_Writing', 'Writting']]
     elsif (@training_class.exam_type == 'TOEFL')
       @subject_types =[['TOEFL_Listen', '听力'] ,['TOEFL_Talk', '口语'],['TOEFL_Read', '阅读'],['TOEFL_Write', '写作']]
     else

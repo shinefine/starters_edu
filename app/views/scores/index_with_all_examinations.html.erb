@@ -59,7 +59,8 @@
 
 <div id='chart1'>
   <svg style='height:500px'> </svg>
-</div><script src="/assets/multiBar.js"></script>
+  <!--生成统计报表-->
+</div>
 
 
 
@@ -224,6 +225,8 @@
 
         <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
 
+        <%if nil %>
+        <!--成绩的另一种表格展示方式,暂时屏蔽-->
         <table class ="ui celled collapsing table segment">
           <thead>
           <tr>
@@ -301,6 +304,7 @@
           </tbody>
         </table>
 
+        <%end%>
       </div>
   </div>
   <!--SAT错题难度统计-->
@@ -353,8 +357,11 @@
 </div>
 
 
+
+
+
 <%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>
 
-
+<script src="/assets/multiBar.js"></script>
 
 
