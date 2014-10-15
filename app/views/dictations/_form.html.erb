@@ -19,7 +19,7 @@
           </div>
 
           <div class="field ">
-            <% label_text = dict_scores_form.object.score ==0 ? " 听写得分(未听写)": "听写得分"%>
+            <% label_text = dict_scores_form.object.score ==0 ? " 听写错误数(未听写)": "听写错误数"%>
             <%= dict_scores_form.input :score,{label: "#{student.name } #{label_text}:",inner_html:{class:"ui red label"}}          %>
           </div>
           <%unless student.dictation_score_pass?(dict_scores_form.object.score,f.object.passing_line)%>

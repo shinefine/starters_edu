@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   get 'home_page/delete_schedule'
   post 'home_page/upload'
 
+  root 'home_page#index'
 
+
+  get 'home_page/index'
+  get 'home_page/reports'
+  get 'home_page/big_data_report_scores'
+  post 'home_page/big_data_report_scores'
 
   resources :subjects
 
@@ -94,12 +100,7 @@ Rails.application.routes.draw do
     patch :freezing, on: :member
   end
 
-  root 'home_page#index'
 
-
-  get 'home_page/index'
-  get 'home_page/reports'
-  get 'home_page/big_data_report_scores'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

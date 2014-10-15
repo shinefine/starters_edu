@@ -17,6 +17,7 @@ class StudentsController < ApplicationController
 
     set_permission_students
 
+    @students.sort_by{|s| s.user.name}
   end
 
   # GET /students/1
@@ -127,7 +128,7 @@ class StudentsController < ApplicationController
 
 
   def set_years_and_months
-    @years=[['2014','2014年'],['2015','2015年'],['2016','2016年']]
+    @years=[['2013','2013年'],['2014','2014年'],['2015','2015年'],['2016','2016年']]
     @sat_months=[['01','01月'],['05','05月'],['06','06月'],['10','10月'],['11','11月'],['12','12月']]
     @toefl_months=[['01','01月'],['02','02月'],['03','03月'],['04','04月'],['05','05月'],['06','06月'],
                   ['07','07月'],['08','08月'],['09','09月'],['10','10月'],['11','11月'],['12','12月']]
@@ -146,7 +147,7 @@ class StudentsController < ApplicationController
     elsif current_user.employee?
 
       @students = Student.where(creator: current_user.employee)
-      students_2= current_user.employee.training_classes.reduce{|tc1,tc2| tc1.students | tc2.students }
+      students_2= current_user.employee.training_classes.inject([]){|result,element| result | element.students }
       @students = @students || students_2
     else
       @students=[]

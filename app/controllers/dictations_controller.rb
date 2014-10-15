@@ -29,7 +29,7 @@ class DictationsController < ApplicationController
   def new
     @dictation = Dictation.new
     @training_class.students.each do |stu|
-        @dictation.dictation_scores.build(student: stu,score:10)
+        @dictation.dictation_scores.build(student: stu,score:0)
     end
   end
 

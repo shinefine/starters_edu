@@ -5,7 +5,10 @@ class HomePageController < ApplicationController
   end
 
   def big_data_report_scores
-    @scores_grp_by_student = RealScore.sat.true_real.where(year:2014).group_by{|record| record.student_id}
+    #大数据统计分析功能
+    @year =params[:year]
+    var_year =@year.to_i
+    @scores_grp_by_student = RealScore.sat.true_real.where(year:var_year).group_by{|record| record.student_id}
 
     @students=[]
     @scores_grp_by_student.each{|key_id,value_realscores|

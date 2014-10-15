@@ -28,6 +28,7 @@ class TrainingClass < ActiveRecord::Base
   validates :start_date,presence: true
 
 
+  default_scope {order('start_date DESC')}
 
   def student_attendance(student)
     #返回指定学生的所有出勤记录(针对本培训班的)
