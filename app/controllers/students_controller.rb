@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
     # 普通员工只能看到他自己创建出的学员
     # 普通员工也能看到不是由他创建的,但属于他的培训班的学员(该员工是培训班的班主任)
 
-    set_permission_students
+    set_user_permission_students
 
     @students.sort_by{|s| s.user.name}
   end
@@ -138,21 +138,7 @@ class StudentsController < ApplicationController
 
   end
 
-  def set_permission_students
-    #根据登录用户的身份权限,筛选其能够操作的学员列表
 
-    #Todo 此方法有重复,在training_class controller 内
-    if current_user.admin?
-      @students = Student.all
-    elsif current_user.employee?
-
-      @students = Student.where(creator: current_user.employee)
-      students_2= current_user.employee.training_classes.inject([]){|result,element| result | element.students }
-      @students = @students || students_2
-    else
-      @students=[]
-    end
-  end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_student

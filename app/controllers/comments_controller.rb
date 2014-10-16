@@ -12,7 +12,12 @@ class CommentsController < ApplicationController
   def create
     @comment_new = @student.comments.create(comment_params)
     @comments =@student.comments
-    @comment_new.teacher = @teacher
+    if @teacher
+      @comment_new.teacher = @teacher
+    else
+      @comment_new.teacher =Teacher.find(params[:comment][:teacher_id])
+    end
+
     @comment_new.training_class =@training_class
     @comment_new.comment_date=Time.now
     if(@comment_new.save)
@@ -34,7 +39,7 @@ class CommentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def comment_params
-    params.require(:comment).permit(:text)
+    params.require(:comment).permit(:text,:teacher_id)
   end
 
 end

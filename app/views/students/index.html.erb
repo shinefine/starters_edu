@@ -28,7 +28,16 @@
     <% @students.each do |student| %>
       <tr>
         <td><%= link_to student.user.try(:name), student, {class: 'ui purple button'}%></td>
-        <td><%= simple_format(student.summary_training_class_names_list)%></td>
+        <td>
+
+
+          <%=raw build_accordion_block('参与班级',student.summary_training_class_names_list ) %>
+
+
+
+
+
+        </td>
         <td><%=" #{student.parent_name}:#{student.parent_tel} " %></td>
         <td><%= student.user.try(:identify_card)  %></td>
         <td><%= student.user.try(:phone_number)  %></td>

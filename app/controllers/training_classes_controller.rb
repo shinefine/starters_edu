@@ -41,7 +41,7 @@ class TrainingClassesController < ApplicationController
 
     set_training_class_types
     set_subject_types
-    set_permission_students
+    set_user_permission_students
   end
 
 
@@ -49,7 +49,7 @@ class TrainingClassesController < ApplicationController
   def edit
     set_training_class_types
     set_subject_types
-    set_permission_students
+    set_user_permission_students
   end
 
   # POST /training_classes
@@ -63,7 +63,7 @@ class TrainingClassesController < ApplicationController
     else
       set_subject_types
       set_training_class_types
-      set_permission_students
+      set_user_permission_students
       render :new
     end
   end
@@ -107,9 +107,9 @@ class TrainingClassesController < ApplicationController
   def set_subject_types
 
     if(@training_class.exam_type == 'SAT')
-      @subject_types =[['SAT_CR', 'CR'] ,['SAT_Math', 'Math'],['SAT_Grammar', 'Grammar'],['SAT_Writing', 'Writting']]
+      @subject_types =[['CR'] ,['Math'],['Grammar'],['Essay']]
     elsif (@training_class.exam_type == 'TOEFL')
-      @subject_types =[['TOEFL_Listen', '听力'] ,['TOEFL_Talk', '口语'],['TOEFL_Read', '阅读'],['TOEFL_Write', '写作']]
+      @subject_types =[['Listening'] ,['Speaking'],['Reading'],['Writing']]
     else
       @subject_types =[['错误','错误'],['exam_type_未指定','exam_type_未指定']]
     end
@@ -120,21 +120,7 @@ class TrainingClassesController < ApplicationController
       @training_class = TrainingClass.find(params[:id])
     end
 
-  def set_permission_students
-    #根据登录用户的身份权限,筛选其能够操作的学员列表
 
-    #Todo 此方法有重复,在 student controller 内
-    if current_user.admin?
-      @students = Student.all
-    elsif current_user.employee?
-
-      @students = Student.where(creator: current_user.employee)
-      students_2= current_user.employee.training_classes.inject([]){|result,element| result | element.students }
-      @students = @students | students_2
-    else
-      @students=[]
-    end
-  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def training_class_params

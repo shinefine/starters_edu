@@ -2,42 +2,55 @@
 
 
   <div class="ui two fields">
-    <div class="ui five fields">
+
     <%= f.input_field :score_type, type:'hidden' %>
     <%= f.input_field :exam_type, type:'hidden' %>
 
+    <div class="ui five fields">
+
+      <div class ="field">
+        <%= f.collection_select :year,
+                                @years,
+                                :first,
+                                :last,
+                                {:include_blank => false},
+                                {class:"select optional ui selection dropdown"} %>
+      </div>
+      <div class ="field">
+        <%= f.collection_select :month,
+                                @sat_months,
+                                :first,
+                                :last,
+                                {:include_blank => false},
+                                {class:"select optional ui selection dropdown"} %>
+      </div>
+      <div class ="field">
+        <%= f.hidden_field :_destroy %>     <!-- accepts_nested_attributes_for的删除操作需要提供"_destroy" -->
+        <a href="#" class ="remove_nest_form_field_link"><i class="red close icon"></i></a>
+      </div>
+    </div>
     <%if f.object.exam_type=='SAT' %>
-          <div class="field">
-            <%= f.input :final_score ,label: '总分'%>
-          </div>
-          <div class="field">
-            <%= f.input :course_a_score, label: "CR" %>
-          </div>
-          <div class="field">
-            <%= f.input :course_b_score, label: "MATH" %>
-          </div>
-          <div class="field">
-            <%= f.input :course_c_score, label: "WRITING" %>
+          <div class="ui five fields">
+              <div class="field">
+                <%= f.input :final_score ,label: '总分'%>
+              </div>
+              <div class="field">
+                <%= f.input :course_a_score, label: "CR" %>
+              </div>
+              <div class="field">
+                <%= f.input :course_b_score, label: "MATH" %>
+              </div>
+              <div class="field">
+                <%= f.input :course_c_score, label: "WRITING" %>
+              </div>
+
           </div>
 
-          <div class ="field">
-            <%= f.collection_select :year,
-                                    @years,
-                                    :first,
-                                    :last,
-                                    :include_blank => false %>
-          </div>
-          <div class ="field">
 
-
-            <%= f.collection_select :month,
-                                    @sat_months,
-                                    :first,
-                                    :last,
-                                    :include_blank => false %>
-          </div>
 
     <%elsif f.object.exam_type=='TOEFL' %>
+
+        <div class="ui five fields">
           <div class="field">
             <%= f.input :final_score ,label: '总分'%>
           </div>
@@ -54,28 +67,13 @@
             <%= f.input :course_d_score, label: "写" %>
           </div>
 
-          <div class ="field">
-            <%= f.collection_select :year,
-                                    @years,
-                                    :first,
-                                    :last,
-                                    :include_blank => false %>
           </div>
-          <div class ="field">
 
-
-            <%= f.collection_select :month,
-                                    @toefl_months,
-                                    :first,
-                                    :last,
-                                    :include_blank => false %>
-          </div>
     <%end%>
 
 
-    <%= f.hidden_field :_destroy %>     <!-- accepts_nested_attributes_for的删除操作需要提供"_destroy" -->
-    <a href="#" class ="remove_nest_form_field_link"><i class="red close icon"></i></a>
+
     </div>
-  </div>
+
 
 </fieldset>

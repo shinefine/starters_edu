@@ -12,9 +12,26 @@ class ApplicationController < ActionController::Base
   end
 
   def set_training_class
+    #由于很多controller都有设置培训班的需求,所以这里定义公共方法
     @training_class =  TrainingClass.find(params[:training_class_id])
   end
 
 
+  def set_user_permission_students
+    #根据登录用户的身份权限,筛选其能够操作的学员列表 (StudentController /training_class Controller 的index 会使用次方法)
+
+    #--见需求:不同员工所能操作和看见的学员信息有限制
+
+    if current_user.admin?
+      @students = Student.all
+    elsif current_user.employee?
+
+      @students = Student.where(creator: current_user.employee)
+      students_2= current_user.employee.training_classes.inject([]){|result,element| result | element.students }
+      @students = @students || students_2
+    else
+      @students=[]
+    end
+  end
 
 end

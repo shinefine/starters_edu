@@ -18,8 +18,8 @@
           <label class="select optional" for="training_class_type_id">培训班种类</label>
           <%= f.collection_select :training_class_type,
                                   @training_class_types,
-                                  :first,
-                                  :last,
+                                  :to_s,
+                                  :to_s,
                                   {prompt: true},
                                   {class:"select optional ui selection dropdown"} %>
         </div>
@@ -47,7 +47,9 @@
                                   Employee.all,
                                   :id,
                                   :name,
-                                  :include_blank => true %>
+                                  {:include_blank => true},
+                                  {class:"select optional ui selection dropdown"}
+          %>
         </div>
     <%end%>
     <div class="ui red ribbon label">分配科目讲师</div>
