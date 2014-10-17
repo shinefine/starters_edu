@@ -1,3 +1,5 @@
+require 'ruby-pinyin'
+
 class User < ActiveRecord::Base
   #账户可能是一个学员/讲师/员工
   has_one :student
@@ -5,7 +7,9 @@ class User < ActiveRecord::Base
   has_one :employee
 
 
-
+  def pinyin_name
+    PinYin.permlink(name)
+  end
 
   # 登录认证方法
   def self.authenticate(account_name,password)

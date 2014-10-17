@@ -79,7 +79,7 @@ $(function(){
     calculate_raw_score = function(){
         //计算SAT的所有科目的raw score
         //计算cr raw score
-        raw_score=get_score('sat_cr_word_right')+get_score('sat_cr_read_right') - Math.round((get_score('sat_cr_word_wrong')+get_score('sat_cr_read_wrong'))*0.25) ;
+        raw_score=Math.round(get_score('sat_cr_word_right')+get_score('sat_cr_read_right') - (get_score('sat_cr_word_wrong')+get_score('sat_cr_read_wrong'))*0.25) ;
         if (raw_score < 0)
         {
             raw_score =0;
@@ -87,7 +87,7 @@ $(function(){
         $('#score_stat_07').val(raw_score);
 
         //计算math raw score
-        raw_score=get_score('sat_math_right') - Math.round(get_score('sat_math_wrong')*0.25) ;
+        raw_score=Math.round(get_score('sat_math_right') - get_score('sat_math_wrong')*0.25) ;
         if (raw_score < 0)
         {
             raw_score =0;
@@ -95,7 +95,7 @@ $(function(){
         $('#score_stat_11').val(raw_score);
 
         //计算 writting raw score
-        raw_score=get_score('sat_writting_right')- Math.round(get_score('sat_writting_wrong')*0.25) ;
+        raw_score=Math.round(get_score('sat_writting_right')- get_score('sat_writting_wrong')*0.25) ;
         if (raw_score < 0)
         {
             raw_score =0;

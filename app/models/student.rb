@@ -1,3 +1,8 @@
+
+
+
+
+
 class Student < ActiveRecord::Base
   has_many :real_scores
   #学员可以属于多个培训班(同时培训班包含多个学员)
@@ -42,6 +47,7 @@ class Student < ActiveRecord::Base
                 :max_real_score_sat_math,
                 :max_real_score_sat_grammar,
                 :max_real_score_sat_writing
+
 
 
 
