@@ -17,7 +17,9 @@ class StudentsController < ApplicationController
 
     set_user_permission_students
 
-    @students.sort_by{|s| s.user.name}
+    @students=@students.sort_by{|s| s.user.name}
+
+
   end
 
   # GET /students/1

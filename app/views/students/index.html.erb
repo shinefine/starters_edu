@@ -4,6 +4,7 @@
 <div class="ui horizontal green label"><h2>学员列表</h2></div>
 <div class="ui blue label">
   共有学员 <%= @students.length %> 人
+
 </div>
 <table class ="ui celled table segment">
   <thead>
@@ -30,8 +31,9 @@
         <td><%= link_to student.user.try(:name), student, {class: 'ui purple button'}%></td>
         <td>
 
+          <%summary_info =student.summary_training_class_names_list %>
 
-          <%=raw build_accordion_block('参与班级',student.summary_training_class_names_list ) %>
+          <%=raw build_accordion_block("已参加班级 "+summary_info[0].to_s,summary_info[1]) %>
 
 
 

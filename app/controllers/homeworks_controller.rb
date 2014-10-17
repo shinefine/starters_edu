@@ -39,13 +39,16 @@ class HomeworksController < ApplicationController
     if(current_user.teacher?)
       @homework.teacher = current_user.teacher
     else #班主任创建作业时,自动设置其对应的讲师
-      @homework.teacher =@training_class.sat_cr_teachers.first if   @homework.subject_type =='[sat]语法'
-      @homework.teacher =@training_class.sat_math_teachers.first if  @homework.subject_type =='[sat]数学'
-      @homework.teacher =@training_class.sat_write_teachers.first if  @homework.subject_type =='[sat]写作'
-      @homework.teacher =@training_class.toefl_listen_teachers.first if  @homework.subject_type=='toefl_listen'
-      @homework.teacher =@training_class.toefl_talk_teachers.first if  @homework.subject_type =='toefl_talk'
-      @homework.teacher =@training_class.toefl_read_teachers.first if  @homework.subject_type =='toefl_read'
-      @homework.teacher =@training_class.toefl_write_teachers.first if  @homework.subject_type=='toefl_write'
+      if(@training_class.exam_type=='SAT')
+        @homework.teacher =@training_class.sat_cr_teachers.first if   @homework.subject_type =='CR'
+        @homework.teacher =@training_class.sat_math_teachers.first if  @homework.subject_type =='Math'
+        @homework.teacher =@training_class.sat_write_teachers.first if  @homework.subject_type =='Writing'
+      elsif(@training_class.exam_type=='TOEFL')
+        @homework.teacher =@training_class.toefl_listen_teachers.first if  @homework.subject_type=='Listening'
+        @homework.teacher =@training_class.toefl_talk_teachers.first if  @homework.subject_type =='Speaking'
+        @homework.teacher =@training_class.toefl_read_teachers.first if  @homework.subject_type =='Reading'
+        @homework.teacher =@training_class.toefl_write_teachers.first if  @homework.subject_type=='Writing'
+      end
 
     end
 

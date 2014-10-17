@@ -14,6 +14,11 @@ class ScoresController < ApplicationController
     @examinations =@training_class.examinations
 
     @scores = @student.scores
+
+
+
+
+
   end
 
 
@@ -30,6 +35,13 @@ class ScoresController < ApplicationController
     @training_class_students =@training_class.students
 
     @scores=@examination.scores
+
+    @training_class_students.each do |student|
+
+      score = @scores.where(student_id: student).first
+
+
+    end
   end
 
   def index_with_all_examinations

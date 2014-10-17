@@ -63,25 +63,29 @@ class TrainingClass < ActiveRecord::Base
   end
 
   def sat_cr_teachers
-    self.subjects.where(name:'SAT_CR').map{|sub| sub.teacher}
+    self.subjects.where(name:'CR').map{|sub| sub.teacher}
   end
   def sat_math_teachers
-    self.subjects.where(name:'SAT_Math').map{|sub| sub.teacher}
+    self.subjects.where(name:'Math').map{|sub| sub.teacher}
   end
-  def sat_write_teachers
-    self.subjects.where(name:'SAT_Writing').map{|sub| sub.teacher}
+  def sat_grammar_teachers
+    self.subjects.where(name:'Grammar').map{|sub| sub.teacher}
   end
+  def sat_essay_teachers
+    self.subjects.where(name:'Essay').map{|sub| sub.teacher}
+  end
+
   def toefl_read_teachers
-    self.subjects.where(name:'TOEFL_Read').map{|sub| sub.teacher}
+    self.subjects.where(name:'Reading').map{|sub| sub.teacher}
   end
   def toefl_listen_teachers
-    self.subjects.where(name:'TOEFL_Listen').map{|sub| sub.teacher}
+    self.subjects.where(name:'Listening').map{|sub| sub.teacher}
   end
   def toefl_write_teachers
-    self.subjects.where(name:'TOEFL_Write').map{|sub| sub.teacher}
+    self.subjects.where(name:'Writing').map{|sub| sub.teacher}
   end
   def toefl_talk_teachers
-    self.subjects.where(name:'TOEFL_Talk').map{|sub| sub.teacher}
+    self.subjects.where(name:'Speaking').map{|sub| sub.teacher}
   end
 
 

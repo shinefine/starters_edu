@@ -27,8 +27,12 @@ class Teacher < ActiveRecord::Base
     return training_class.sat_math_teachers.any?{|teacher| teacher.id == self.id}
   end
 
-  def is_SAT_Write_teacher?(training_class)
-    return training_class.sat_write_teachers.any?{|teacher| teacher.id == self.id}
+  def is_SAT_Grammar_teacher?(training_class)
+    return training_class.sat_grammar_teachers.any?{|teacher| teacher.id == self.id}
+  end
+
+  def is_SAT_Essay_teacher?(training_class)
+    return training_class.sat_essay_teachers.any?{|teacher| teacher.id == self.id}
   end
 
   def is_TOEFL_READ_teacher?(training_class)

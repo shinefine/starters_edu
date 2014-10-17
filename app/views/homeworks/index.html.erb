@@ -69,27 +69,29 @@
 <% if current_user.teacher? %>
 
      <% teacher =current_user.teacher %>
-        <%= link_to('布置CR作业', new_training_class_homework_path(@training_class,subject:'[sat]语法'), {class:"ui blue  button"}) if teacher.is_SAT_CR_teacher?(@training_class) %>
-    <%= link_to('布置Math作业', new_training_class_homework_path(@training_class,subject:'[sat]数学'), {class:"ui blue  button"}) if teacher.is_SAT_Math_teacher?(@training_class) %>
-    <%= link_to('布置Writing作业', new_training_class_homework_path(@training_class,subject:'[sat]写作'), {class:"ui blue  button"}) if teacher.is_SAT_Write_teacher?(@training_class) %>
-    <%= link_to('布置听力作业', new_training_class_homework_path(@training_class,subject:'toefl_listen'), {class:"ui blue  button"}) if teacher.is_TOEFL_LISTEN_teacher?(@training_class) %>
-    <%= link_to('布置口语作业', new_training_class_homework_path(@training_class,subject:'toefl_talk'), {class:"ui blue  button"}) if teacher.is_TOEFL_TALK_teacher?(@training_class) %>
-    <%= link_to('布置阅读作业', new_training_class_homework_path(@training_class,subject:'toefl_read'), {class:"ui blue  button"}) if teacher.is_TOEFL_READ_teacher?(@training_class) %>
-    <%= link_to('布置写作作业', new_training_class_homework_path(@training_class,subject:'toefl_write'), {class:"ui blue  button"}) if teacher.is_TOEFL_WRITE_teacher?(@training_class) %>
+        <%= link_to('布置CR作业', new_training_class_homework_path(@training_class,subject:'CR'), {class:"ui blue  button"}) if teacher.is_SAT_CR_teacher?(@training_class) %>
+    <%= link_to('布置Math作业', new_training_class_homework_path(@training_class,subject:'Math'), {class:"ui blue  button"}) if teacher.is_SAT_Math_teacher?(@training_class) %>
+    <%= link_to('布置Grammar作业', new_training_class_homework_path(@training_class,subject:'Grammar'), {class:"ui blue  button"}) if teacher.is_SAT_Grammar_teacher?(@training_class) %>
+    <%= link_to('布置Essay作业', new_training_class_homework_path(@training_class,subject:'Essay'), {class:"ui blue  button"}) if teacher.is_SAT_Essay_teacher?(@training_class) %>
+    <%= link_to('布置听力作业', new_training_class_homework_path(@training_class,subject:'Listening'), {class:"ui blue  button"}) if teacher.is_TOEFL_LISTEN_teacher?(@training_class) %>
+    <%= link_to('布置口语作业', new_training_class_homework_path(@training_class,subject:'Speaking'), {class:"ui blue  button"}) if teacher.is_TOEFL_TALK_teacher?(@training_class) %>
+    <%= link_to('布置阅读作业', new_training_class_homework_path(@training_class,subject:'Reading'), {class:"ui blue  button"}) if teacher.is_TOEFL_READ_teacher?(@training_class) %>
+    <%= link_to('布置写作作业', new_training_class_homework_path(@training_class,subject:'Writing'), {class:"ui blue  button"}) if teacher.is_TOEFL_WRITE_teacher?(@training_class) %>
 
 <%elsif current_user.is_training_class_master?(@training_class)%>
     <!--班主任也可以布置作业-->
 
         <%if @training_class.exam_type =='SAT'%>
-        <%= link_to('布置CR作业', new_training_class_homework_path(@training_class,subject:'[sat]语法'), {class:"ui blue  button"}) %>
-        <%= link_to('布置Math作业', new_training_class_homework_path(@training_class,subject:'[sat]数学'), {class:"ui blue  button"})  %>
-        <%= link_to('布置Writing作业', new_training_class_homework_path(@training_class,subject:'[sat]写作'), {class:"ui blue  button"}) %>
+        <%= link_to('布置CR作业', new_training_class_homework_path(@training_class,subject:'CR'), {class:"ui blue  button"}) %>
+        <%= link_to('布置Math作业', new_training_class_homework_path(@training_class,subject:'Math'), {class:"ui blue  button"})  %>
+        <%= link_to('布置Grammar作业', new_training_class_homework_path(@training_class,subject:'Writing'), {class:"ui blue  button"}) %>
+        <%= link_to('布置Essay作业', new_training_class_homework_path(@training_class,subject:'Writing'), {class:"ui blue  button"}) %>
 
          <%elsif @training_class.exam_type =='TOEFL'%>
-            <%= link_to('布置听力作业', new_training_class_homework_path(@training_class,subject:'toefl_listen'), {class:"ui blue  button"}) %>
-        <%= link_to('布置口语作业', new_training_class_homework_path(@training_class,subject:'toefl_talk'), {class:"ui blue  button"})  %>
-        <%= link_to('布置阅读作业', new_training_class_homework_path(@training_class,subject:'toefl_read'), {class:"ui blue  button"}) %>
-        <%= link_to('布置写作作业', new_training_class_homework_path(@training_class,subject:'toefl_write'), {class:"ui blue  button"}) %>
+            <%= link_to('布置听力作业', new_training_class_homework_path(@training_class,subject:'Listening'), {class:"ui blue  button"}) %>
+        <%= link_to('布置口语作业', new_training_class_homework_path(@training_class,subject:'Speaking'), {class:"ui blue  button"})  %>
+        <%= link_to('布置阅读作业', new_training_class_homework_path(@training_class,subject:'Reading'), {class:"ui blue  button"}) %>
+        <%= link_to('布置写作作业', new_training_class_homework_path(@training_class,subject:'Writing'), {class:"ui blue  button"}) %>
 
          <%end%>
 

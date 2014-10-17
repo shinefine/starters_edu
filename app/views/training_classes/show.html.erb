@@ -76,6 +76,8 @@
 
               <div class="content">
                 <div class="name"><%=student.name %></div>
+
+                <%if current_user.can_set_student_info?(student)%>
                 <p class="description">学生信息<br><%= link_to '更多详细信息' ,student_path(student) %></p>
                 <br>
 
@@ -86,6 +88,7 @@
 
                 <%= link_to "真实成绩统计",index_with_all_examinations_student_real_scores_path(student,exam_type:@training_class.exam_type) %>
 
+                 <%end%>
               </div>
             </div>
 

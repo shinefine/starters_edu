@@ -18,6 +18,20 @@
 <br><br>
 <h3>成绩列表:</h3>
 
+<script>
+    <%scores = all_student_simulate_scores_in_one_examation(@training_class.exam_type,@scores)%>
+
+    data_example =<%= raw wrap_scores_for_nvd3_chart(scores,@training_class.exam_type).to_json%>
+
+</script>
+
+<div id='chart1'>
+  <svg style='height:500px'> </svg>
+  <!--生成统计报表-->
+</div>
+
+
+
 <%if  @training_class.exam_type == 'SAT' %>
 
     <%= render 'index_for_all_students_sat'%>
@@ -32,6 +46,6 @@
 <%= link_to '返回到班级模考 列表', training_class_examinations_path(@training_class) , {class:"ui blue  button"}%>
 <%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>
 
-
+<script src="/assets/multiBar.js"></script>
 
 

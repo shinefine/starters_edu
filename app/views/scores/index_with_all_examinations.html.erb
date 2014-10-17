@@ -3,57 +3,35 @@
 
 <h1></h1>
 
-<div class="ui green horizontal label"><h2>[<%=@training_class.exam_type %>培训班]<%=@training_class.name %> 模考成绩列表</h2></div>
+<div class="ui green horizontal label"><h2>[<%=@training_class.training_class_type %>培训班]<%=@training_class.name %> 里学员<%=@student.name%> 模考成绩列表</h2></div>
 
 <script>
-    data_example =<%=raw scores_objects_for_nvd3_chart(@student,@training_class).to_json%>
+    <%scores = student_simulate_scores_in_a_training_class(@student,@training_class,@training_class.exam_type)%>
+
+    data_example =<%=raw wrap_scores_for_nvd3_chart(scores,@training_class.exam_type).to_json%>
+ //   data_example = scores_objects_for_nvd3_chart(@student,@training_class).to_json
 //    data_example =[{key: "阅读",values: [{x:'入口成绩',y:600},
-//        {x:'一月目标',y:600},
-//        {x:'二月目标',y:600},
 //        {x:'2008年第一次模考',y:602},
 //        {x:'2008年第二次模考',y:603},
 //        {x:'2008年第三次模考',y:616},
 //        {x:'2008年第四次模考',y:616},
-//        {x:'2008年第五次模考',y:602},
-//        {x:'2008年第六次模考',y:603},
-//        {x:'2008年第七次模考',y:616},
-//        {x:'2008年第八次模考',y:616},
-//        {x:'2008年第九次模考',y:602},
-//        {x:'2008年第十次模考',y:603},
-//        {x:'2008年第十一次模考',y:616},
-//        {x:'2008年第十二次模考',y:616},
+
 //    ] } ,
 //        {key: "写作",values: [{x:'入口成绩',y:600},
-//            {x:'一月目标',y:600},
-//            {x:'二月目标',y:600},
+//
 //            {x:'2008年第一次模考',y:602},
 //            {x:'2008年第二次模考',y:603},
 //            {x:'2008年第三次模考',y:616},
 //            {x:'2008年第四次模考',y:616},
-//            {x:'2008年第五次模考',y:602},
-//            {x:'2008年第六次模考',y:603},
-//            {x:'2008年第七次模考',y:616},
-//            {x:'2008年第八次模考',y:616},
-//            {x:'2008年第九次模考',y:602},
-//            {x:'2008年第十次模考',y:603},
-//            {x:'2008年第十一次模考',y:616},
-//            {x:'2008年第十二次模考',y:616},
+//
 //        ] } ,
 //        {key: "数学",values: [{x:'入口成绩',y:600},
-//            {x:'一月目标',y:600},
-//            {x:'二月目标',y:600},
+//
 //            {x:'2008年第一次模考',y:602},
 //            {x:'2008年第二次模考',y:603},
 //            {x:'2008年第三次模考',y:616},
 //            {x:'2008年第四次模考',y:616},
-//            {x:'2008年第五次模考',y:602},
-//            {x:'2008年第六次模考',y:603},
-//            {x:'2008年第七次模考',y:616},
-//            {x:'2008年第八次模考',y:616},
-//            {x:'2008年第九次模考',y:602},
-//            {x:'2008年第十次模考',y:603},
-//            {x:'2008年第十一次模考',y:616},
-//            {x:'2008年第十二次模考',y:616},
+//
 //        ] } ]
 </script>
 

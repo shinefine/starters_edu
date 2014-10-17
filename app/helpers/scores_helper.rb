@@ -9,13 +9,128 @@ module ScoresHelper
     end
   end
 
+  def wrap_scores_for_nvd3_chart(scores_2d_arr,exam_type)
+
+    return_arr=[]
+
+    cr_scores = []
+    math_scores = []
+    writing_scores=[]
+    listen_scores = []
+    talk_scores = []
+    read_scores = []
+
+
+
+
+    scores_2d_arr.each do |arr_element|
+        key_str=arr_element[0]
+        value_score= arr_element[1]
+        if exam_type =='SAT'
+            cr_scores      << {x:key_str,y:value_score.course_a_score}
+            math_scores    << {x:key_str,y:value_score.course_b_score}
+            writing_scores << {x:key_str,y:value_score.course_c_score}
+        elsif exam_type == 'TOEFL'
+           listen_scores   << {x:key_str,y:value_score.course_a_score}
+           talk_scores     << {x:key_str,y:value_score.course_b_score}
+           read_scores     << {x:key_str,y:value_score.course_c_score}
+           writing_scores  << {x:key_str,y:value_score.course_d_score}
+        end
+      end
+
+    if exam_type =='SAT'
+      return_arr=[{key:'CR',values:cr_scores},{key:'Math',values:math_scores},{key:'Writing',values:writing_scores}]
+
+    elsif exam_type == 'TOEFL'
+      return_arr=[{key:'Listening',values:listen_scores},{key:'Speaking',values:talk_scores},{key:'Reading',values:read_scores},{key:'Writing',values:writing_scores}]
+
+    end
+
+    return return_arr
+
+  end
+
+  def all_student_simulate_scores_in_one_examation(exam_type,scores)
+    return_2D_arr =[]
+    #插入模考成绩
+    scores.each do |score|
+      total_score = calculate_total_score(score,exam_type)
+      return_2D_arr<<  ["#{score.student.name}(#{total_score})",score]
+    end
+
+    return return_2D_arr
+
+  end
+  def student_simulate_scores_in_a_training_class(student,training_class,exam_type)
+    return_2D_arr =[]
+    #学员所属培训班的模考成绩
+    scores= student.scores.joins(:examination).where(examinations:{training_class_id:training_class})
+
+    if exam_type =='SAT'
+      real_score_entry = student.real_scores.sat.entry.first
+      real_score_target = student.real_scores.sat.target.first
+    elsif exam_type=='TOEFL'
+      real_score_entry = student.real_scores.toefl.entry.first
+      real_score_target = student.real_scores.toefl.target.first
+    end
+
+    #插入入口成绩
+    unless real_score_entry.nil?
+      total_score =calculate_total_score(real_score_entry,exam_type)
+      return_2D_arr << ["入口成绩(#{total_score})",real_score_entry]
+    end
+
+    #插入期望成绩
+    unless real_score_target.nil?
+      total_score =calculate_total_score(real_score_target,exam_type)
+      return_2D_arr << ["最终期望成绩(#{total_score})",real_score_target]
+    end
+
+
+    #插入模考成绩
+
+    scores.each_with_index do |score,i |
+
+
+      total_score = calculate_total_score(score,exam_type)
+      return_2D_arr<<  ["模考#{i + 1 }(#{total_score})",score]
+    end
+
+
+
+    #数量不够,补足一些空数据(为了报表的好看性)
+    num = 15-(return_2D_arr.count)
+    simulate_scores_count= scores.count
+
+    if num>0
+      num.times{|i|
+        temp_score=Score.new({course_a_score:0,course_b_score:0,course_c_score:0,course_d_score:0})
+        return_2D_arr<<  ["模考#{simulate_scores_count + 1 + i }",temp_score]
+      }
+    end
+    return return_2D_arr
+
+  end
+
+  def calculate_total_score(score,exam_type)
+    total_score = 0
+    if exam_type =='SAT'
+      total_score = score.course_a_score + score.course_b_score+ score.course_c_score
+
+    elsif exam_type == 'TOEFL'
+      total_score = score.course_a_score + score.course_b_score+ score.course_c_score+ score.course_d_score
+    end
+    return total_score
+  end
+
+
   def scores_objects_for_nvd3_chart(student,z_training_class)
     objs =[]
 
     scores= student.scores.joins(:examination).where(examinations:{training_class_id:z_training_class})
     scores_count =scores.count
 
-    if @training_class.exam_type =='SAT'
+    if z_training_class.exam_type =='SAT'
       cr_scores = []
       math_scores = []
       grammar_scores = []
@@ -40,9 +155,7 @@ module ScoresHelper
         grammar_scores<<{x:"最终期望成绩(#{total_score})",y:real_score.course_c_score}
 
       end
-      #插入目标成绩 理想目标和某月目标的值
-      #...
-      #...
+
 
       fix_num = cr_scores.count #fix_num值为入口成绩和目标成绩的数量
 
@@ -72,7 +185,7 @@ module ScoresHelper
 
 
 
-    elsif @training_class.exam_type =='TOEFL'
+    elsif z_training_class.exam_type =='TOEFL'
 
       listen_scores = []
       talk_scores = []
