@@ -57,7 +57,7 @@
 
         <td class="lightgreen"><%= score.try(:final_score) %> </td>
         <%if can_view_subject('CR' , @training_class,current_user) %>
-            <td><%= score.try(:course_a_score) %></td>
+            <td class="normal_blue"><%= score.try(:course_a_score) %></td>
             <td><%= score.try(:stat_07) %></td>
             <td><%= score.try(:stat_01) %></td>
             <td><%= score.try(:stat_02) %></td>
@@ -68,7 +68,7 @@
         <%end%>
 
         <%if can_view_subject('Math' , @training_class,current_user) %>
-            <td class="lightgray"><%= score.try(:course_b_score) %></td>
+            <td class="orange"><%= score.try(:course_b_score) %></td>
             <td><%= score.try(:stat_11) %></td>
             <td><%= score.try(:stat_08) %></td>
             <td><%= score.try(:stat_09) %></td>
@@ -76,7 +76,7 @@
         <%end%>
 
         <%if can_view_subject('Grammar' , @training_class,current_user) %>
-            <td class="lightgray"><%= score.try(:course_c_score) %></td>
+            <td class="green"><%= score.try(:course_c_score) %></td>
             <td><%= score.try(:stat_15) %></td>
             <td><%= score.try(:stat_12) %></td>
             <td><%= score.try(:stat_13) %></td>

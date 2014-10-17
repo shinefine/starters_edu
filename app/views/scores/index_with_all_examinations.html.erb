@@ -88,9 +88,10 @@
             <%elsif @training_class.exam_type == 'TOEFL' %>
 
 
-                <th colspan="3" >阅读</th>
+
                 <th colspan="3" >听力 </th>
                 <th colspan="4" >口语 </th>
+                <th colspan="3" >阅读</th>
                 <th colspan="3" >写作 </th>
 
             <%end%>
@@ -120,9 +121,10 @@
 
 
             <%elsif @training_class.exam_type == 'TOEFL' %>
-                <th>阅读总分 </th><th>正确 </th> <th>错误 </th>
+
                 <th>听力总分 </th><th>正确 </th><th>错误 </th>
                 <th>口语总分 </th><th>1,2题 </th><th>3,4题 </th><th>5,6题 </th>
+                <th>阅读总分 </th><th>正确 </th> <th>错误 </th>
                 <th>作文总分 </th><th>综合写作 </th><th>独立写作 </th>
 
             <%end%>
@@ -143,7 +145,7 @@
 
                 <%if  @training_class.exam_type == 'SAT' %>
 
-                    <td class="lightgray"><%= score.try(:course_a_score) %></td>
+                    <td class="normal_blue"><%= score.try(:course_a_score) %></td>
                     <td><%= score.try(:stat_07) %></td>
                     <td><%= score.try(:stat_01) %></td>
                     <td><%= score.try(:stat_02) %></td>
@@ -154,7 +156,7 @@
 
 
 
-                    <td class="lightgray"><%= score.try(:course_b_score) %></td>
+                    <td class="orange"><%= score.try(:course_b_score) %></td>
                     <td><%= score.try(:stat_11) %></td>
                     <td><%= score.try(:stat_08) %></td>
                     <td><%= score.try(:stat_09) %></td>
@@ -162,7 +164,7 @@
 
 
 
-                    <td class="lightgray"><%= score.try(:course_c_score) %></td>
+                    <td class="green"><%= score.try(:course_c_score) %></td>
                     <td><%= score.try(:stat_15) %></td>
                     <td><%= score.try(:stat_12) %></td>
                     <td><%= score.try(:stat_13) %></td>
@@ -172,22 +174,22 @@
 
 
                 <%elsif @training_class.exam_type == 'TOEFL' %>
-                    <!--阅读-->
-                    <td class="lightgray"><%= score.try(:course_c_score) %></td>
-                    <td><%= score.try(:stat_06) %></td>
-                    <td><%= score.try(:stat_07) %></td>
+
                     <!--听力-->
-                    <td class="lightgray"><%= score.try(:course_a_score) %></td>
+                    <td class="normal_blue"><%= score.try(:course_a_score) %></td>
                     <td><%= score.try(:stat_01) %></td>
                     <td><%= score.try(:stat_02) %></td>
                     <!--口语-->
-                    <td class="lightgray"><%= score.try(:course_b_score) %></td>
+                    <td class="orange"><%= score.try(:course_b_score) %></td>
                     <td><%= score.try(:stat_03) %></td>
                     <td><%= score.try(:stat_04) %></td>
                     <td><%= score.try(:stat_05) %></td>
-
+                    <!--阅读-->
+                    <td class="green"><%= score.try(:course_c_score) %></td>
+                    <td><%= score.try(:stat_06) %></td>
+                    <td><%= score.try(:stat_07) %></td>
                     <!--写作-->
-                    <td class="lightgray"><%= score.try(:course_d_score) %></td>
+                    <td class="purple_gray"><%= score.try(:course_d_score) %></td>
                     <td><%= score.try(:stat_08) %></td>
                     <td><%= score.try(:stat_09) %></td>
 
