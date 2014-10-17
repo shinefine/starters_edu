@@ -6,18 +6,15 @@
   共有学员 <%= @students.length %> 人
 
 </div>
-<table class ="ui celled table segment">
+<table class ="ui celled collapsing table segment">
   <thead>
     <tr>
 
       <th>学员名称</th>
       <th>培训班级</th>
-      <th>家长姓名及电话</th>
-      <th>身份证号</th>
-      <th>学员手机号</th>
-      <th>QQ</th>
-      <th>微信</th>
-      <th>电子邮箱</th>
+      <th>家长联系方式</th>
+
+      <th>联系方式</th>
       <th>创建者</th>
       <%if current_user.employee?%>
       <th colspan="2"></th>
@@ -28,7 +25,12 @@
   <tbody>
     <% @students.each do |student| %>
       <tr>
-        <td><%= link_to student.user.try(:name), student, {class: 'ui purple button'}%></td>
+        <td>
+          <%= link_to student.user.try(:name), student, {class: 'ui purple button'}%>
+          <br>
+          手机:<%= student.user.try(:phone_number)  %>
+
+        </td>
         <td>
 
           <%summary_info =student.summary_training_class_names_list %>
@@ -40,12 +42,44 @@
 
 
         </td>
-        <td><%=" #{student.parent_name}:#{student.parent_tel} " %></td>
-        <td><%= student.user.try(:identify_card)  %></td>
-        <td><%= student.user.try(:phone_number)  %></td>
-        <td><%= student.user.try(:qq_number) %></td>
-        <td><%= student.user.try(:tinypost_number)  %></td>
-        <td><%= student.user.try(:email)   %></td>
+        <td>
+          <table class ="ui celled collapsing table segment">
+            <tbody>
+            <tr>
+              <td><%=student.parent_name%></td>
+              <td><%=student.parent_tel%></td>
+            </tr>
+            <tr>
+              <td><%=student.parent2_name%></td>
+              <td><%=student.parent2_tel%></td>
+            </tr>
+            </tbody>
+          </table>
+
+        </td>
+
+        <td>
+          <table class ="ui celled collapsing table segment">
+            <tbody>
+          <tr>
+            <td>身份证</td>
+            <td> <%= student.user.try(:identify_card)  %></td>
+          </tr>
+            <tr>
+              <td>QQ</td>
+              <td> <%= student.user.try(:qq_number)  %></td>
+            </tr>
+            <tr>
+              <td>微信</td>
+              <td> <%= student.user.try(:tinypost_number)  %></td>
+            </tr>
+            <tr>
+              <td>邮箱</td>
+              <td> <%= student.user.try(:email)  %></td>
+            </tr>
+            </tbody>
+          </table>
+         </td>
 
         <td><%= student.creator.try(:name) %></td>
         <%if current_user.employee?%>

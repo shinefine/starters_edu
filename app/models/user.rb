@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
     #老师有创建作业对功能,老师能够修改,删除自己创建的作业
     return self.teacher? if homework.nil?
 
-    return homework.teacher.id == teacher.id  if teacher?
+    return homework.teacher.try(:id) == teacher.id  if teacher?
 
     return true if employee? && is_training_class_master?(homework.training_class)
 

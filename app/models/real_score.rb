@@ -10,6 +10,37 @@ class RealScore < ActiveRecord::Base
   scope :true_real, ->{where(score_type:'真实考试成绩')}
   scope :sat,->{where(exam_type: 'SAT')}
   scope :toefl,->{where(exam_type: 'TOEFL')}
+
+
+  def sat_cr_score
+    course_a_score || 0
+  end
+
+  def sat_math_score
+    course_b_score || 0
+  end
+
+  def sat_writing_score
+    course_c_score || 0
+  end
+
+  def sat_essay_score
+    course_d_score || 0
+  end
+
+  def toefl_listening_score
+    course_a_score || 0
+  end
+  def toefl_speaking_score
+    course_b_score || 0
+  end
+  def toefl_reading_score
+    course_c_score || 0
+  end
+  def toefl_writing_score
+    course_d_score || 0
+  end
+
 end
 
 
