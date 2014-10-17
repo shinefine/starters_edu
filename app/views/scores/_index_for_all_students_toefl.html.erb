@@ -47,10 +47,12 @@
     <th></th>
   </tr>
   <tbody>
-  <% @scores.each do |score| %>
+  <% @training_class_students.each do |student| %>
+
+      <% score = @scores.where(student_id: student).first %>
 
       <tr>
-        <td><%= score.student.name %> </td>
+        <td><%= student.name %> </td>
 
 
         <td class="lightgreen"><%= score.try(:final_score) %> </td>
@@ -86,9 +88,9 @@
             <td></td><td></td>
         <%else%>
             <%if score.nil?%>
-                <td><%= link_to "录入考试成绩" , new_student_examination_score_path(score.student,@examination),{class:'ui green button'} %></td>
+                <td><%= link_to "录入考试成绩" , new_student_examination_score_path(student,@examination),{class:'ui green button'} %></td>
             <%else %>
-                <td><%= link_to "修改考试成绩" , edit_student_examination_score_path(score.student,@examination,score) ,{class:'ui green button'}%></td>
+                <td><%= link_to "修改考试成绩" , edit_student_examination_score_path(student,@examination,score) ,{class:'ui green button'}%></td>
             <% end %>
 
         <% end %>
