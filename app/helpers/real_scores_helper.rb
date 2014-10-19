@@ -1,5 +1,6 @@
 module RealScoresHelper
 
+  include BaseScore
   def seek_sat_scores(real_scores,month,subject)
     #从一些列real_Scores 记录(SAT)中找出指定月份的记录(只找出一条),然后返回其对应的科目分数
     v = real_scores.find{|record| record.month==month}
@@ -65,105 +66,37 @@ module RealScoresHelper
   end
 
   def real_scores_objects_for_nvd3_chart(student,exam_type)
-    objs =[]
+    return_2D_arr =[]
 
+      if exam_type =='SAT'
+        real_score_entry = student.real_scores.sat.entry.first
+        real_score_target = student.real_scores.sat.target.first
+        scores= student.real_scores.sat.true_real
+      elsif exam_type=='TOEFL'
+        real_score_entry = student.real_scores.toefl.entry.first
+        real_score_target = student.real_scores.toefl.target.first
+        scores= student.real_scores.toefl.true_real
+      end
 
-
-
-    if exam_type =='SAT'
-      scores= student.real_scores.sat.true_real
-      scores_count =scores.count
-
-      cr_scores = []
-      math_scores = []
-      grammar_scores = []
       #插入入口成绩
-      real_score = student.real_scores.sat.entry.first
-      unless real_score.nil?
-        total_score = real_score.course_a_score + real_score.course_b_score+ real_score.course_c_score
-        cr_scores<<{x:"入口成绩(#{total_score})",y:real_score.course_a_score}
-        math_scores<<{x:"入口成绩(#{total_score})",y:real_score.course_b_score}
-        grammar_scores<<{x:"入口成绩(#{total_score})",y:real_score.course_c_score}
-
+      unless real_score_entry.nil?
+        total_score =calculate_total_score(real_score_entry,exam_type)
+        return_2D_arr << ["入口成绩(#{total_score})",real_score_entry]
       end
 
-      real_score = student.real_scores.sat.target.first
-      unless real_score.nil?
-
-        total_score = real_score.course_a_score + real_score.course_b_score+ real_score.course_c_score
-
-
-        cr_scores<<{x:"最终期望成绩(#{total_score})",y:real_score.course_a_score}
-        math_scores<<{x:"最终期望成绩(#{total_score})",y:real_score.course_b_score}
-        grammar_scores<<{x:"最终期望成绩(#{total_score})",y:real_score.course_c_score}
-
+      #插入期望成绩
+      unless real_score_target.nil?
+        total_score =calculate_total_score(real_score_target,exam_type)
+        return_2D_arr << ["最终期望成绩(#{total_score})",real_score_target]
       end
-      #插入目标成绩 理想目标和某月目标的值
-      #...
-      #...
-
-      fix_num = cr_scores.count #fix_num值为入口成绩和目标成绩的数量
 
       #插入真实考试成绩
       scores.each_with_index do |score,i |
-        total_score = score.course_a_score + score.course_b_score+ score.course_c_score
-
-
-        cr_scores<<  {x:"#{score.year}年#{score.month}月(#{total_score})",y: score.course_a_score}
-        math_scores<< {x:"#{score.year}年#{score.month}月(#{total_score})",y: score.course_b_score}
-        grammar_scores<<  {x:"#{score.year}年#{score.month}月(#{total_score})",y: score.course_c_score}
+        total_score = calculate_total_score(score,exam_type)
+        return_2D_arr<<  ["#{score.year}年#{score.month}月(#{total_score})",score]
       end
 
-
-
-
-      objs=[{key:'阅读',values:cr_scores},{key:'数学',values:math_scores},{key:'语法',values:grammar_scores}]
-
-
-
-    elsif @training_class.exam_type =='TOEFL'
-      scores= student.real_scores.toefl.true_real
-      scores_count =scores.count
-
-      listen_scores = []
-      talk_scores = []
-      read_scores = []
-      grammar_scores=[]
-
-      real_score = student.real_scores.toefl.entry.first
-      unless real_score.nil?
-        listen_scores<<{x:'入口成绩',y:real_score.course_a_score}
-        talk_scores<<{x:'入口成绩',y:real_score.course_b_score}
-        read_scores<<{x:'入口成绩',y:real_score.course_c_score}
-        grammar_scores<<{x:'入口成绩',y:real_score.course_d_score}
-      end
-      #插入入口成绩
-      real_score = student.real_scores.where(exam_type:'TOEFL',score_type:'最终期望成绩').first
-      unless entry_score.nil?
-        cr_scores<<{x:'最终期望成绩',y:real_score.course_a_score}
-        math_scores<<{x:'最终期望成绩',y:real_score.course_b_score}
-        grammar_scores<<{x:'最终期望成绩',y:real_score.course_c_score}
-
-      end
-
-      #插入目标成绩 理想目标和某月目标的值
-      #...
-      #...
-
-      fix_num = cr_scores.count #fix_num值为入口成绩和目标成绩的数量
-
-      #插入模考成绩
-      scores.each_with_index do |score,i |
-        listen_scores<< {x:"#{score.year}年#{score.month}月(#{total_score})",y: score.course_a_score}
-        talk_scores<<   {x:"#{score.year}年#{score.month}月(#{total_score})",y: score.course_b_score}
-
-        read_scores<<  {x:"#{score.year}年#{score.month}月(#{total_score})",y: score.course_c_score}
-        grammar_scores<<  {x:"#{score.year}年#{score.month}月(#{total_score})",y: score.course_d_score}
-      end
-
-      objs=[{key:'听力',values:listen_scores},{key:'口语',values:talk_scores},{key:'阅读',values:read_scores},{key:'写作',values:grammar_scores}]
-    end
-    return objs
+      return return_2D_arr
   end
 
 

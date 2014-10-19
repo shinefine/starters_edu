@@ -1,5 +1,7 @@
 module ScoresHelper
 
+  include BaseScore
+
   def can_view_subject(subject_name,training_class,user)
     #判断某个用户是否有权限看到某科目的(成绩,作业等)信息
     return true unless user.teacher?
@@ -112,16 +114,7 @@ module ScoresHelper
 
   end
 
-  def calculate_total_score(score,exam_type)
-    total_score = 0
-    if exam_type =='SAT'
-      total_score = score.sat_cr_score + score.sat_math_score+ score.sat_writing_score
 
-    elsif exam_type == 'TOEFL'
-      total_score = score.toefl_listening_score + score.toefl_speaking_score+ score.toefl_reading_score+ score.toefl_writing_score
-    end
-    return total_score
-  end
 
 
   def scores_objects_for_nvd3_chart(student,z_training_class)
