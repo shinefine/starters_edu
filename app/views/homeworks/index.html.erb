@@ -37,7 +37,14 @@
         <td><%= homework.distribution_date %></td>
         <td><%= homework.submit_date %></td>
 
-        <td><%= homework.students.count %> 人完成</td>
+        <td>
+
+          <%if current_user.student?%>
+             <%= homework.students.one?{|stu|stu ==current_user.student} ? '完成':'未完成' %>
+          <%else%>
+            <%= homework.students.count %> 人完成
+          <%end%>
+        </td>
 
         <% if current_user.student? %>
 
