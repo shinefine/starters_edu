@@ -1,11 +1,13 @@
 <h1></h1>
 <div class="ui green horizontal label"><h2> 对学员 <%=@student.name %>  的评语</h2></div>
 
-<div class="ui blue label">
+<br>
+<br>
+<div class="ui green label">
   评语列表
 </div>
 
-<table class ="ui celled table segment">
+<table class ="ui celled collapsing table segment">
   <thead>
   <tr>
 
@@ -22,7 +24,16 @@
       <tr>
 
         <td><%= comment.comment_date %></td>
-        <td><%=simple_format(comment.text)  %></td>
+
+        <td>
+          <%if current_user.student?%>
+               <%=  simple_format(comment.text)%>
+          <%else%>
+              <%= link_to  simple_format(comment.text), edit_training_class_student_comment_path(@training_class, @student,comment) %>
+          <%end%>
+        </td>
+
+        <td></td>
         <td><%= comment.teacher.name %></td>
 
 
@@ -35,26 +46,10 @@
 <!--讲师/班主任 可以新增一条评语-->
 
 <%if current_user.teacher? || current_user.is_training_class_master?(@training_class)%>
-    <%= simple_form_for([@training_class,@student,@comment_new]) do |f| %>
-        <%= f.error_notification %>
 
-        <% if current_user.is_training_class_master?(@training_class)%>
-            <div class="field">
-              <%= f.collection_select :teacher_id, @training_class.teachers.distinct, :id, :name, {include_blank: false},{class:"select optional ui selection dropdown"} %>
+    <%= link_to '创建讲师评语', new_training_class_student_comment_path(@training_class,@student),{class:'ui blue button'} %>
 
-            </div>
-
-        <%end%>
-
-        <div class="filed">
-          <label>评语</label>
-          <%= f.text_area :text%>
-        </div>
-
-        <div class="form-actions">
-          <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
-        </div>
-    <% end %>
+    <br><br>
 <%end%>
 
 

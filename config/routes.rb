@@ -90,7 +90,7 @@ Rails.application.routes.draw do
         get :index_with_all_examinations ,on: :collection #列出某个培训班下 某个学员的 所有模考成绩 (统计报表)
       end
 
-      resources :comments ,only: [:index,:create]  #讲师可以给学员创建评语
+      resources :comments   #讲师/班主任可以给学员创建评语
     end
 
 

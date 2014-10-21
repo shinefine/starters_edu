@@ -10,7 +10,7 @@
 <%end%>
 
 
-<table class ="ui celled table segment">
+<table class ="ui celled collapsing table segment">
   <thead>
     <tr>
       <th>名称</th>
@@ -48,15 +48,24 @@
               <%=training_class.exam_type if training_class.training_class_type.blank?%>
               <%=training_class.training_class_type%>
             </td>
-            <td><%= simple_format(training_class.summary_text_book_names_list)%></td>
+            <td>
+              <%= simple_format(training_class.summary_text_book_names_list)%>
+            </td>
             <%if current_user.teacher?%>
                 <% subs = training_class.subjects.where(teacher: @teacher) %>
-                <td><%= subs.map{|sub| sub.name}.join('|') %></td>
+                <td>
+                  <%= subs.map{|sub| sub.name}.join('|') %>
+                </td>
 
             <%end%>
 
-            <td><%= training_class.master_teacher.try(:name)  %></td>
-            <td><%= training_class.students.count %>人</td>
+            <td>
+              <%= link_to(training_class.master_teacher.try(:name), employee_path(training_class.master_teacher)) if training_class.master_teacher  %>
+            </td>
+
+            <td>
+              <%= training_class.students.count %>人
+            </td>
 
             <!--#link 培训班的模拟考,听写成绩,出勤信息-->
             <%if current_user.employee?||current_user.teacher? %>

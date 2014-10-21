@@ -4,6 +4,8 @@ class Comment < ActiveRecord::Base
   belongs_to :student
   belongs_to :teacher
 
+  default_scope {order('comment_date DESC')}
+
   #以培训班作为过滤条件
   scope :filter_by_training_class ,->(training_class) {where training_class: training_class}
 

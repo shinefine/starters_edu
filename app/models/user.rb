@@ -98,6 +98,17 @@ class User < ActiveRecord::Base
     return false
   end
 
+
+  def can_view_student_info?(z_student)
+    return true if employee?
+    return true if teacher?
+
+    return z_student == self.student if self.student?
+
+    return false
+  end
+
+
   def can_set_teacher_info?(z_teacher)
     return true if employee?
     return z_teacher == self.teacher if self.teacher?

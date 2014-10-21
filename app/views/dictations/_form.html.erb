@@ -9,7 +9,12 @@
         <div class="field">
     <%= f.input :execute_date,label:'听写日期' %>
         </div>
+
+
 </div>
+    <div class="ui ribbon label">
+      <label>如果学员未听写,输入 -1 </label>
+    </div>
     <%= f.fields_for(:dictation_scores) do |dict_scores_form|%>
         <%student =dict_scores_form.object.student%>
         <div class="ui inline fields">
@@ -19,16 +24,8 @@
           </div>
 
           <div class="field ">
-            <% label_text = dict_scores_form.object.score ==0 ? " 听写错误数(未听写)": "听写错误数"%>
-            <%= dict_scores_form.input :score,{label: "#{student.name } #{label_text}:",inner_html:{class:"ui red label"}}          %>
+            <%= dict_scores_form.input :score,{label: "#{student.name } 听写错误数:",inner_html:{class:"ui red label"}}          %>
           </div>
-          <%unless student.dictation_score_pass?(dict_scores_form.object.score,f.object.passing_line)%>
-                <div class="field">
-                  <div class="field">
-                  <label class="ui red label ">不合格</label>
-                  </div>
-              </div>
-          <%end%>
         </div>
     <% end %>
 
