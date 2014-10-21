@@ -15,6 +15,16 @@ Simple Form
     <%= f.collection_radio_buttons :exam_type, [["SAT", 'SAT'] ,["TOEFL", 'TOEFL']], :first, :last %>
 
 
+自定义生成的 checkbox 的css
+<%= collection_check_boxes(:homework,
+                                 :student_ids,
+                                 @homework.training_class.students,
+                                 :id,
+                                 :name,{},{class:'ui'} ) do |b| %>
+          <div class='ui slider checkbox'>
+            <%= b.check_box + b.label %>
+          </div>
+      <% end%>
 
 
 需求:不同员工所能操作和看见的学员信息有限制

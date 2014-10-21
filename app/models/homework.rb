@@ -5,8 +5,10 @@ class Homework < ActiveRecord::Base
   belongs_to :training_class #作业属于某个培训班级。
 
 
-  has_many :homework_finishs
+  has_many :homework_finishs, dependent: :delete_all
   has_many :students,through: :homework_finishs
 
-  attr_accessor  :need_set_finish_status
+  accepts_nested_attributes_for :homework_finishs
+
+
 end

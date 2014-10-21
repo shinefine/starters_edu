@@ -24,11 +24,16 @@ class HomeworksController < ApplicationController
     @homework.submit_date =1.days.from_now
 
 
+    @training_class.students.each do |stu|
+      @homework.homework_finishs.build(student: stu,status:'unsubmit')
+    end
+
+
   end
 
   # GET /homeworks/1/edit
   def edit
-    @homework.need_set_finish_status = params[:set_finish_status]
+
   end
 
   # POST /homeworks
@@ -66,7 +71,7 @@ class HomeworksController < ApplicationController
   # PATCH/PUT /homeworks/1
   # PATCH/PUT /homeworks/1.json
   def update
-    @homework.students=Student.where(id: params[:homework][:student_ids])
+
 
       if @homework.update(homework_params)
         redirect_to training_class_homeworks_path(@training_class), notice: '作业信息已保存'
@@ -101,7 +106,7 @@ class HomeworksController < ApplicationController
     def homework_params
       params.require(:homework).permit(:title, :distribution_date, :submit_date,:teacher_id, :subject_type,
                                        :training_class_id,
-                                       :student_ids
+                                       homework_finishs_attributes:[:student_id,:status,:description,:id]
       )
     end
 end

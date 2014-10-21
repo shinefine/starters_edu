@@ -22,19 +22,31 @@
       </div>
     </div>
 
-    <%if  @homework.need_set_finish_status %>
-    <div class ="field">
-      <%= collection_check_boxes(:homework,
-                                 :student_ids,
-                                 @homework.training_class.students,
-                                 :id,
-                                 :name,{},{class:'ui'} ) do |b| %>
-          <div class='ui slider checkbox'>
-            <%= b.check_box + b.label %>
-          </div>
-      <% end%>
+    <div class="ui ribbon green label">
+      <label>作业完成情况</label>
     </div>
-    <%end%>
+
+        <%= f.fields_for(:homework_finishs) do |hw_finish_form|%>
+            <%student =hw_finish_form.object.student%>
+            <div class="ui inline fields">
+
+              <div class="field ">
+                <%= hw_finish_form.input_field :student_id, type:'hidden' %>
+              </div>
+
+              <div class="field ">
+
+                <%= f.label student.name %>
+                <%= hw_finish_form.collection_select :status, [['unsubmit','未交'],['submitted','已交']], :first, :last, {},{ class:"select optional ui selection dropdown"} %>
+              </div>
+
+
+                <%= hw_finish_form.input :description,{label: "备注:",}          %>
+
+            </div>
+        <% end %>
+
+
 
     <div class="form-actions">
     <%= f.button :submit ,'保存'%>

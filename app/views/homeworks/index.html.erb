@@ -40,9 +40,9 @@
         <td>
 
           <%if current_user.student?%>
-             <%= homework.students.one?{|stu|stu ==current_user.student} ? '完成':'未完成' %>
+             <%= homework.homework_finishs.one?{|hw_finish| hw_finish.status=='submitted' && hw_finish.student ==current_user.student} ? '完成':'未完成' %>
           <%else%>
-            <%= homework.students.count %> 人完成
+            <%= homework.homework_finishs.select{|hw_finish| hw_finish.status=='submitted'}.count %> 人完成
           <%end%>
         </td>
 
@@ -57,7 +57,7 @@
             <td>
 
               <% if current_user.can_recieve_homework?(homework) %>
-                <%= link_to '录入完成情况', edit_training_class_homework_path(@training_class,homework,{set_finish_status: true}) ,  {class:"ui green  button"  }%>
+                <%= link_to '录入完成情况', edit_training_class_homework_path(@training_class,homework) ,  {class:"ui green  button"  }%>
               <%end%>
               <% if current_user.can_edit_homework?(homework) %>
                   <%= link_to '删除', training_class_homework_path(@training_class, homework),  {class:"ui red  button" ,method: :delete, data: { confirm: '确认删除?' } }%>

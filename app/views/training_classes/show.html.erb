@@ -76,12 +76,13 @@
 
               <div class="content">
                 <div class="name"><%=student.name %></div>
-
+                <p class="description">
+                  <%= student.user.phone_number%>
+                </p>
                 <%if current_user.can_view_student_info?(student)%>
-                    <p class="description">
-                      <%= student.user.phone_number%>
-                      <br><%= link_to '更多详细信息' ,student_path(student) %>
-                    </p>
+
+                    <%= link_to '更多详细信息' ,student_path(student) %>
+
                     <br>
 
                     <%= link_to "模考成绩统计",index_with_all_examinations_training_class_student_scores_path(@training_class,student) %>
