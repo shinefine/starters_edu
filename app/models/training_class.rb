@@ -44,9 +44,22 @@ class TrainingClass < ActiveRecord::Base
 
   def student_attendance_summary(student)
 
-    grp_result= student_attendance(student).group_by{|stu_atten| stu_atten.description}
+
+    morning_grp=student_attendance(student).select{|stu_atten| not stu_atten.status_morning.blank?}.group_by{|stu_atten| stu_atten.status_morning}
+    afternoon_grp=student_attendance(student).select{|stu_atten| not stu_atten.status_afternoon.blank?}.group_by{|stu_atten| stu_atten.status_afternoon}
+    evening_grp=student_attendance(student).select{|stu_atten| not stu_atten.status_evening.blank?}.group_by{|stu_atten| stu_atten.status_evening}
+
+    grp_result=Hash.new(0)
+
+    ['出勤','迟到','早退','未出勤'].each{|key|
+      grp_result[key] = (morning_grp[key].nil? ? 0 : morning_grp[key].length) +
+          (afternoon_grp[key].nil? ? 0 : afternoon_grp[key].length)  +
+          (evening_grp[key].nil? ? 0 : evening_grp[key].length)
+
+    }
+
     col= grp_result.map{|key,value|
-      "#{key} #{grp_result[key].length}次 "
+      "#{key} #{grp_result[key]}次 "
     }
     return col.join(',')
   end

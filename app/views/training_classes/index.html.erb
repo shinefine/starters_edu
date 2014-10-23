@@ -78,6 +78,7 @@
 
                 <td><%=link_to "#{training_class.examinations.count}次",index_with_all_examinations_training_class_student_scores_path(training_class,@student) %></td>
                 <td><%= link_to @student.summary_dictation_text(training_class), training_class_dictations_path(training_class,student_id:@student) %></td>
+
                 <td><%= link_to @student.summary_attendance_text(training_class),training_class_attendances_path(training_class,student_id:@student) %></td>
 
             <%end%>

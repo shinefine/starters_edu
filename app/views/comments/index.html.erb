@@ -33,11 +33,10 @@
           <%end%>
         </td>
 
-        <td></td>
         <td><%= comment.teacher.name %></td>
 
 
-        <td><%= link_to '删除', comment,{class: 'ui red button', method: :delete, data: { confirm: '确定删除?' } } if current_user.teacher? %></td>
+        <td><%= link_to '删除', training_class_student_comment_path(@training_class,@student,comment),{class: 'ui red button', method: :delete, data: { confirm: '确定删除?' } } if current_user.teacher? || current_user.employee? %></td>
       </tr>
       <%end %>
   <% end %>

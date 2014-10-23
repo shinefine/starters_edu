@@ -14,7 +14,7 @@
       <tr>
         <td><%= attendance.attendance_date %></td>
 
-        <td><%= link_to  summary_attendance_text(attendance), edit_training_class_attendance_path(@training_class, attendance) %></td>
+        <td><%= link_to  summary_training_class_attendance_text(attendance), edit_training_class_attendance_path(@training_class, attendance) %></td>
 
         <td>
           <%if current_user.is_training_class_master?(@training_class)%>

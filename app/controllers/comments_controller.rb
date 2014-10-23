@@ -25,6 +25,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment.destroy
+
+    redirect_to training_class_student_comments_path(@training_class,@student) , notice: '评语已删除.'
 
   end
 

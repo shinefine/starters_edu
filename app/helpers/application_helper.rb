@@ -96,6 +96,13 @@ module ApplicationHelper
         else
           nav_menus={
 
+                  "基础数据" =>
+                      {
+                          '试卷（套题）管理'=>test_papers_path,
+                          '培训教材管理'=>text_books_path,
+
+                      },
+
               "关于" =>{
                   '我的班级'=>training_classes_path,
                   '我的个人信息'=>employee_url(current_user.employee),
