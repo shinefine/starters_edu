@@ -1,5 +1,5 @@
 module DictationHelper
-  def summary_dictation_text2(dictation)
+  def helper__summary_dictation_text(dictation)
     #返回所有学员听写情况的简要说明文字
 
 
@@ -39,6 +39,6 @@ module DictationHelper
 
 
     #生成描述字符串
-    return [" 及格:#{pass_count}人.不及格#{not_pass_count}人.未听写#{no_score_count}",block_text]
+    return [" 及格#{pass_count}人.不及格#{not_pass_count}人.未听写#{no_score_count}人",block_text]
   end
 end

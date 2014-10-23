@@ -76,10 +76,12 @@
 
               <div class="content">
                 <div class="name"><%=student.name %></div>
-                <p class="description">
-                  <%= student.user.phone_number%>
-                </p>
+
                 <%if current_user.can_view_student_info?(student)%>
+
+                    <p class="description">
+                      <%= student.user.phone_number%>
+                    </p>
 
                     <%= link_to '更多详细信息' ,student_path(student) %>
 

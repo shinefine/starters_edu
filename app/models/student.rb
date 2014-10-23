@@ -217,9 +217,7 @@ class Student < ActiveRecord::Base
     real_scores.entry_and_target
   end
 
-  def summary_attendance_text(training_class)
-    return training_class.student_attendance_summary(self)
-  end
+
   def summary_dictation_text(training_class)
     return training_class.student_dictation_summary(self)
   end

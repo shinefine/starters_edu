@@ -17,7 +17,7 @@
         <td><%= dictation.execute_date %></td>
         <td>合格线:<%= dictation.passing_line %>
             <br>
-          <%summary_info =summary_dictation_text2(dictation)%>
+          <%summary_info =helper__summary_dictation_text(dictation)%>
 
           <%=raw build_accordion_block(summary_info[0],summary_info[1]) %>
         </td>
