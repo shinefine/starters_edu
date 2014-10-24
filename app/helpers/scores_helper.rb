@@ -11,7 +11,7 @@ module ScoresHelper
     end
   end
 
-  def wrap_scores_for_nvd3_chart(scores_2d_arr,exam_type)
+  def wrap_scores_for_nvd3_chart(scores_2d_arr,training_class,current_user)
 
     return_arr=[]
 
@@ -22,7 +22,7 @@ module ScoresHelper
     talk_scores = []
     read_scores = []
 
-
+    exam_type =training_class.exam_type
 
 
     scores_2d_arr.each do |arr_element|
@@ -41,10 +41,19 @@ module ScoresHelper
       end
 
     if exam_type =='SAT'
-      return_arr=[{key:'CR',values:cr_scores},{key:'Math',values:math_scores},{key:'Writing',values:writing_scores}]
+      return_arr << {key:'CR',values:cr_scores}  if can_view_subject('CR',training_class,current_user)
+      return_arr << {key:'Math',values:math_scores}  if can_view_subject('Marh',training_class,current_user)
+      return_arr << {key:'Writing',values:writing_scores}  if can_view_subject('Grammar',training_class,current_user)
+
 
     elsif exam_type == 'TOEFL'
-      return_arr=[{key:'Listening',values:listen_scores},{key:'Speaking',values:talk_scores},{key:'Reading',values:read_scores},{key:'Writing',values:writing_scores}]
+      return_arr << {key:'Listening',values:listen_scores}  if can_view_subject('Listening',training_class,current_user)
+
+      return_arr << {key:'Speaking',values:talk_scores}  if can_view_subject('Speaking',training_class,current_user)
+
+      return_arr << {key:'Reading',values:read_scores}  if can_view_subject('Reading',training_class,current_user)
+
+      return_arr << {key:'Writing',values:writing_scores}  if can_view_subject('Writing',training_class,current_user)
 
     end
 

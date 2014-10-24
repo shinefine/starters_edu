@@ -8,7 +8,7 @@
 <script>
     <%scores = student_simulate_scores_in_a_training_class(@student,@training_class,@training_class.exam_type)%>
 
-    data_example =<%=raw wrap_scores_for_nvd3_chart(scores,@training_class.exam_type).to_json%>
+    data_example =<%=raw wrap_scores_for_nvd3_chart(scores,@training_class,current_user).to_json%>
  //   data_example = scores_objects_for_nvd3_chart(@student,@training_class).to_json
 //    data_example =[{key: "阅读",values: [{x:'入口成绩',y:600},
 //        {x:'2008年第一次模考',y:602},

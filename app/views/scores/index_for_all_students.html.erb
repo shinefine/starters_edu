@@ -21,7 +21,7 @@
 <script>
     <%scores = all_student_simulate_scores_in_one_examation(@training_class.exam_type,@scores)%>
 
-    data_example =<%= raw wrap_scores_for_nvd3_chart(scores,@training_class.exam_type).to_json%>
+    data_example =<%= raw wrap_scores_for_nvd3_chart(scores,@training_class,current_user).to_json%>
 
 </script>
 
