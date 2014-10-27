@@ -6,17 +6,7 @@ class DictationScore < ActiveRecord::Base
     self.dictation.execute_date
   end
 
-  def css_style
-    score = self.score || -1
-    if (score >= self.dictation.passing_line)
-      return 'lightred'
-    elsif(score>=0)
-      return 'lightgreen'
-    else
-      return 'lightblue'
-    end
-    return ''
-  end
+
 
   def description
 

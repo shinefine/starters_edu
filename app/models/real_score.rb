@@ -1,6 +1,7 @@
 class RealScore < ActiveRecord::Base
   belongs_to :student
 
+  include BaseScore
 
   scope :entry_and_target_and_month_target, ->{where(score_type:['月份目标成绩','入口成绩','最终期望成绩'])}
   scope :entry_and_target, ->{where(score_type:['入口成绩','最终期望成绩'])}
@@ -12,34 +13,7 @@ class RealScore < ActiveRecord::Base
   scope :toefl,->{where(exam_type: 'TOEFL')}
 
 
-  def sat_cr_score
-    course_a_score || 0
-  end
 
-  def sat_math_score
-    course_b_score || 0
-  end
-
-  def sat_writing_score
-    course_c_score || 0
-  end
-
-  def sat_essay_score
-    course_d_score || 0
-  end
-
-  def toefl_listening_score
-    course_a_score || 0
-  end
-  def toefl_speaking_score
-    course_b_score || 0
-  end
-  def toefl_reading_score
-    course_c_score || 0
-  end
-  def toefl_writing_score
-    course_d_score || 0
-  end
 
 end
 

@@ -1,6 +1,6 @@
 module RealScoresHelper
 
-  include BaseScore
+
   def seek_sat_scores(real_scores,month,subject)
     #从一些列real_Scores 记录(SAT)中找出指定月份的记录(只找出一条),然后返回其对应的科目分数
     v = real_scores.find{|record| record.month==month}
@@ -80,19 +80,19 @@ module RealScoresHelper
 
       #插入入口成绩
       unless real_score_entry.nil?
-        total_score =calculate_total_score(real_score_entry,exam_type)
+        total_score =real_score_entry.total_score(exam_type)
         return_2D_arr << ["入口成绩(#{total_score})",real_score_entry]
       end
 
       #插入期望成绩
       unless real_score_target.nil?
-        total_score =calculate_total_score(real_score_target,exam_type)
+        total_score =real_score_target.total_score(exam_type)
         return_2D_arr << ["最终期望成绩(#{total_score})",real_score_target]
       end
 
       #插入真实考试成绩
       scores.each_with_index do |score,i |
-        total_score = calculate_total_score(score,exam_type)
+        total_score = score.total_score(exam_type)
         return_2D_arr<<  ["#{score.year}年#{score.month}月(#{total_score})",score]
       end
 

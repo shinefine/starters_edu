@@ -41,4 +41,17 @@ module DictationHelper
     #生成描述字符串
     return [" 及格#{pass_count}人.不及格#{not_pass_count}人.未听写#{no_score_count}人",block_text]
   end
+
+
+  def helper__css_color_style_dictation_score(dictation_score)
+    score = dictation_score.score || -1
+    if (score >= dictation_score.dictation.passing_line)
+      return 'lightred'
+    elsif(score>=0)
+      return 'lightgreen'
+    else
+      return 'lightblue'
+    end
+    return ''
+  end
 end

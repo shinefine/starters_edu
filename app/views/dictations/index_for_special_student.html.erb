@@ -42,8 +42,12 @@
       <tr>
         <% 7.times do |i|%>
             <% str_css,str_description ='','' %>
-            <% str_css = week.get_student_dictation_score_with_day(i).css_style if week.has_day_dictation_score?(i)  %>
-            <% str_description =  week.get_student_dictation_score_with_day(i).description if week.has_day_dictation_score?(i) %>
+            <%if week.has_day_dictation_score?(i)%>
+                <%dictation_score = week.get_student_dictation_score_with_day(i)%>
+                <% str_css = helper__css_color_style_dictation_score(dictation_score)   %>
+                <% str_description =  dictation_score.description  %>
+            <%end%>
+
 
             <td class="<%=str_css %>">
               <%=week.get_day(i).strftime("%m-%d")   if week.get_day(i) >= @training_class.start_date &&  week.get_day(i)<= @training_class.end_date%>

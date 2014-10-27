@@ -1,4 +1,4 @@
-require 'ruby-pinyin'
+require 'ruby-pinyin'  #为了实现学员列表安名字的拼音排序
 
 class User < ActiveRecord::Base
   #账户可能是一个学员/讲师/员工

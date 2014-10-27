@@ -1,6 +1,6 @@
 module ScoresHelper
 
-  include BaseScore
+
 
   def can_view_subject(subject_name,training_class,user)
     #判断某个用户是否有权限看到某科目的(成绩,作业等)信息
@@ -65,7 +65,7 @@ module ScoresHelper
     return_2D_arr =[]
     #插入模考成绩
     scores.each do |score|
-      total_score = calculate_total_score(score,exam_type)
+      total_score = score.total_score(exam_type)
       return_2D_arr<<  ["#{score.student.name}(#{total_score})",score]
     end
 
@@ -87,13 +87,13 @@ module ScoresHelper
 
     #插入入口成绩
     unless real_score_entry.nil?
-      total_score =calculate_total_score(real_score_entry,exam_type)
+      total_score =real_score_entry.total_score(exam_type)
       return_2D_arr << ["入口成绩(#{total_score})",real_score_entry]
     end
 
     #插入期望成绩
     unless real_score_target.nil?
-      total_score =calculate_total_score(real_score_target,exam_type)
+      total_score =real_score_target.total_score(exam_type)
       return_2D_arr << ["最终期望成绩(#{total_score})",real_score_target]
     end
 
@@ -103,7 +103,7 @@ module ScoresHelper
     scores.each_with_index do |score,i |
 
 
-      total_score = calculate_total_score(score,exam_type)
+      total_score = score.total_score(exam_type)
       return_2D_arr<<  ["模考#{i + 1 }(#{total_score})",score]
     end
 

@@ -32,4 +32,28 @@ module AttendanceHelper
 
 
 
+  def helper__css_color_style_student_attendance(stu_atten)
+    case stu_atten.description
+      when '迟到'
+        return  'lightblue'
+      when '早退'
+        return 'lightyellow'
+      when '出勤'
+        return 'lightgreen'
+      when '未出勤'
+        return 'lightred'
+
+    end
+    return ''
+  end
+  def helper__html_attendance_status_icon(status)
+    #返回用html文本表示的 考勤状态对应的图标
+
+    color = 'green' if status =='出勤'
+    color = 'red' if status =='未出勤'
+    color = 'blue' if status =='迟到'
+    color = 'yellow' if status =='早退'
+    return "<div class=\"ui #{color} label\"> </div>"
+
+  end
 end
