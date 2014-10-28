@@ -104,9 +104,28 @@ th {
 
 }
 
-table .ui.table.red_table{
+.colored_content table:nth-child(1){
+  background-color: #4c7dff !important;
+}
+.colored_content table:nth-child(2){
+  background-color: #36c0ff !important;
+}
+.colored_content table:nth-child(3){
+  background-color: #2fffd0 !important;
+}
+.colored_content table:nth-child(4){
+  background-color: #a0ff52 !important;
+}
+.colored_content table:nth-child(5){
+  background-color: #dbff3c !important;
+}
+.colored_content table:nth-child(6){
+  background-color: #ffd443 !important;
+}
+.colored_content table:nth-child(7){
   background-color: #FDD !important;
 }
+
 
 .ui.form {
   background-color: rgba(255, 255, 255, 0.6) !important;

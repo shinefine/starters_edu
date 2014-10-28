@@ -12,8 +12,7 @@
 <%end%>
 
 <div class="ui  basic vertical fluid accordion">
-  <!--基本信息-->
-
+  <!--成绩统计 块-->
     <div class="active title">
       <i class="dropdown icon"></i>
       <a class="ui teal circular large label">成绩统计</a>
@@ -40,63 +39,63 @@
 
 
         <tbody>
-        <% @students.each do |stu| %>
+        <% @hash_students_score_trend.each do |key_stu,value_score_results| %>
 
-
+            <%real_scores = value_score_results[:real_scores]%>
 
             <tr>
-              <td rowspan="5"><%= stu.name %></td>
+              <td rowspan="5"><%= key_stu.name %></td>
               <td rowspan="5">班级名称</td>
 
               <td >总分</td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,1,'总分')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,5,'总分')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,6,'总分')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,10,'总分')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,11,'总分')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,12,'总分')%></td>
+              <td><%=seek_sat_scores(real_scores,1,'总分')%></td>
+              <td><%=seek_sat_scores(real_scores,5,'总分')%></td>
+              <td><%=seek_sat_scores(real_scores,6,'总分')%></td>
+              <td><%=seek_sat_scores(real_scores,10,'总分')%></td>
+              <td><%=seek_sat_scores(real_scores,11,'总分')%></td>
+              <td><%=seek_sat_scores(real_scores,12,'总分')%></td>
 
             </tr>
 
             <tr>
 
               <td >Reading</td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,1,'Reading')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,5,'Reading')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,6,'Reading')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,10,'Reading')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,11,'Reading')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,12,'Reading')%></td>
+              <td><%=seek_sat_scores(real_scores,1,'Reading')%></td>
+              <td><%=seek_sat_scores(real_scores,5,'Reading')%></td>
+              <td><%=seek_sat_scores(real_scores,6,'Reading')%></td>
+              <td><%=seek_sat_scores(real_scores,10,'Reading')%></td>
+              <td><%=seek_sat_scores(real_scores,11,'Reading')%></td>
+              <td><%=seek_sat_scores(real_scores,12,'Reading')%></td>
             </tr>
             <tr>
 
               <td >Math</td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,1,'Math')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,5,'Math')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,6,'Math')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,10,'Math')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,11,'Math')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,12,'Math')%></td>
+              <td><%=seek_sat_scores(real_scores,1,'Math')%></td>
+              <td><%=seek_sat_scores(real_scores,5,'Math')%></td>
+              <td><%=seek_sat_scores(real_scores,6,'Math')%></td>
+              <td><%=seek_sat_scores(real_scores,10,'Math')%></td>
+              <td><%=seek_sat_scores(real_scores,11,'Math')%></td>
+              <td><%=seek_sat_scores(real_scores,12,'Math')%></td>
             </tr>
             <tr>
 
               <td >Grammar</td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,1,'Grammar')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,5,'Grammar')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,6,'Grammar')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,10,'Grammar')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,11,'Grammar')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,12,'Grammar')%></td>
+              <td><%=seek_sat_scores(real_scores,1,'Grammar')%></td>
+              <td><%=seek_sat_scores(real_scores,5,'Grammar')%></td>
+              <td><%=seek_sat_scores(real_scores,6,'Grammar')%></td>
+              <td><%=seek_sat_scores(real_scores,10,'Grammar')%></td>
+              <td><%=seek_sat_scores(real_scores,11,'Grammar')%></td>
+              <td><%=seek_sat_scores(real_scores,12,'Grammar')%></td>
             </tr>
             <tr>
 
               <td >Writing</td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,1,'Writing')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,5,'Writing')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,6,'Writing')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,10,'Writing')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,11,'Writing')%></td>
-              <td><%=seek_sat_scores(stu.cache_real_scores,12,'Writing')%></td>
+              <td><%=seek_sat_scores(real_scores,1,'Writing')%></td>
+              <td><%=seek_sat_scores(real_scores,5,'Writing')%></td>
+              <td><%=seek_sat_scores(real_scores,6,'Writing')%></td>
+              <td><%=seek_sat_scores(real_scores,10,'Writing')%></td>
+              <td><%=seek_sat_scores(real_scores,11,'Writing')%></td>
+              <td><%=seek_sat_scores(real_scores,12,'Writing')%></td>
             </tr>
 
           <tr></tr>
@@ -113,7 +112,7 @@
 
 
 
-
+  <!--涨分情况 块-->
     <div class="title">
       <i class="dropdown icon"></i>
       <a class="ui teal circular large label">涨分情况</a>
@@ -140,16 +139,25 @@
           <% subject_names.each do|subject_name|%>
 
 
-          <td>
+          <td class="colored_content">
             <!--此单元格显示多个表格,这些表格分组显示了语法涨分情况-->
-            <%hash_grp=@students.group_by{|stu| stu.summary_sat_scores_trend(subject_name)}%>
+            <%students =@hash_students_score_trend.keys
+              trend_ranges = [0...50,50...100,100...150,150...200]
+            %>
+            <%hash_grp=students.group_by{|stu|
+              score_trend_result = @hash_students_score_trend[stu]
+              trend_result = stu.get_trend_result_by_subject_name(subject_name,score_trend_result)
+
+              helper__summary_value_in_which_range(trend_result,trend_ranges) #值为'0~50分'或'200分以上'或...
+            }
+            %>
 
 
-            <%score_block =['200分以上','150分~200分','100分~150分','50分~100分','0分~50分']%>
+            <%score_block =helper__range_block_summary_text(trend_ranges).reverse %>
 
             <%score_block.each do|key_string|%>
                 <%stu_list = hash_grp[key_string] ||[] %>
-                <table class ="ui celled collapsing table segment red_table">
+                <table class ="ui celled collapsing table segment">
 
                   <thead>
 
@@ -176,8 +184,8 @@
                       <%method_name = subject_name.downcase%>
                       <%method_name = 'total' if subject_name =='总分'%>
 
-                      <td><%=stu.send('max_real_score_sat_' + method_name)%></td>
-                      <td><%=stu.send('score_trend_sat_'+ method_name)%></td>
+                      <td><%=@hash_students_score_trend[stu].fetch(('max_real_score_sat_' + method_name).to_sym)%></td>
+                      <td><%=@hash_students_score_trend[stu].fetch(('score_trend_sat_'+ method_name).to_sym)%></td>
 
                     </tr>
 
@@ -197,8 +205,7 @@
     </div>
 
 
-
-
+  <!--最高分数 块-->
     <div class="title">
       <i class="dropdown icon"></i>
       <a class="ui teal circular large label">最高分数</a>
@@ -224,13 +231,22 @@
 
           <% subject_names.each do|subject_name|%>
 
-              <td>
+              <td class="colored_content">
                 <!--此单元格显示多个表格,这些表格分组显示了语法涨分情况-->
-                <%hash_grp=@students.group_by{|stu| stu.summary_sat_scores_max(subject_name)}%>
 
 
-                <%score_block =['700分以上','650分~700分','600分~650分','550分~600分','500分~550分','450分~500分','400分~450分','400分以下']%>
+                <%students =@hash_students_score_trend.keys
+                  sat_subject_score_ranges = [0...350,350...400,400...450,450...500,500...550,550...600,600...650,650...700]
+                %>
+                <%hash_grp=students.group_by{|stu|
+                  score_trend_result = @hash_students_score_trend[stu]
+                  max_value = stu.get_subject_max_by_subject_name(subject_name,score_trend_result)
+                  helper__summary_value_in_which_range(max_value,sat_subject_score_ranges) #值为'0~50分'或'200分以上'或...
+                }
+                %>
 
+
+                <%score_block =helper__range_block_summary_text(sat_subject_score_ranges).reverse %>
                 <%score_block.each do|key_string|%>
                     <%stu_list = hash_grp[key_string] ||[] %>
                     <table class ="ui celled collapsing table segment">
@@ -257,7 +273,9 @@
                           <tr>
                             <td><%=stu.name%></td>
                             <%method_name = subject_name.downcase%>
-                            <td><%=stu.send('max_real_score_sat_' + method_name)%></td>
+                            <td><%=
+                                @hash_students_score_trend[stu].fetch(('max_real_score_sat_' + method_name).to_sym)
+                               %></td>
 
 
                           </tr>
@@ -271,16 +289,26 @@
 
           <%end%>
 
-          <td>
+          <td class="colored_content">
             <!--此单元格显示多个表格,这些表格分组显示了总分最高分情况-->
-            <%hash_grp=@students.group_by{|stu| stu.summary_sat_scores_max('总分')}%>
+            <%students =@hash_students_score_trend.keys
+              sat_total_score_ranges = [0...1900,1900...2000,2000...2100,2100...2200,2200...2300]
+            %>
+            <%hash_grp=students.group_by{|stu|
+              score_trend_result = @hash_students_score_trend[stu]
+              max_value = stu.get_subject_max_by_subject_name('总分',score_trend_result)
+              helper__summary_value_in_which_range(max_value,sat_total_score_ranges) #值为'0~50分'或'200分以上'或...
+            }
+            %>
 
+
+            <%score_block =helper__range_block_summary_text(sat_total_score_ranges).reverse %>
 
             <%score_block =['2300分以上','2200分~2300分','2100分~2200分','2000分~2100分','1900分~2000分','1900分以下']%>
 
             <%score_block.each do|key_string|%>
                 <%stu_list = hash_grp[key_string] ||[] %>
-                <table class ="ui celled collapsing table segment red_table">
+                <table class ="ui celled collapsing table segment">
 
                   <thead>
 
@@ -307,7 +335,9 @@
                       <tr>
                         <td><%=stu.name%></td>
 
-                        <td><%=stu.max_real_score_sat_total%></td>
+                        <td><%=
+                            @hash_students_score_trend[stu].fetch(:max_real_score_sat_total)
+                           %></td>
 
 
                       </tr>
@@ -324,5 +354,6 @@
       </table>
 
     </div>
+
 
 </div>

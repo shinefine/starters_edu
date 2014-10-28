@@ -7,16 +7,28 @@ class HomePageController < ApplicationController
   def big_data_report_scores
     #大数据统计分析功能
     @year =params[:year]
-    var_year =@year.to_i
-    @scores_grp_by_student = RealScore.sat.true_real.where(year:var_year).group_by{|record| record.student_id}
 
-    @students=[]
-    @scores_grp_by_student.each{|key_id,value_realscores|
-      student = Student.find(key_id)
-      student.cache_real_scores = value_realscores
-      student.calculate_sat_scores_trend
-      @students<<student
+    var_year =@year.to_i
+    valid_students = Student.where( id: RealScore.sat.true_real.where(year:var_year).map{|rs|rs.student_id} )#根据年份获取有真实考试成绩的有效学员
+
+
+    @hash_students_score_trend ={}  #各个学员的考试成绩的趋势分析结果
+    valid_students.each{ |stu|
+      result = stu.calculate_sat_scores_trend2(var_year)
+
+      @hash_students_score_trend[stu] =result
     }
+
+    #
+    # @scores_grp_by_student = RealScore.sat.true_real.where(year:var_year).group_by{|record| record.student_id}
+    #
+    # @students=[]
+    # @scores_grp_by_student.each{|key_id,value_realscores|
+    #   student = Student.find(key_id)
+    #   student.cache_real_scores = value_realscores
+    #   student.calculate_sat_scores_trend
+    #   @students<<student
+    # }
 
 
   end
