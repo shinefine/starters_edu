@@ -92,7 +92,7 @@
                     <%comments= helper_get_student_comments(student)%>
                     <%= link_to "讲师评语(#{comments.count})",training_class_student_comments_path(@training_class,student)%>
 
-                    <%= link_to "真实成绩统计",index_with_all_examinations_student_real_scores_path(student,exam_type:@training_class.exam_type) %>
+                    <%= link_to "真实成绩统计",index_with_all_examinations_student_real_scores_path(student,training_class_id:@training_class) %>
 
                 <%end%>
               </div>

@@ -9,7 +9,7 @@
 
     <%scores = real_scores_objects_for_nvd3_chart(@student,@exam_type)%>
 
-    data_example =<%=raw wrap_scores_for_nvd3_chart(scores,@exam_type).to_json%>
+    data_example =<%=raw wrap_scores_for_nvd3_chart(scores,@training_class,current_user).to_json%>
 
 //    data_example =[{key: "阅读",values: [{x:'入口成绩',y:600},
 //        {x:'一月目标',y:600},
