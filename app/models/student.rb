@@ -61,7 +61,7 @@ class Student < ActiveRecord::Base
   def calculate_sat_scores_trend2(var_year)
     scores = real_scores.sat.true_real.where(year:var_year)
 
-    subject_scores = scores.map{|r|r.final_score}
+    subject_scores = scores.map{|r|r.final_score || 0}
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
 
@@ -69,7 +69,7 @@ class Student < ActiveRecord::Base
     max_real_score_sat_total =subject_max_score
 
 
-    subject_scores = scores.map{|r|r.course_a_score}
+    subject_scores = scores.map{|r|r.course_a_score || 0}
 
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
@@ -77,7 +77,7 @@ class Student < ActiveRecord::Base
     score_trend_sat_reading = subject_max_score - subject_min_score
     max_real_score_sat_reading =subject_max_score
 
-    subject_scores = scores.map{|r|r.course_b_score}
+    subject_scores = scores.map{|r|r.course_b_score || 0}
 
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
@@ -85,7 +85,7 @@ class Student < ActiveRecord::Base
     score_trend_sat_math = subject_max_score - subject_min_score
     max_real_score_sat_math =subject_max_score
 
-    subject_scores = scores.map{|r|r.course_c_score}
+    subject_scores = scores.map{|r|r.course_c_score || 0}
 
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
@@ -93,7 +93,7 @@ class Student < ActiveRecord::Base
     score_trend_sat_grammar = subject_max_score - subject_min_score
     max_real_score_sat_grammar =subject_max_score
 
-    subject_scores = scores.map{|r|r.course_d_score}
+    subject_scores = scores.map{|r|r.course_d_score || 0}
 
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
@@ -124,7 +124,8 @@ class Student < ActiveRecord::Base
 
 
     case subject_name
-      when '总分'
+
+      when 'Total'
         max = hash_score_trend_result[:max_real_score_sat_total]
       when 'Reading'
         max = hash_score_trend_result[:max_real_score_sat_reading]
@@ -142,7 +143,7 @@ class Student < ActiveRecord::Base
   def get_trend_result_by_subject_name(subject_name,hash_score_trend_result)
     trend =0
     case subject_name
-      when '总分'
+      when 'Total'
         trend = hash_score_trend_result[:score_trend_sat_total]
       when 'Reading'
         trend = hash_score_trend_result[:score_trend_sat_reading]

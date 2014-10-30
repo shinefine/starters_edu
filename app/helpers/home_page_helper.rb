@@ -10,6 +10,21 @@ module HomePageHelper
     return arr
   end
 
+  def helper__sort_students_by_score(stu_list,hash_stu_scores,subject_name)
+    #hash_stu_scores:  { stu1=>{math:100,CR:200,essay:300},stu2=>{math:10,CR:20,essay:30}}
+    datas = {}
+    #datas hash 表用于存储 学生姓名(key),对应科目分数(value)-->
+    stu_list.each do |stu|
+      datas.store( stu.name, hash_stu_scores[stu].fetch(subject_name) )
+
+    end
+
+    arr = datas.sort_by{|k,v| v}.reverse
+
+    return arr.to_h
+  end
+
+
   def helper__summary_value_in_which_range(value,range_blocks)
     #描述指定值在哪个范围内
     #range_blocks = [0...50,50...100,100...150,150...200]

@@ -83,7 +83,7 @@
     <div class="active content">
       <%=render 'real_scores/show',:locals => {
               exam_type_filter:'TOEFL',
-              real_scores:@student.real_scores.toefl.true_real.sort_by{|rs| rs.year*100+rs.month} }%>
+              real_scores:@student.real_scores.toefl.true_real }%>
 
       <% if current_user.can_set_student_info?(@student) %>
          <%= link_to '输入 TOEFL 真实考试成绩', set_real_scores_student_path(@student,exam_type:'TOEFL',score_type:'true_real'), {class: 'ui red button'}%>
@@ -94,7 +94,7 @@
 
       <%=render 'real_scores/show',:locals => {
               exam_type_filter:'SAT',
-              real_scores:@student.real_scores.sat.true_real.sort_by{|rs| rs.year*100+rs.month}}%>
+              real_scores:@student.real_scores.sat.true_real}%>
       <% if current_user.can_set_student_info?(@student) %>
          <%= link_to '输入 SAT 真实考试成绩', set_real_scores_student_path(@student,exam_type:'SAT',score_type:'true_real'), {class: 'ui red button'}%>
 

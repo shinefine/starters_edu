@@ -4,6 +4,8 @@ class HomePageController < ApplicationController
     render layout: false
   end
 
+
+
   def big_data_report_scores
     #大数据统计分析功能
     @year =params[:year]
