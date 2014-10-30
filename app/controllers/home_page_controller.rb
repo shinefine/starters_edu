@@ -9,14 +9,15 @@ class HomePageController < ApplicationController
   def big_data_report_scores
     #大数据统计分析功能
     @year =params[:year]
+    @exam_type = params[:exam_type]
 
     var_year =@year.to_i
-    valid_students = Student.where( id: RealScore.sat.true_real.where(year:var_year).map{|rs|rs.student_id} )#根据年份获取有真实考试成绩的有效学员
+    valid_students = Student.where( id: RealScore.send(@exam_type.downcase).true_real.where(year:var_year).map{|rs|rs.student_id} )#根据年份获取有真实考试成绩的有效学员
 
 
     @hash_students_score_trend ={}  #各个学员的考试成绩的趋势分析结果
     valid_students.each{ |stu|
-      result = stu.calculate_sat_scores_trend2(var_year)
+      result = stu.calculate_sat_scores_trend2(var_year,@exam_type)
 
       @hash_students_score_trend[stu] =result
     }

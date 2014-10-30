@@ -1,5 +1,67 @@
 module HomePageHelper
 
+  def helper__html_tds_monthes_real_score(real_scores,subject_name,exam_type)
+    if exam_type =='SAT'
+      return '<td>'+seek_scores(real_scores,1,subject_name,exam_type).to_s+'</td>'+
+            '<td>'+seek_scores(real_scores,5,subject_name,exam_type).to_s+'</td>'+
+            '<td>'+seek_scores(real_scores,6,subject_name,exam_type).to_s+'</td>'+
+            '<td>'+seek_scores(real_scores,10,subject_name,exam_type).to_s+'</td>'+
+            '<td>'+seek_scores(real_scores,11,subject_name,exam_type).to_s+'</td>'+
+            '<td>'+seek_scores(real_scores,12,subject_name,exam_type).to_s+'</td>'
+    elsif exam_type=='TOEFL'
+      return '<td>'+seek_scores(real_scores,1,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,2,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,3,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,4,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,5,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,6,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,7,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,8,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,9,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,10,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,11,subject_name,exam_type).to_s+'</td>'+
+          '<td>'+seek_scores(real_scores,12,subject_name,exam_type).to_s+'</td>'
+
+    end
+    return ''
+
+  end
+
+  def seek_scores(real_scores,month,subject,exam_type)
+    #从一些列real_Scores 记录(SAT)中找出指定月份的记录(只找出一条),然后返回其对应的科目分数
+    v = real_scores.find{|record| record.month==month}
+
+    return "" if v.nil?
+
+    case subject
+      when '总分'
+        return v.final_score
+      when 'CR'
+        return v.course_a_score
+      when 'Math'
+        return v.course_b_score
+      when 'Writing'
+        if exam_type=='SAT'
+          return v.course_c_score
+        elsif exam_type=='TOEFL'
+          return v.course_d_score
+        end
+        return 0
+      when 'Essay'
+        return v.course_d_score
+      when 'Listening'
+        return v.course_a_score
+      when 'Speaking'
+        return v.course_b_score
+      when 'Reading'
+        return v.course_c_score
+
+    end
+    return "--"
+  end
+
+
+
   def helper__range_block_summary_text(range_blocks)
     #传入[0...50,50...100,100...200]  -----> 返回 ['0分~50分','50分~100分','100分~200分','200分以上']
     arr =range_blocks.map{|r|

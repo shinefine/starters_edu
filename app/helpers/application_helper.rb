@@ -87,7 +87,7 @@ module ApplicationHelper
 
             },
            "大数据" =>{
-              "学员成绩分析(#{Time.now.year})"=>home_page_big_data_report_scores_url(year: Time.now.year),
+              "学员成绩分析(#{Time.now.year})"=>home_page_big_data_report_scores_url(year: Time.now.year,exam_type:'SAT'),
 
           }
 

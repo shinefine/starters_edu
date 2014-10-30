@@ -58,15 +58,15 @@ class Student < ActiveRecord::Base
 
 
   end
-  def calculate_sat_scores_trend2(var_year)
-    scores = real_scores.sat.true_real.where(year:var_year)
+  def calculate_sat_scores_trend2(var_year,exam_type)
+    scores = real_scores.send(exam_type.downcase).true_real.where(year:var_year)
 
     subject_scores = scores.map{|r|r.final_score || 0}
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
 
-    score_trend_sat_total = subject_max_score - subject_min_score
-    max_real_score_sat_total =subject_max_score
+    score_trend_total = subject_max_score - subject_min_score
+    max_real_score_total = subject_max_score
 
 
     subject_scores = scores.map{|r|r.course_a_score || 0}
@@ -74,47 +74,65 @@ class Student < ActiveRecord::Base
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
 
-    score_trend_sat_reading = subject_max_score - subject_min_score
-    max_real_score_sat_reading =subject_max_score
+    score_trend_course_a = subject_max_score - subject_min_score
+    max_real_score_course_a =subject_max_score
 
     subject_scores = scores.map{|r|r.course_b_score || 0}
 
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
 
-    score_trend_sat_math = subject_max_score - subject_min_score
-    max_real_score_sat_math =subject_max_score
+    score_trend_course_b = subject_max_score - subject_min_score
+    max_real_score_course_b =subject_max_score
 
     subject_scores = scores.map{|r|r.course_c_score || 0}
 
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
 
-    score_trend_sat_grammar = subject_max_score - subject_min_score
-    max_real_score_sat_grammar =subject_max_score
+    score_trend_course_c = subject_max_score - subject_min_score
+    max_real_score_course_c =subject_max_score
 
     subject_scores = scores.map{|r|r.course_d_score || 0}
 
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
 
-    score_trend_sat_writing = subject_max_score - subject_min_score
-    max_real_score_sat_writing =subject_max_score
+    score_trend_course_d = subject_max_score - subject_min_score
+    max_real_score_course_d =subject_max_score
 
-    {score_trend_sat_total:score_trend_sat_total,
-     score_trend_sat_reading:score_trend_sat_reading,
-     score_trend_sat_math:score_trend_sat_math,
-     score_trend_sat_grammar:score_trend_sat_grammar,
-     score_trend_sat_writing:score_trend_sat_writing,
+    if exam_type=='SAT'
+    return {
+        score_trend_sat_total:score_trend_total,
+         score_trend_sat_reading:score_trend_course_a,
+         score_trend_sat_math:score_trend_course_b,
+         score_trend_sat_writing:score_trend_course_c,
+         score_trend_sat_essay:score_trend_course_d,
 
-     max_real_score_sat_total:max_real_score_sat_total,
-     max_real_score_sat_reading:max_real_score_sat_reading,
-     max_real_score_sat_math:max_real_score_sat_math,
-     max_real_score_sat_grammar:max_real_score_sat_grammar,
-     max_real_score_sat_writing:max_real_score_sat_writing,
-     real_scores: scores
+         max_real_score_sat_total:max_real_score_total,
+         max_real_score_sat_reading:max_real_score_course_a,
+         max_real_score_sat_math:max_real_score_course_b,
+         max_real_score_sat_writing:max_real_score_course_c,
+         max_real_score_sat_essay:max_real_score_course_d,
+         real_scores: scores
     }
+    elsif exam_type=='TOEFL'
+      return {
+              score_trend_toefl_total:score_trend_total,
+              score_trend_toefl_listening:score_trend_course_a,
+              score_trend_toefl_speaking:score_trend_course_b,
+              score_trend_toefl_reading:score_trend_course_c,
+              score_trend_toefl_writing:score_trend_course_d,
 
+              max_real_score_toefl_total:max_real_score_total,
+              max_real_score_toefl_listening:max_real_score_course_a,
+              max_real_score_toefl_speaking:max_real_score_course_b,
+              max_real_score_toefl_reading:max_real_score_course_c,
+              max_real_score_toefl_writing:max_real_score_course_d,
+              real_scores: scores
+      }
+    end
+    return {}
   end
 
 
@@ -149,10 +167,11 @@ class Student < ActiveRecord::Base
         trend = hash_score_trend_result[:score_trend_sat_reading]
       when 'Math'
         trend = hash_score_trend_result[:score_trend_sat_math]
-      when 'Grammar'
-        trend = hash_score_trend_result[:score_trend_sat_grammar]
+
       when 'Writing'
         trend = hash_score_trend_result[:score_trend_sat_writing]
+      when 'Essay'
+        trend = hash_score_trend_result[:score_trend_sat_essay]
     end
     return trend
   end

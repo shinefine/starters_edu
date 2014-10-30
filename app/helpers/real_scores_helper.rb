@@ -1,26 +1,6 @@
 module RealScoresHelper
 
 
-  def seek_sat_scores(real_scores,month,subject)
-    #从一些列real_Scores 记录(SAT)中找出指定月份的记录(只找出一条),然后返回其对应的科目分数
-    v = real_scores.find{|record| record.month==month}
-
-    return "" if v.nil?
-
-    case subject
-      when '总分'
-        return v.final_score
-      when 'Reading'
-        return v.course_a_score
-      when 'Math'
-        return v.course_b_score
-      when 'Grammar'
-        return v.course_c_score
-      when 'Writing'
-        return v.course_d_score
-    end
-    return "--"
-  end
 
   def summary_scores_trend(real_scores,subject)
     #统计分数趋势
