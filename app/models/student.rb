@@ -1,8 +1,3 @@
-
-
-
-
-
 class Student < ActiveRecord::Base
   has_many :real_scores
   #学员可以属于多个培训班(同时培训班包含多个学员)
@@ -47,9 +42,6 @@ class Student < ActiveRecord::Base
                 :max_real_score_sat_math,
                 :max_real_score_sat_grammar,
                 :max_real_score_sat_writing
-
-
-
 
   def calculate_sat_scores_trend3(var_year)
     scores = real_scores.sat.true_real.where(year:var_year)
@@ -125,7 +117,7 @@ class Student < ActiveRecord::Base
 
   end
 
-  
+
 
   def get_subject_max_by_subject_name(subject_name,hash_score_trend_result)
     max = 0

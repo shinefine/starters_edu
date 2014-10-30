@@ -2,7 +2,7 @@ module StudentsHelper
   def summary_student_joined_training_class_names_list(student)
     #生成一段文字描述,用于表示学员参加过那些培训班(显示培训班的阶段名,而非培训班级名)
     count=0
-    student.training_classes.map{|tc| "#{tc.training_class_type}(#{tc.name})"}.join("")
+
     tc_type_names=student.training_classes.map{|tc| tc.training_class_type}
 
 

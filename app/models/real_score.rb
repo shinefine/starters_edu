@@ -2,6 +2,7 @@ class RealScore < ActiveRecord::Base
   belongs_to :student
 
   include BaseScore
+  default_scope {order('year','month')}
 
   scope :entry_and_target_and_month_target, ->{where(score_type:['月份目标成绩','入口成绩','最终期望成绩'])}
   scope :entry_and_target, ->{where(score_type:['入口成绩','最终期望成绩'])}

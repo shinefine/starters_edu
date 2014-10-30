@@ -45,7 +45,7 @@
 
             <tr>
               <td rowspan="5"><%= key_stu.name %></td>
-              <td rowspan="5">班级名称</td>
+              <td rowspan="5"><%=simple_format(key_stu.training_classes.map{|tc| tc.training_class_type}.join("\n")) %></td>
 
               <td >总分</td>
               <td><%=seek_sat_scores(real_scores,1,'总分')%></td>
