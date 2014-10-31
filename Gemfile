@@ -7,7 +7,9 @@ gem 'mini_magick' ,'3.3'
 
 gem 'ruby-pinyin'
 
-
+gem "elasticsearch", :git => "git://github.com/elasticsearch/elasticsearch-ruby.git"
+gem "elasticsearch-model", :git => "git://github.com/elasticsearch/elasticsearch-rails.git"
+gem "elasticsearch-rails", :git => "git://github.com/elasticsearch/elasticsearch-rails.git"
 group :development do
 
   # For debugger

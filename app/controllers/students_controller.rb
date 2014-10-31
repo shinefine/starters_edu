@@ -22,6 +22,35 @@ class StudentsController < ApplicationController
 
   end
 
+  def search
+
+    if params[:q].blank?
+      redirect_to  students_url
+    else
+
+      set_user_permission_students
+      student_ids = @students.map{|stu| stu.id}
+
+      search_result = User.search(
+          query: {
+              multi_match: {
+                  query: params[:q].to_s,
+                  fields: ['name', 'intro']
+              }
+          }
+      ).records
+
+      users = search_result.select { |record| record.student? && student_ids.include?(record.student.id)  }
+
+      @students =  users.collect { |u | u.student }
+
+
+      render 'index'
+
+    end
+
+  end
+
   # GET /students/1
   # GET /students/1.json
   def show

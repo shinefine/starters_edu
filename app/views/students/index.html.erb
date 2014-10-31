@@ -6,6 +6,21 @@
   共有学员 <%= @students.length %> 人
 
 </div>
+
+
+<br>
+<br>
+<div class="ui input">
+  <%= form_tag search_students_path, method: 'get' do %>
+        <span class="input-icon">
+    <%= text_field_tag :q, params[:q], placeholder: "搜索学员...", autocomplete: "off" %>
+          <i class="ace-icon fa fa-search nav-search-icon"></i>
+  </span>
+
+  <% end %>
+</div>
+
+
 <table class ="ui celled collapsing table segment">
   <thead>
     <tr>
@@ -43,16 +58,21 @@
 
         </td>
         <td>
+          <!--家长联系方式 单元表格-->
           <table class ="ui celled collapsing table segment">
             <tbody>
-            <tr>
-              <td><%=student.parent_name%></td>
-              <td><%=student.parent_tel%></td>
-            </tr>
-            <tr>
-              <td><%=student.parent2_name%></td>
-              <td><%=student.parent2_tel%></td>
-            </tr>
+            <% unless student.parent_name.blank? %>
+                <tr>
+                  <td><%=student.parent_name%></td>
+                  <td><%=student.parent_tel%></td>
+                </tr>
+            <%end%>
+            <%unless student.parent2_name.blank?  %>
+                <tr>
+                  <td><%=student.parent2_name%></td>
+                  <td><%=student.parent2_tel%></td>
+                </tr>
+            <%end%>
             </tbody>
           </table>
 

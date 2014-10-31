@@ -5,6 +5,16 @@ class HomePageController < ApplicationController
   end
 
 
+  def search
+        @users = User.search(
+             query: {
+                multi_match: {
+                  query: params[:q].to_s,
+              fields: ['name', 'intro']
+            }
+          }
+        ).records
+  end
 
   def big_data_report_scores
     #大数据统计分析功能

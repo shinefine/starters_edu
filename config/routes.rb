@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'home_page/search'
   get 'home_page/upload'
   get 'home_page/training_class_schedule'
   get 'home_page/delete_schedule'
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
 
 
   resources :students do
+    get :search , on: :collection
 
     resources :real_scores do
       get :index_with_all_examinations ,on: :collection #列出某个学员的 所有真实考试成绩 (统计报表)

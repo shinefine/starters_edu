@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_one :teacher
   has_one :employee
 
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 
   def pinyin_name
     PinYin.permlink(name)
