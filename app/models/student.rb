@@ -1,4 +1,8 @@
 class Student < ActiveRecord::Base
+
+  paginates_per 10
+
+
   has_many :real_scores
   #学员可以属于多个培训班(同时培训班包含多个学员)
   has_and_belongs_to_many :training_classes

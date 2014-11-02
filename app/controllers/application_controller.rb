@@ -23,15 +23,16 @@ class ApplicationController < ActionController::Base
     #--见需求:不同员工所能操作和看见的学员信息有限制
 
     if current_user.admin?
-      @students = Student.all
+      students = Student.all
     elsif current_user.employee?
 
-      @students = Student.where(creator: current_user.employee)
+      students = Student.where(creator: current_user.employee)
       students_2= current_user.employee.training_classes.inject([]){|result,element| result | element.students }
-      @students = @students || students_2
+      students = students || students_2
     else
-      @students=[]
+      students=[]
     end
+    @students =students
   end
 
 end

@@ -6,7 +6,7 @@ gem 'carrierwave','0.6.2'
 gem 'mini_magick' ,'3.3'
 
 gem 'ruby-pinyin'
-
+gem 'kaminari','~> 0.16.1'
 gem "elasticsearch", :git => "git://github.com/elasticsearch/elasticsearch-ruby.git"
 gem "elasticsearch-model", :git => "git://github.com/elasticsearch/elasticsearch-rails.git"
 gem "elasticsearch-rails", :git => "git://github.com/elasticsearch/elasticsearch-rails.git"

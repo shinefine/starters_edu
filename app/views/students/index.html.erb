@@ -7,7 +7,6 @@
 
 </div>
 
-
 <br>
 <br>
 <div class="ui input">
@@ -126,6 +125,9 @@
 </table>
 
 <br>
+
+<%= paginate @students %>
+
 <%if current_user.employee?%>
 <%= link_to '新建学员', new_student_path,{class: 'ui blue button'} %>
 <%end%>

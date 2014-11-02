@@ -15,10 +15,12 @@ class StudentsController < ApplicationController
     # 普通员工只能看到他自己创建出的学员
     # 普通员工也能看到不是由他创建的,但属于他的培训班的学员(该员工是培训班的班主任)
 
+
     set_user_permission_students
 
     @students=@students.sort_by{|s| s.user.pinyin_name}
 
+    @students =Kaminari.paginate_array(@students).page(params[:page]).per(20)
 
   end
 
@@ -44,6 +46,7 @@ class StudentsController < ApplicationController
 
       @students =  users.collect { |u | u.student }
 
+      @students =Kaminari.paginate_array(@students).page(params[:page]).per(10)
 
       render 'index'
 
