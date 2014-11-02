@@ -82,7 +82,7 @@
     <%end%>
 
     <div class="form-actions">
-      <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
+      <%= f.button :submit ,'保存',inner_html: {class:"ui green submit button"} %>
       <% if current_user.can_manage_basic_data? %>
           <%= link_to '返回到学员列表', students_path, {class:"ui blue submit button"} %>
 
