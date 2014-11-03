@@ -51,15 +51,15 @@
   </div>
   <div class="content">
 
-        <%=render 'real_scores/show',:locals => {
+        <%=render 'real_scores/show', {
                 exam_type_filter:'TOEFL',
-                real_scores:@student.real_scores.toefl.entry_and_target_and_month_target }%>
+                var_real_scores:@student.real_scores.toefl.entry_and_target_and_month_target }%>
 
 
 
-        <%=render 'real_scores/show',:locals => {
+        <%=render 'real_scores/show',{
                 exam_type_filter:'SAT',
-                real_scores:@student.real_scores.sat.entry_and_target_and_month_target }%>
+                var_real_scores:@student.real_scores.sat.entry_and_target_and_month_target }%>
 
 
 

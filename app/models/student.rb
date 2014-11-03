@@ -141,23 +141,40 @@ class Student < ActiveRecord::Base
 
 
 
-  def get_subject_max_by_subject_name(subject_name,hash_score_trend_result)
+  def get_subject_max_by_subject_name(subject_name,hash_score_trend_result,exam_type)
     max = 0
 
 
-    case subject_name
+    if exam_type=='SAT'
+      case subject_name
 
-      when 'Total'
-        max = hash_score_trend_result[:max_real_score_sat_total]
-      when 'Reading'
-        max = hash_score_trend_result[:max_real_score_sat_reading]
-      when 'Math'
-        max = hash_score_trend_result[:max_real_score_sat_math]
-      when 'Grammar'
-        max = hash_score_trend_result[:max_real_score_sat_grammar]
-      when 'Writing'
-        max = hash_score_trend_result[:max_real_score_sat_writing]
+        when 'Total'
+          max = hash_score_trend_result[:max_real_score_sat_total]
+        when 'Reading'
+          max = hash_score_trend_result[:max_real_score_sat_reading]
+        when 'Math'
+          max = hash_score_trend_result[:max_real_score_sat_math]
+        when 'Essay'
+          max = hash_score_trend_result[:max_real_score_sat_essay]
+        when 'Writing'
+          max = hash_score_trend_result[:max_real_score_sat_writing]
+      end
+    elsif exam_type=='TOEFL'
+      case subject_name
+
+        when 'Total'
+          max = hash_score_trend_result[:max_real_score_toefl_total]
+        when 'Listening'
+          max = hash_score_trend_result[:max_real_score_toefl_listening]
+        when 'Speaking'
+          max = hash_score_trend_result[:max_real_score_toefl_speaking]
+        when 'Reading'
+          max = hash_score_trend_result[:max_real_score_toefl_reading]
+        when 'Writing'
+          max = hash_score_trend_result[:max_real_score_toefl_writing]
+      end
     end
+
     return max
   end
 

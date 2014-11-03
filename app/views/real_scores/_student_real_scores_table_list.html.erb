@@ -19,9 +19,9 @@
 
       <tr>
         <td>
-          <%=render 'real_scores/show',:locals => {
+          <%=render 'real_scores/show',{
                   exam_type_filter:'TOEFL',
-                  real_scores:@student.real_scores.toefl.true_real }%>
+                  var_real_scores:@student.real_scores.toefl.true_real }%>
 
           <% if current_user.can_set_student_info?(@student) %>
               <%= link_to '输入 TOEFL 真实考试成绩', set_real_scores_student_path(@student,exam_type:'TOEFL',score_type:'true_real'), {class: 'ui green button'}%>
@@ -29,9 +29,9 @@
           <%end%>
         </td>
         <td>
-          <%=render 'real_scores/show',:locals => {
+          <%=render 'real_scores/show', {
                   exam_type_filter:'TOEFL',
-                  real_scores:@student.real_scores.toefl.entry_and_target_and_month_target }%>
+                  var_real_scores:@student.real_scores.toefl.entry_and_target_and_month_target }%>
 
           <% if current_user.can_set_student_info?(@student) %>
               <%= link_to '输入 TOEFL 入口成绩和目标成绩', set_entry_and_target_scores_student_path(@student,exam_type:'TOEFL',score_type:'entry_and_target'), {class: 'ui green button'}%>
@@ -71,18 +71,18 @@
 
       <tr>
         <td>
-          <%=render 'real_scores/show',:locals => {
+          <%=render 'real_scores/show',{
                   exam_type_filter:'SAT',
-                  real_scores:@student.real_scores.sat.true_real}%>
+                  var_real_scores:@student.real_scores.sat.true_real}%>
           <% if current_user.can_set_student_info?(@student) %>
               <%= link_to '输入 SAT 真实考试成绩', set_real_scores_student_path(@student,exam_type:'SAT',score_type:'true_real'), {class: 'ui green button'}%>
 
           <%end%>
         </td>
         <td>
-          <%=render 'real_scores/show',:locals => {
+          <%=render 'real_scores/show', {
                   exam_type_filter:'SAT',
-                  real_scores:@student.real_scores.sat.entry_and_target_and_month_target}%>
+                  var_real_scores:@student.real_scores.sat.entry_and_target_and_month_target}%>
 
           <% if current_user.can_set_student_info?(@student) %>
               <%= link_to '输入 SAT 入口成绩和目标成绩', set_entry_and_target_scores_student_path(@student,exam_type:'SAT',score_type:'entry_and_target'), {class: 'ui green button'}%>

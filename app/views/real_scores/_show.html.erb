@@ -1,5 +1,5 @@
 
-<%if locals[:exam_type_filter] =='TOEFL'%>
+<%if exam_type_filter =='TOEFL'%>
     <table class ="ui celled collapsing table segment">
       <thead>
       <tr>
@@ -18,7 +18,7 @@
       </thead>
 
       <tbody>
-      <% locals[:real_scores].each do |score|%>
+      <% var_real_scores.each do |score|%>
           <tr>
 
             <td><%= score.score_type %></td>
@@ -47,7 +47,7 @@
       </tbody>
     </table>
 
-<%elsif locals[:exam_type_filter]=='SAT'%>
+<%elsif exam_type_filter=='SAT'%>
 
     <table class ="ui celled collapsing table segment">
       <thead>
@@ -66,10 +66,8 @@
       </tr>
       </thead>
       <tbody>
-      <% locals[:real_scores].each do |score|%>
+      <% var_real_scores.each do |score|%>
           <tr>
-
-
             <td>
               <%= score.score_type %>
             </td>
