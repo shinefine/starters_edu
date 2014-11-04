@@ -22,5 +22,5 @@
 /public/assets/
 /public/uploads/
 /public/assets/*.*
-
+/config/schedule.rb
 .keep

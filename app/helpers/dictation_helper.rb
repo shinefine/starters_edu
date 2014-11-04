@@ -3,7 +3,7 @@ module DictationHelper
     #返回所有学员听写情况的简要说明文字
 
 
-    passline= dictation.passing_line
+    passline= dictation.passing_line || 0
 
     pass_count = 0
     not_pass_count = 0
