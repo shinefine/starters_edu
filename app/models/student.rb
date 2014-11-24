@@ -62,7 +62,11 @@ class Student < ActiveRecord::Base
 
 
   end
-  def calculate_sat_scores_trend2(var_year,exam_type)
+  def calculate_student_scores_trend(var_year,exam_type)
+    #计算出学员的年度涨分情况
+    #返回值(SAT情况):{score_trend_sat_total:600,score_trend_sat_reading:500, score_trend_sat_math:550,score_trend_sat_writing:560 , score_trend_sat_essay:3,
+                  # max_real_score_sat_total:2400, max_real_score_sat_reading:500, max_real_score_sat_math:550,        max_real_score_sat_writing:600,    max_real_score_sat_essay:7,
+                  # real_scores: scores}
     scores = real_scores.send(exam_type.downcase).true_real.where(year:var_year)
 
     subject_scores = scores.map{|r|r.final_score || 0}
@@ -179,21 +183,38 @@ class Student < ActiveRecord::Base
   end
 
 
-  def get_trend_result_by_subject_name(subject_name,hash_score_trend_result)
+  def get_trend_result_by_subject_name(subject_name,hash_score_trend_result,exam_type)
     trend =0
-    case subject_name
-      when 'Total'
-        trend = hash_score_trend_result[:score_trend_sat_total]
-      when 'Reading'
-        trend = hash_score_trend_result[:score_trend_sat_reading]
-      when 'Math'
-        trend = hash_score_trend_result[:score_trend_sat_math]
+    if exam_type=='SAT'
+      case subject_name
+        when 'Total'
+          trend = hash_score_trend_result[:score_trend_sat_total]
+        when 'Reading'
+          trend = hash_score_trend_result[:score_trend_sat_reading]
+        when 'Math'
+          trend = hash_score_trend_result[:score_trend_sat_math]
 
-      when 'Writing'
-        trend = hash_score_trend_result[:score_trend_sat_writing]
-      when 'Essay'
-        trend = hash_score_trend_result[:score_trend_sat_essay]
+        when 'Writing'
+          trend = hash_score_trend_result[:score_trend_sat_writing]
+        when 'Essay'
+          trend = hash_score_trend_result[:score_trend_sat_essay]
+      end
+    elsif exam_type=='TOEFL'
+      case subject_name
+        when 'Total'
+          trend = hash_score_trend_result[:score_trend_toefl_total]
+        when 'Listening'
+          trend = hash_score_trend_result[:score_trend_toefl_listening]
+        when 'Speaking'
+          trend = hash_score_trend_result[:score_trend_toefl_speaking]
+
+        when 'Reading'
+          trend = hash_score_trend_result[:score_trend_toefl_reading]
+        when 'Writing'
+          trend = hash_score_trend_result[:score_trend_toefl_writing]
+      end
     end
+
     return trend
   end
 

@@ -21,6 +21,7 @@
 
 $(function(){
     $('.ui.dropdown').dropdown();
+    $('.popup_stu_score').popup();
     $('.ui.accordion')
         .accordion()
     ;

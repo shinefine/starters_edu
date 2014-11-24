@@ -13,31 +13,18 @@
 <%end%>
 
 <div class="ui  basic vertical fluid accordion">
-  <!--成绩统计 块-->
-    <div class="active title">
-      <i class="dropdown icon"></i>
-      <a class="ui teal circular large label"><%=@exam_type%>成绩统计</a>
-
-    </div>
-    <div class="active content">
-
-        <%= render 'big_data_report_partical_summary_table'%>
-
-    </div>
-
-
 
   <!--涨分情况 块-->
-    <div class="title">
+    <div class="active title">
       <i class="dropdown icon"></i>
       <a class="ui teal circular large label">涨分情况</a>
 
     </div>
-    <div class="content">
+    <div class="active content">
 
-      <%if  @exam_type=='SAT'%>
+
       <%= render 'big_data_report_partical_score_trend'%>
-      <%end%>
+
     </div>
 
 
@@ -54,5 +41,18 @@
 
     </div>
 
+  <!--成绩统计 块-->
+  <div class="title">
+    <i class="dropdown icon"></i>
+    <a class="ui teal circular large label"><%=@exam_type%>成绩统计</a>
+
+  </div>
+  <div class="content">
+
+    <%= render 'big_data_report_partical_summary_table',hash_students_score_trend:@hash_students_score_trend%>
+
+  </div>
+
 
 </div>
+

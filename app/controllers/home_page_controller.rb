@@ -27,7 +27,7 @@ class HomePageController < ApplicationController
 
     @hash_students_score_trend ={}  #各个学员的考试成绩的趋势分析结果
     valid_students.each{ |stu|
-      result = stu.calculate_sat_scores_trend2(var_year,@exam_type)
+      result = stu.calculate_student_scores_trend(var_year,@exam_type)
 
       @hash_students_score_trend[stu] =result
     }

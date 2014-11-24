@@ -1,12 +1,19 @@
 <table class ="ui celled collapsing table segment">
   <thead>
   <tr>
-
+    <%if @exam_type =='SAT'%>
+        <th>CR最高分</th>
+        <th>Math最高分</th>
+        <th >Writing最高分</th>
+        <th >总分最高分</th>
+    <%elsif @exam_type =='TOEFL'%>
     <th>Listening最高分</th>
     <th>Speaking最高分</th>
     <th >Reading最高分</th>
     <th >Writing最高分</th>
     <th >总分最高分</th>
+
+    <%end%>
 
   </tr>
   </thead>
@@ -29,7 +36,7 @@
                        'Writing'=>sat_subject_score_ranges,
                        'Total'=>sat_total_score_ranges}
 
-         elsif @exam_type=='TOEFL'
+       elsif @exam_type=='TOEFL'
 
            h_score_ranges={
                    'Listening'=>toefl_subject_score_ranges,
@@ -38,7 +45,7 @@
                    'Reading'=>toefl_subject_score_ranges,
                    'Writing'=>toefl_subject_score_ranges,
                    'Total'=>toefl_total_score_ranges}
-         end
+       end
 
     %>
 

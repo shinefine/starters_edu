@@ -2,7 +2,7 @@
   <thead>
   <tr>
 
-    <th>学员 </th>
+    <th>学员</th>
     <th>参加的培训班</th>
     <th >类别</th>
     <%if @exam_type =='SAT'%>
@@ -31,7 +31,7 @@
   </thead>
 
   <tbody>
-  <% @hash_students_score_trend.each do |key_stu,value_score_results| %>
+  <% hash_students_score_trend.each do |key_stu,value_score_results| %>
 
       <%real_scores = value_score_results[:real_scores]%>
 
@@ -86,8 +86,6 @@
             <%=raw helper__html_tds_monthes_real_score(real_scores,'Writing',@exam_type)%>
           </tr>
       <%end%>
-
-
 
   <% end %>
   </tbody>
