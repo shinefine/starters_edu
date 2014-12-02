@@ -69,13 +69,23 @@ class Student < ActiveRecord::Base
                   # real_scores: scores}
     scores = real_scores.send(exam_type.downcase).true_real.where(year:var_year)
 
+    entry_score = real_scores.send(exam_type.downcase).entry.first
+    entry_score ||=RealScore.new
+
     subject_scores = scores.map{|r|r.final_score || 0}
     subject_max_score =subject_scores.max||0
     subject_min_score =subject_scores.min||0
 
-    score_trend_total = subject_max_score - subject_min_score
+    entry_total_score = entry_score.final_score || 0
+
+
+    #score_trend_total = subject_max_score - subject_min_score# 涨分情况计算--实际考试的最高分减去实际考试的最低分
+
+    score_trend_total = subject_max_score - entry_total_score# 涨分情况计算--实际考试的最高分减去入口成绩分数
+
     max_real_score_total = subject_max_score
 
+    #各个科目分数情况计算
 
     subject_scores = scores.map{|r|r.course_a_score || 0}
 
@@ -122,7 +132,9 @@ class Student < ActiveRecord::Base
          max_real_score_sat_math:max_real_score_course_b,
          max_real_score_sat_writing:max_real_score_course_c,
          max_real_score_sat_essay:max_real_score_course_d,
-         real_scores: scores
+
+         real_scores: scores,
+         entry_score: entry_score
     }
     elsif exam_type=='TOEFL'
       return {
@@ -137,6 +149,8 @@ class Student < ActiveRecord::Base
               max_real_score_toefl_speaking:max_real_score_course_b,
               max_real_score_toefl_reading:max_real_score_course_c,
               max_real_score_toefl_writing:max_real_score_course_d,
+
+              entry_score_toefl_total:entry_total_score,
               real_scores: scores
       }
     end
