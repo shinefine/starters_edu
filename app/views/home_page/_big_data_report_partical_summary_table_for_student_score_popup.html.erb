@@ -11,7 +11,9 @@
 <table class ="ui celled table segment">
     <thead>
     <tr>
-      <th >月份</th>
+      <th ><%=@year%>年</th>
+
+
       <%subjects.each do |subject_name_arr|%>
         <th><%= subject_name_arr.first%></th>
       <%end%>
@@ -20,6 +22,26 @@
     </thead>
 
     <tbody>
+    <tr>
+      <td>入口</td>
+      <% value_score_results = hash_students_score_trend.first.last %>
+      <%entry_score = value_score_results[:entry_score]%>
+          <%if @exam_type =='SAT'%>
+              <td><%=entry_score.try(:course_a_score)%></td>
+              <td><%=entry_score.try(:course_b_score)%></td>
+              <td><%=entry_score.try(:course_c_score)%></td>
+              <td> <%=entry_score.try(:final_score)%></td>
+
+
+          <%elsif @exam_type =='TOEFL'%>
+              <td><%=entry_score.try(:course_a_score)%></td>
+              <td><%=entry_score.try(:course_b_score)%></td>
+              <td><%=entry_score.try(:course_c_score)%></td>
+              <td><%=entry_score.try(:course_d_score)%></td>
+              <td> <%=entry_score.try(:final_score)%></td>
+          <%end%>
+
+    </tr>
     <% hash_students_score_trend.each do |key_stu,value_score_results| %>
 
         <%real_scores = value_score_results[:real_scores]%>

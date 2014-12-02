@@ -22,6 +22,10 @@ class StudentsController < ApplicationController
 
     @students =Kaminari.paginate_array(@students).page(params[:page]).per(20)
 
+    respond_to do |format|
+      format.html
+      format.json { render json: @students }
+    end
   end
 
   def search
