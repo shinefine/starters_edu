@@ -18,7 +18,9 @@ body {
 .main.container
 {
   margin: 0px 20px 0px 20px;
+  padding-top: 50px;  //设置padding 值,避免页面内容被导航工具条挡住
 }
+
 body#home{
   margin: 0px 0px 0px 0px;
 }

@@ -7,8 +7,9 @@ class SessionController < ApplicationController
     if login_user
       session[:user_id] = login_user.id
 
-      flash[:notice] = login_user.role_name1 + ":" + login_user.name + " 已登录"
+      flash[:notice] = {:main_msg=>"欢迎您#{login_user.name}",:detail_msg => "#{login_user.role_name1} : #{login_user.name }已登录 (若想退出系统,请点击顶端信息栏上的红色[登出]按钮)"}
 
+      flash[:need_set_password] ='你还没有设置登陆密码,建议你现在就去设置密码,请点击顶端信息栏上右上角的绿色[设置密码]按钮' if params[:password].blank?
 
       redirect_to(training_classes_path)
 

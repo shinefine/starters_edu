@@ -12,14 +12,21 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require chosen-jquery
 //= require semantic-ui
 //= require d3.v3
 //= require nv.d3.min
 //= require stream_layers
-
+//= require articles
 
 
 $(function(){
+    $('.message .close')
+        .on('click', function() {
+            $(this).closest('.message').transition('scale out');
+        })
+    ; //使得 消息提示条 具备 关闭 功能
+
     $('.ui.dropdown').dropdown();
     $('.popup_stu_score').popup();
     $('.ui.accordion')

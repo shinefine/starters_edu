@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+
+  resources :articles do
+    get 'tags/:tag', to: 'articles#index', as: :tag ,on: :collection
+  end
+
   get 'home_page/search'
   get 'home_page/upload'
   get 'home_page/training_class_schedule'

@@ -11,13 +11,33 @@ gem "elasticsearch", :git => "git://github.com/elasticsearch/elasticsearch-ruby.
 gem "elasticsearch-model", :git => "git://github.com/elasticsearch/elasticsearch-rails.git"
 gem "elasticsearch-rails", :git => "git://github.com/elasticsearch/elasticsearch-rails.git"
 
+
+gem 'semantic-ui-sass'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.1.4'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
+
+gem 'mysql2', '~> 0.3.16'
+
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 4.0.3'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails', '~> 4.0.0'
+
+
+gem 'chosen-rails'
+
+
 group :development,:test do
   gem 'rspec-rails'
 end
 group :development do
 
   # For debugger
- # gem "pry-rails"
+  #gem "pry-rails"
 
   #gem "pry-debugger"
 
@@ -34,20 +54,10 @@ group :development do
   gem "binding_of_caller"
 end
 
-gem 'semantic-ui-sass'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#tag 添加标签的功能
+gem 'acts-as-taggable-on'
 
-gem 'mysql2', '~> 0.3.16'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 #系统安装了node.js 或其它 js框架后,就不需要这个gem了,这个gem 据说比较耗费内存,不推荐在生产模式下使用

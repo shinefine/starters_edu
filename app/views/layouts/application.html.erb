@@ -39,10 +39,35 @@
 
 
 <div class="main container">
-
   <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash#{name}" %>
-  <% end %>
+      <% content_tag :div, msg, {:id => "flash#{name}" ,class:'ui green label'} #无用 %>
+
+      <%
+         if msg.class ==Hash
+          main_msg = msg["main_msg"]
+          detail_msg=msg["detail_msg"]
+         else
+           main_msg = msg
+         end
+
+      %>
+
+
+      <div class="ui icon success message">
+        <i class="close icon"></i>
+        <i class="info circle icon"></i>
+
+        <div class="content">
+          <div class="header"><%=main_msg %></div>
+          <%if detail_msg%>
+          <p><%= detail_msg%></p>
+          <%end%>
+        </div>
+
+      </div>
+
+
+<% end %>
 
   <!--输出页面主体内容-->
   <%= yield %>

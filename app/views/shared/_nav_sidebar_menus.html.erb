@@ -1,5 +1,5 @@
 <!--子模板--文件名[ <%= __FILE__%> ]-->
-<!--本模板生成页面左侧的导航菜单栏，菜单栏里的菜单项是动态指定的（非静态固定不变）-->
+<!--本模板生成页面左侧的导航菜单栏和页面顶部工具栏，菜单栏里的菜单项是动态指定的（非静态固定不变）-->
 
 
 <!--导航菜单内容-->
@@ -56,7 +56,7 @@
 
       <div class="item">
         <%if current_user.password.empty?%>
-            你还没有设置登陆密码,建议你现在就去<%=link_to  set_password_user_path(current_user) do %>
+            <%=link_to  set_password_user_path(current_user) do %>
                 <div class="ui teal label ">设置登录密码</div>
                 <%end%>
         <%end%>
@@ -66,9 +66,9 @@
     <div class="right menu">
 
       <div class="title item">
-        <% flash.each do |name, msg| %>
-            <%= content_tag :div, msg, {:id => "flash#{name}" ,class:'ui green label'}%>
-        <% end %>
+
+        <!--这里以前是展示flash消息的代码,现在被移走了-->
+
       </div>
     </div>
   </div>
