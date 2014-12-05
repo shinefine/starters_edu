@@ -7,20 +7,35 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore the default SQLite database.
+# 忽略默认的 SQLite 数据库.
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+#数据库配置信息不加入版本库(因为包含数据库密码信息),服务器上手工创建此文件
 /config/database.yml
 
-# Ignore all logfiles and tempfiles.
+# 忽略所有 logfiles 和 tempfiles.
 /log/*.log
 /tmp
 
+#忽略 rubymine ide配置信息
 /.idea
+
+
 .swp
+
 /public/assets/
 /public/uploads/
 /public/assets/*.*
 /config/schedule.rb
 .keep
+
+# 一些其它不需要的文件.
+doc/
+*.swp
+*~
+.project
+.DS_Store
+
+#忽略 Vagrant 配置信息和目录
+

@@ -25,6 +25,50 @@ module ApplicationHelper
 
   end
 
+  #该方法定义了在页面顶端导航菜单栏中应该出现的内容
+  def build_main_nav_menu_items
+    nav_menus={ }
+    if current_user.nil?
+      return nav_menus
+    end
+
+    if current_user.teacher?
+      nav_menus={
+                  '我的培训班'=>{link_path: training_classes_path,icon_name: 'flag'},
+                  '我的个人信息'=>{link_path: teacher_url(current_user.teacher),icon_name: 'male'},
+
+                  '课程表'=> {link_path: home_page_training_class_schedule_url,icon_name: 'calendar'},
+      }
+    end
+    if current_user.student?
+      nav_menus={
+                  '我的个人信息'=>{link_path: student_url(current_user.student),icon_name: 'male'},
+                  '我的培训班'=>{link_path: training_classes_url,icon_name: 'flag'},
+                  '课程表'=> {link_path: home_page_training_class_schedule_url,icon_name: 'calendar'},
+      }
+
+    end
+    if current_user.employee?
+      if current_user.can_manage_basic_data?
+        nav_menus={
+                '学员'=>{link_path: students_path,icon_name: 'users'},
+                '班级'=>{link_path: training_classes_path,icon_name: 'flag'},
+                "大数据:学员成绩分析"=>{link_path: home_page_big_data_report_scores_url(year: Time.now.year,exam_type:'SAT'),icon_name: 'bar chart'},
+
+        }
+      else
+        nav_menus={
+                '我的班级'=>{link_path:training_classes_path,icon_name: 'flag'},
+                '我的个人信息'=>{link_path:employee_url(current_user.employee),icon_name: 'male'},
+                '学员管理'=>{link_path:students_path,icon_name: 'users'},
+                '课程表'=> {link_path:home_page_training_class_schedule_url,icon_name: 'calendar'},
+        }
+      end
+
+    end
+
+    return nav_menus
+  end
 
 
   #该方法定义了在页面左侧导航菜单栏中应该出现的内容
