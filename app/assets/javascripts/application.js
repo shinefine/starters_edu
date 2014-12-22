@@ -12,13 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require chosen-jquery
 //= require semantic-ui
 //= require d3.v3
 //= require nv.d3.min
 //= require stream_layers
 //= require articles
-
+//= require wice_grid
 
 $(function(){
     $('.message .close')

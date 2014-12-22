@@ -10,18 +10,28 @@ class TrainingClassesController < ApplicationController
     if(current_user.student?)
       @student =current_user.student
       @training_classes=@student.training_classes
+
+
+      @training_classes_grid = initialize_grid(@student.training_classes)
+
     end
 
     if (current_user.teacher?)
       @teacher =current_user.teacher
       @training_classes=@teacher.training_classes.distinct
+
+      @training_classes_grid = initialize_grid(@teacher.training_classes.distinct)
     end
 
     if (current_user.employee?)
       if current_user.can_set_training_class_info?  #管理员/校长
         @training_classes = TrainingClass.all
+
+        @training_classes_grid = initialize_grid(TrainingClass.all)
       else
         @training_classes =TrainingClass.where(master_teacher_id: current_user.employee.id )
+
+        @training_classes_grid = initialize_grid(TrainingClass.where(master_teacher_id: current_user.employee.id ))
       end
     end
   end

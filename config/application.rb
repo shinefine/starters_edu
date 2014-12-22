@@ -25,7 +25,7 @@ module TeacherStudent5
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
      config.i18n.default_locale = 'zh-CN'
 
-
+    #config.assets.debug = false
 
     #如果暂时需要输出 asset log 信息,设置下面的代码
     #config.quiet_assets = false

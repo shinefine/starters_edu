@@ -15,7 +15,7 @@
  *= require_tree .
  *= require chosen
  *= require_self
-
+ *= require jquery-ui/dark-hive
  */
 
 th {

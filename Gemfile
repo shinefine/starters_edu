@@ -20,6 +20,12 @@ gem 'sqlite3'
 
 gem 'mysql2', '~> 0.3.16'
 
+
+# 表格功能增强  bundle install 之后需要 rails g wice_grid:install ，项目内需要引用js文件 //= require wice_grid  （需要jquery支持）
+gem "wice_grid", '3.4.7'
+gem 'jquery-ui-rails','5.0.0'
+gem 'jquery-ui-themes','0.0.11'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
