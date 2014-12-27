@@ -22,10 +22,15 @@ Rails.application.routes.draw do
   resources :subjects
 
   resources :text_books
-  resources :employees do
+
+  concern :freezingable do
     patch :unfreezing, on: :member
     patch :freezing, on: :member
   end
+
+  resources :employees , concerns: [:freezingable]
+
+
   resources :users do
     get :set_password , on: :member
   end
@@ -33,21 +38,15 @@ Rails.application.routes.draw do
   resources :questions
 
 
-  resources :students do
+  resources :students , concerns: [:freezingable] do
     get :search , on: :collection
 
     resources :real_scores do
-      get :index_with_all_examinations ,on: :collection #列出某个学员的 所有真实考试成绩 (统计报表)
+      get :index_with_all_examinations ,on: :collection #列出某个学员的 所有真实考试成绩 (统计报表)(真实考试成绩与模考不同,不与培训班挂钩)
     end
     #二留一
     get :set_real_scores ,on: :member
     get :set_entry_and_target_scores ,on: :member
-
-
-
-
-    patch :unfreezing, on: :member
-    patch :freezing, on: :member
 
     get :set_finished_test_papers ,on: :member
 
@@ -60,10 +59,12 @@ Rails.application.routes.draw do
   end
 
   resources :examinations  do #培训班包含多个模拟考试
-    resources :scores  do
-      get :index_for_all_students , on: :collection  #列出某次特定模考 的所有学员考试成绩
+    resources :scores,only: :index  #列出某次特定模考 的所有学员考试成绩
 
-    end
+    # resources :scores  do
+    #   get :index_for_all_students , on: :collection
+    #
+    # end
   end
 
 
@@ -93,18 +94,16 @@ Rails.application.routes.draw do
 
     resources :students do #培训班包含多个学员
 
-      resources :scores do
-        get :index_with_all_examinations ,on: :collection #列出某个培训班下 某个学员的 所有模考成绩 (统计报表)
-      end
+      resources :scores ,only: :index #列出某个培训班下 某个学员的 所有模考成绩 (呈现为d3统计报表)
+
 
       resources :comments   #讲师/班主任可以给学员创建评语
     end
 
 
   end
-  resources :teachers do
-    patch :unfreezing, on: :member
-    patch :freezing, on: :member
+  resources :teachers , concerns: [:freezingable] do
+
   end
 
 

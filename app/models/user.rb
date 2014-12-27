@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
+
+  validates_presence_of [:name, :phone_number]
+
   def pinyin_name
     PinYin.permlink(name)
   end

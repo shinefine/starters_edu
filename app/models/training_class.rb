@@ -28,7 +28,7 @@ class TrainingClass < ActiveRecord::Base
   validates :start_date,presence: true
 
 
-  default_scope {order('start_date DESC')}
+  #default_scope {order('start_date DESC')}
 
   def student_attendance(student)
     #返回指定学生的所有出勤记录(针对本培训班的)
@@ -54,31 +54,29 @@ class TrainingClass < ActiveRecord::Base
     return text_books.map{|tb| tb.name}.join("\n")
   end
 
-  def sat_cr_teachers
-    self.subjects.where(name:'CR').map{|sub| sub.teacher}
-  end
-  def sat_math_teachers
-    self.subjects.where(name:'Math').map{|sub| sub.teacher}
-  end
-  def sat_grammar_teachers
-    self.subjects.where(name:'Grammar').map{|sub| sub.teacher}
-  end
-  def sat_essay_teachers
-    self.subjects.where(name:'Essay').map{|sub| sub.teacher}
+  def subject_teachers(subject_name)
+    #传入培训班科目类型名称, 参数类似于: sat_cr / :toefl_read /:sat_essay
+    #返回这个科目的讲师对象(集合)
+
+    #映射表 将科目名 和 subject表中的name 字段的值 一一对应
+    map_table ={ sat_cr:'CR',
+                 sat_math:'Math',
+                 sat_grammar:'Grammar',
+                 sat_essay:'Essay',
+                 toefl_read:'Reading',
+                 toefl_listen:'Listening',
+                 toefl_write:'Writing',
+                 toefl_talk:'Speaking'
+    }
+
+    field_value =map_table[subject_name]
+
+    self.subjects.where(name:field_value).map{|sub| sub.teacher}
+
+
   end
 
-  def toefl_read_teachers
-    self.subjects.where(name:'Reading').map{|sub| sub.teacher}
-  end
-  def toefl_listen_teachers
-    self.subjects.where(name:'Listening').map{|sub| sub.teacher}
-  end
-  def toefl_write_teachers
-    self.subjects.where(name:'Writing').map{|sub| sub.teacher}
-  end
-  def toefl_talk_teachers
-    self.subjects.where(name:'Speaking').map{|sub| sub.teacher}
-  end
+
 
 
 end

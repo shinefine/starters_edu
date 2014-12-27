@@ -30,6 +30,7 @@ $(function(){
 
     $('.ui.dropdown').dropdown();
     $('.popup_stu_score').popup();
+    $('.popup_tip_button').popup();
     $('.ui.accordion')
         .accordion()
     ;

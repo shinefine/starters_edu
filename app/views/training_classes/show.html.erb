@@ -87,7 +87,7 @@
 
                     <br>
 
-                    <%= link_to "模考成绩统计",index_with_all_examinations_training_class_student_scores_path(@training_class,student) %>
+                    <%= link_to "模考成绩统计",training_class_student_scores_path(@training_class,student) %>
 
                     <%comments= helper_get_student_comments(student)%>
                     <%= link_to "讲师评语(#{comments.count})",training_class_student_comments_path(@training_class,student)%>

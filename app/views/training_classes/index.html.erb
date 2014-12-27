@@ -12,7 +12,7 @@
 
 <%= grid(@training_classes_grid,html:{class: "ui celled collapsing table segment"}) do |g|
 
-    g.column name: '名称', attribute: 'name'  do |training_class|
+    g.column name: '名称', attribute: 'name' ,ordering:false do |training_class|
 
       color = training_class.exam_type =='SAT'? 'purple' :'teal'
       link_to training_class.name, training_class , {class:"ui #{color} button"}
@@ -32,9 +32,9 @@
 
 
     if current_user.teacher?
-      subs = training_class.subjects.where(teacher: @teacher)
 
       g.column name: '讲授课程科目'  do |training_class|
+        subs = training_class.subjects.where(teacher: @teacher)
         subs.map{|sub| sub.name}.join('|')
       end
     end
@@ -63,7 +63,7 @@
     elsif current_user.student?
 
       g.column name: '模拟考试'   do |training_class|
-        link_to "#{training_class.examinations.count}次",index_with_all_examinations_training_class_student_scores_path(training_class,@student)
+        link_to "#{training_class.examinations.count}次",training_class_student_scores_path(training_class,@student)
       end
       g.column name: '听写成绩'   do |training_class|
         link_to @student.summary_dictation_text(training_class), training_class_dictations_path(training_class,student_id:@student)
@@ -97,9 +97,16 @@
       html=''
       if current_user.employee?
 
-            html = link_to('修改', edit_training_class_path(training_class), {class:'ui green button'})
+            html = link_to(edit_training_class_path(training_class), {class:'ui green icon button popup_tip_button',"data-content"=>"修改培训班:#{training_class.name}"}) do
+                raw('<i class="edit icon"> </i>')
+
+            end
             if current_user.admin?
-                html << link_to('删除培训班', training_class, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' } })
+                html << link_to(training_class, {class:'ui red icon button popup_tip_button' ,
+                                                 method: :delete,
+                                                 data: { confirm: "确认删除培训班:#{training_class.name}?",content:"删除培训班:#{training_class.name}" } }) do
+                                                        raw('<i class="delete icon"> </i>')
+                                                    end
             end
 
        end
@@ -107,6 +114,15 @@
     end
 
 end %>
+
+<% if current_user.can_manage_basic_data? %>
+    <div class="ui buttons">
+      <%= link_to '新建 SAT 培训班', new_training_class_path(exam_type: 'SAT'), {class:'ui blue button'}  %>
+      <div class="or"></div>
+      <%= link_to '新建 TOEFL 培训班', new_training_class_path(exam_type: 'TOEFL') , {class:'ui blue button'}%>
+    </div>
+
+<% end %>
 
 <%if nil%>
     <table class ="ui celled collapsing table segment">
@@ -173,7 +189,7 @@ end %>
 
                 <%elsif current_user.student?%>
 
-                    <td><%=link_to "#{training_class.examinations.count}次",index_with_all_examinations_training_class_student_scores_path(training_class,@student) %></td>
+                    <td><%=link_to "#{training_class.examinations.count}次",training_class_student_scores_path(training_class,@student) %></td>
                     <td><%= link_to @student.summary_dictation_text(training_class), training_class_dictations_path(training_class,student_id:@student) %></td>
 
                     <td><%= link_to helper__summary_text_attendance_for_student_in_training_class(@student,training_class),training_class_attendances_path(training_class,student_id:@student) %></td>
@@ -206,13 +222,4 @@ end %>
       </tbody>
     </table>
 
-    <br>
-
-    <% if current_user.can_manage_basic_data? %>
-        <div class="ui buttons">
-            <%= link_to '新建 SAT 培训班', new_training_class_path(exam_type: 'SAT'), {class:'ui blue button'}  %>
-          <div class="or"></div>
-            <%= link_to '新建 TOEFL 培训班', new_training_class_path(exam_type: 'TOEFL') , {class:'ui blue button'}%>
-        </div>
-    <% end %>
 <%end%>

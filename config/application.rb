@@ -9,9 +9,17 @@ Bundler.require(*Rails.groups)
 module TeacherStudent5
   class Application < Rails::Application
     config.generators do |g|
-      g.assets false
-      g.helper false
-      g.test_framework false
+      g.assets false  #是否生成 xxx.css xxx.js 文件
+      g.helper false  #是否生成 xxx_helper.rb文件
+      #g.test_framework false  #是否使用默认测试框架
+      g.test_framework :rspec,
+                       fixtures: true,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       controller_specs: true,
+                       request_specs: false
+      g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

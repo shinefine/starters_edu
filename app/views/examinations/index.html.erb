@@ -9,7 +9,7 @@
       <th>考试名称</th>
       <th>考试时间</th>
       <th>学员考试成绩</th>
-      <th colspan="2"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -22,21 +22,27 @@
 
         <td><%= link_to '查看成绩列表',
 
-                        index_for_all_students_examination_scores_path(exam),{class:'ui green button'} %>
+                        examination_scores_path(exam),{class:'ui green button'} %>
         </td>
 
         <% if current_user.can_set_training_class_examination?(@training_class) %>
-            <td><%= link_to '修改', edit_training_class_examination_path(@training_class,exam),{class:'ui green button'} %></td>
-            <td>
-              <%= link_to '删除',
-                          training_class_examination_path(@training_class, exam),{class:'ui red button',
+
+
+
+            <td><%= link_to(edit_training_class_examination_path(@training_class,exam),{class:'ui green icon button popup_tip_button',"data-content"=>"修改模考信息:#{exam.name}"}) do %>
+                   <i class="edit icon"> </i>
+              <%end%>
+
+              <%= link_to(training_class_examination_path(@training_class, exam),{class:'ui red icon button popup_tip_button',
                                                                                   method: :delete,
-                                                                                  data: { confirm: '确认删除?' }} %>
+                                                                                  data: { confirm: '确认删除此模考?' ,content:"删除模考:#{exam.name}"}}) do%>
+              <i class="delete icon"> </i>
+                <%end%>
             </td>
 
         <% else %>
             <td></td>
-            <td></td>
+
         <% end %>
       </tr>
     <% end %>

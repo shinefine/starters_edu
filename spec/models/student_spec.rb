@@ -28,4 +28,6 @@ describe Student do
     it {should respond_to :updated_at}
 
   end
+
+
 end

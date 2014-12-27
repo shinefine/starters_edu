@@ -1,30 +1,55 @@
 source 'https://rubygems.org'
 
-gem 'rails-i18n'
-gem 'simple_form'
+#---------------------系统功能---------------------
+#图片上传
 gem 'carrierwave','0.6.2'
 gem 'mini_magick' ,'3.3'
 
+#文字对应拼音(汉字排序用)
 gem 'ruby-pinyin'
-gem 'kaminari','~> 0.16.1'
+
+# 本地化支持
+gem 'rails-i18n'
+#系统全站搜索
 gem "elasticsearch", :git => "git://github.com/elasticsearch/elasticsearch-ruby.git"
 gem "elasticsearch-model", :git => "git://github.com/elasticsearch/elasticsearch-rails.git"
 gem "elasticsearch-rails", :git => "git://github.com/elasticsearch/elasticsearch-rails.git"
 
 
-gem 'semantic-ui-sass','0.16.1.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
+
+
+#-------------------数据库---------------------------
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
 gem 'mysql2', '~> 0.3.16'
 
 
+#-------------------model层功能增强-------------------
+#tag 添加标签的功能
+gem 'acts-as-taggable-on'
+
+
+#-------------------View层 界面功能-----------------------
+#css框架
+gem 'semantic-ui-sass','0.16.1.0'
+
+#表单创建
+gem 'simple_form'
+
+#分页
+gem 'kaminari','~> 0.16.1'
+
 # 表格功能增强  bundle install 之后需要 rails g wice_grid:install ，项目内需要引用js文件 //= require wice_grid  （需要jquery支持）
 gem "wice_grid", '3.4.7'
 gem 'jquery-ui-rails','5.0.0'
 gem 'jquery-ui-themes','0.0.11'
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -33,13 +58,18 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
-
+#html 的select 控件功能增强
 gem 'chosen-rails'
 
 
+
+#----------------------测试 相关-------------------------
 group :development,:test do
-  gem 'rspec-rails'
+  gem 'rspec-rails'  #bundle install 后 需执行 rails g rspec:install 生成配置文件
+  gem 'factory_girl_rails','3.3.0'
 end
+
+#-----------------------调试---------------------------
 group :development do
 
   # For debugger
@@ -60,8 +90,6 @@ group :development do
   gem "binding_of_caller"
 end
 
-#tag 添加标签的功能
-gem 'acts-as-taggable-on'
 
 
 
@@ -69,8 +97,7 @@ gem 'acts-as-taggable-on'
 #系统安装了node.js 或其它 js框架后,就不需要这个gem了,这个gem 据说比较耗费内存,不推荐在生产模式下使用
 # gem 'therubyracer',  platforms: :ruby
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

@@ -1,60 +1,63 @@
 class ScoresController < ApplicationController
   #模考分数 控制器
   before_action :set_simulate_test_score, only: [:show, :edit, :update, :destroy]
-  before_action :find_student,except: [:index_for_all_students]
+  before_action :find_student,except: [:index]
   before_action :find_simulate_test, except:[:index,:index_with_all_examinations]
 
 
   # GET /scores
   # GET /scores.json
   def index
-    #所有学员所有模考成绩
-    @student= Student.find(params[:student_id])
-    @training_class =TrainingClass.find(params[:training_class_id])
-    @examinations =@training_class.examinations
+    #提供了培训班id,学员id,则 index 呈现 指定培训班下的/指定学员的/所有模考成绩
+    if (params[:student_id] && params[:training_class_id])
+      @student =Student.find(params[:student_id])
+      @training_class =TrainingClass.find(params[:training_class_id])
+      @examinations =@training_class.examinations
+      @scores=@student.scores
 
-    @scores = @student.scores
+      render 'index_with_all_examinations'
 
-
-
-
-
-  end
-
-
-  #GET  /training_classes/:training_class_id/examinations/:examination_id/scores/index_for_all_students(.:format)
-  def index_for_all_students
-
-    #模考特定,列出本次模考的所有学员的成绩
-
-
-    @examination =Examination.find(params[:examination_id])
-
-    @training_class =@examination.training_class
-
-    @training_class_students =@training_class.students
-
-    @scores=@examination.scores
-
-    @training_class_students.each do |student|
-
-      score = @scores.where(student_id: student).first
+    elsif (params[:examination_id]) #指定了某次模考,则index 呈现关于此次模考所有有此模考成绩(所有学员的)
+      @examination =Examination.find(params[:examination_id])
+      @training_class =@examination.training_class
+      @training_class_students =@training_class.students
+      @scores=@examination.scores
+      render 'index_for_all_students'
+    else #默认情况下,则呈现数据库的所有 score 记录
 
 
     end
   end
 
-  def index_with_all_examinations
 
-    #学员特定,列出学员的所有模考成绩
-    @student =Student.find(params[:student_id])
+  #GET  /training_classes/:training_class_id/examinations/:examination_id/scores/index_for_all_students(.:format)
+  # def index_for_all_students
+  #
+  #   #模考特定,列出本次模考的所有学员的成绩
+  #
+  #
+  #   @examination =Examination.find(params[:examination_id])
+  #
+  #   @training_class =@examination.training_class
+  #
+  #   @training_class_students =@training_class.students
+  #
+  #   @scores=@examination.scores
+  #
+  #
+  # end
 
-    @training_class =TrainingClass.find(params[:training_class_id])
-    @examinations =@training_class.examinations
-    @scores=@student.scores
-
-
-  end
+  # def index_with_all_examinations
+  #
+  #   #学员特定,列出学员的所有模考成绩
+  #   @student =Student.find(params[:student_id])
+  #
+  #   @training_class =TrainingClass.find(params[:training_class_id])
+  #   @examinations =@training_class.examinations
+  #   @scores=@student.scores
+  #
+  #
+  # end
 
 
   # GET /scores/1
@@ -118,7 +121,7 @@ class ScoresController < ApplicationController
 
     if @score.save
 
-      redirect_to index_for_all_students_examination_scores_path(@examination),
+      redirect_to examination_scores_path(@examination),
                 notice: '模考成绩已保存'
 
     end
@@ -132,7 +135,7 @@ class ScoresController < ApplicationController
       if @score.update(simulate_test_score_params)
 
 
-        format.html {  redirect_to index_for_all_students_examination_scores_path(@examination),notice: '学员成绩己记录.'  }
+        format.html { redirect_to examination_scores_path(@examination),notice: '学员成绩己记录.'  }
         format.json { render :show, status: :ok, location: @score }
       else
         format.html { render :edit }

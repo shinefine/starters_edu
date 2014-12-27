@@ -19,36 +19,10 @@ class Teacher < ActiveRecord::Base
     self.user.name
   end
 
-  def is_SAT_CR_teacher?(training_class)
-    return training_class.sat_cr_teachers.any?{|teacher| teacher.id == self.id}
+  def is_teach_subject?(training_class,subject_name)
+    #判断讲师是否讲授指定培训班的某个科目,参数 training_class 培训班对象, subject_name 符号对象 :sat_cr / :sat_math / :toefl_listen
+    return training_class.subject_teachers(subject_name).any?{|teacher| teacher.id == self.id}
   end
 
-  def is_SAT_Math_teacher?(training_class)
-    return training_class.sat_math_teachers.any?{|teacher| teacher.id == self.id}
-  end
-
-  def is_SAT_Grammar_teacher?(training_class)
-    return training_class.sat_grammar_teachers.any?{|teacher| teacher.id == self.id}
-  end
-
-  def is_SAT_Essay_teacher?(training_class)
-    return training_class.sat_essay_teachers.any?{|teacher| teacher.id == self.id}
-  end
-
-  def is_TOEFL_READ_teacher?(training_class)
-    return training_class.toefl_read_teachers.any?{|teacher| teacher.id == self.id}
-  end
-
-  def is_TOEFL_LISTEN_teacher?(training_class)
-    return training_class.toefl_listen_teachers.any?{|teacher| teacher.id == self.id}
-  end
-
-  def is_TOEFL_TALK_teacher?(training_class)
-    return training_class.toefl_talk_teachers.any?{|teacher| teacher.id == self.id}
-  end
-
-  def is_TOEFL_WRITE_teacher?(training_class)
-    return training_class.toefl_write_teachers.any?{|teacher| teacher.id == self.id}
-  end
 
 end

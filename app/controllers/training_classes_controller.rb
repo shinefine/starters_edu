@@ -12,7 +12,9 @@ class TrainingClassesController < ApplicationController
       @training_classes=@student.training_classes
 
 
-      @training_classes_grid = initialize_grid(@student.training_classes)
+      @training_classes_grid = initialize_grid(@student.training_classes,
+                                               order: 'training_classes.start_date',
+                                               order_direction: 'desc')
 
     end
 
@@ -20,7 +22,9 @@ class TrainingClassesController < ApplicationController
       @teacher =current_user.teacher
       @training_classes=@teacher.training_classes.distinct
 
-      @training_classes_grid = initialize_grid(@teacher.training_classes.distinct)
+      @training_classes_grid = initialize_grid(@teacher.training_classes.group("training_classes.name"),
+                                               order: 'training_classes.start_date',
+                                               order_direction: 'desc')
     end
 
     if (current_user.employee?)
@@ -31,7 +35,9 @@ class TrainingClassesController < ApplicationController
       else
         @training_classes =TrainingClass.where(master_teacher_id: current_user.employee.id )
 
-        @training_classes_grid = initialize_grid(TrainingClass.where(master_teacher_id: current_user.employee.id ))
+        @training_classes_grid = initialize_grid(TrainingClass.where(master_teacher_id: current_user.employee.id ),
+                                                 order: 'training_classes.start_date',
+                                                 order_direction: 'desc')
       end
     end
   end
