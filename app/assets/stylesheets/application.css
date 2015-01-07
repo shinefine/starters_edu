@@ -11,7 +11,6 @@
  * file per style scope.
  *
  *= require semantic-ui
-
  *= require_tree .
  *= require chosen
  *= require_self
@@ -26,6 +25,15 @@ th {
 .ui .checkbox {
     display: block;
 }
+
+tr .operation_buttons  {
+    visibility: hidden;
+}
+tr:hover .operation_buttons{
+    visibility: visible;
+}
+
+
 fieldset {
     display: block;
     -webkit-margin-start: 2px;
