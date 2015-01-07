@@ -67,6 +67,7 @@ class StudentsController < ApplicationController
   def new
     @student = Student.new
     @student.user =User.new
+    @user=@student.user
   end
 
   # GET /students/1/edit
@@ -117,6 +118,7 @@ class StudentsController < ApplicationController
     @student = Student.new(student_params)
 
     @student.creator = current_user.employee if current_user.employee?
+
 
    # @student.test_papers=TestPaper.where(id: params[:student][:test_paper_ids])  #设置学员做过的试卷信息
 
@@ -183,6 +185,7 @@ class StudentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_student
       @student = Student.find(params[:id])
+      @user=@student.user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -208,6 +211,7 @@ class StudentsController < ApplicationController
                                                         :qq_number,
                                                         :tinypost_number,
                                                         :identify_card,
+                                                        :photo
                                       ],
                                       real_scores_attributes:[
                                           :_destroy,:id,:student_id,

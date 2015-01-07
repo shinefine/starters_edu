@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
 #---------------------系统功能---------------------
+
 #图片上传
-gem 'carrierwave','0.6.2'
+gem 'carrierwave','0.10.0'
 gem 'mini_magick' ,'3.3'
 
 #文字对应拼音(汉字排序用)
@@ -60,8 +61,6 @@ gem 'coffee-rails', '~> 4.0.0'
 
 #html 的select 控件功能增强
 gem 'chosen-rails'
-
-
 
 #----------------------测试 相关-------------------------
 group :development,:test do

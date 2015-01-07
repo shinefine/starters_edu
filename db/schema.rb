@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202090539) do
+ActiveRecord::Schema.define(version: 20150107103412) do
 
   create_table "articles", force: true do |t|
     t.string   "Title"
@@ -291,6 +291,7 @@ ActiveRecord::Schema.define(version: 20141202090539) do
     t.string   "qq_number"
     t.string   "tinypost_number"
     t.string   "identify_card"
+    t.string   "photo"
   end
 
 end

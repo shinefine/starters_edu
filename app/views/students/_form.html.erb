@@ -10,6 +10,25 @@
             <div class="field">
               <%= user_f.input :name,label:"名称" %>
             </div>
+
+          <div class="field">
+
+            <%= user_f.label :photo,'照片' %>
+            <%=
+                if @user.photo?
+                  image_tag @user.photo_url,id:"image_photo_preview"
+                else
+                  image_tag image_path("default_user_photo.png"), id:"image_photo_preview"
+
+                end
+            %>
+
+
+            <%= user_f.file_field :photo %>
+            <%= user_f.hidden_field  :photo_cache %>
+
+          </div>
+
         </div>
           <div class="ui five fields">
             <div class="field">

@@ -2,6 +2,20 @@ td,th
 {
   white-space: nowrap;
 }
+//用户照片预览区域的大小
+img#image_photo_preview{
+  width:150px;
+  height: 150px;
+}
+
+//学员照片区域的大小
+img.student_photo.middle.image{
+  height:105px;
+  width:105px;
+}
+
+
+
 body {
   //background-color: #ffffff;
   color: #333;

@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of [:name, :phone_number]
 
+  mount_uploader :photo,UserPhotoUploader
+
   def pinyin_name
     PinYin.permlink(name)
   end

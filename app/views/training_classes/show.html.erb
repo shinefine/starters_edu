@@ -70,7 +70,17 @@
 
 
               <div class="image">
-                <img src='<%= image_path("default_user_photo.png")%>' class="ui mini image" >
+
+                <%=
+                    if student.user.photo?
+                      image_tag student.user.photo_url, class:"student_photo middle image"
+                    else
+                      image_tag image_path("default_user_photo.png"), class:"ui mini image"
+
+                    end
+                %>
+
+
               </div>
 
 

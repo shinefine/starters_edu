@@ -20,6 +20,7 @@
 //= require stream_layers
 //= require articles
 //= require wice_grid
+//= require image_preview_before_upload
 
 $(function(){
     $('.message .close')
