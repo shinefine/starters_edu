@@ -41,7 +41,14 @@
 
 
     g.column name: '班主任' do |training_class|
-      link_to(training_class.master_teacher.try(:name), employee_path(training_class.master_teacher)) if training_class.master_teacher
+      master_teacher = training_class.master_teacher
+      if master_teacher
+         image_tag(master_teacher.user.photo_url, class:"table_list photo",style:"width:64px;height:64px") +
+                 raw('<br>') +
+          link_to(master_teacher.try(:name), employee_path(master_teacher))
+      else
+        '未指定'
+      end
     end
 
 

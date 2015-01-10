@@ -7,6 +7,10 @@
           <div class="field">
             <%= user_f.input :name,label:"名称" %>
           </div>
+
+          <div class="field">
+            <%= render 'shared/upload_user_photo', form_builder: user_f%>
+          </div>
         </div>
         <div class="ui five fields">
           <div class="field">

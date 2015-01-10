@@ -44,18 +44,64 @@
     <% end %>
 
 <div class ="ui raised segment">
-  <div class="ui red circular label">班主任</div>
-  <%= @training_class.master_teacher.nil? ? "未指定": @training_class.master_teacher.name %>
+
+
+
+
+  <div class="ui small items student_list">
+
+
+        <div class="item">
+          <div class="image">
+            <%=
+                image_tag @training_class.master_teacher.user.photo_url, class:"student_photo middle image"
+            %>
+          </div>
+
+          <div class="ui red circular label">班主任</div>
+
+          <div class="content">
+            <div class="name">  <%= @training_class.master_teacher.name || "未指定" %></div>
+          </div>
+        </div>
+
+  </div>
+
+
+
+
+
 
 
   <p></p>
-  <% @training_class.subjects.each do |sub|  %>
 
-  <div class="ui green circular label"><%= sub.name %>讲师</div>
-  <%= sub.teacher.try(:name)%>
-      <p></p>
 
-  <% end %>
+
+  <div class="ui ribbon label">
+    课程讲师
+  </div>
+
+
+      <div class="ui small items student_list">
+        <% @training_class.subjects.each do |sub|  %>
+
+            <div class="item">
+              <div class="image">
+                <%=
+                    image_tag sub.teacher.user.photo_url, class:"student_photo middle image"
+                %>
+              </div>
+
+              <div class="ui green circular label"><%= sub.name %>讲师</div>
+
+              <div class="content">
+                <div class="name"> <%= sub.teacher.try(:name)%></div>
+              </div>
+            </div>
+
+        <% end %>
+
+      </div>
 
   <p></p>
 
@@ -63,7 +109,7 @@
     学员数量：<%= @training_class.students.count %>人
 
   </div>
-  <div class="ui small items">
+  <div class="ui small items student_list">
     <% @training_class.students.each do|student| %>
 
             <div class="item">
@@ -72,12 +118,7 @@
               <div class="image">
 
                 <%=
-                    if student.user.photo?
-                      image_tag student.user.photo_url, class:"student_photo middle image"
-                    else
-                      image_tag image_path("default_user_photo.png"), class:"ui mini image"
-
-                    end
+                    image_tag student.user.photo_url, class:"student_photo middle image"
                 %>
 
 
@@ -93,17 +134,23 @@
                       <%= student.user.phone_number%>
                     </p>
 
+                    <ul>
+                      <li>
                     <%= link_to '更多详细信息' ,student_path(student) %>
-
-                    <br>
+                      </li>
+                      <li>
 
                     <%= link_to "模考成绩统计",training_class_student_scores_path(@training_class,student) %>
-
+                      </li>
+                      <li>
                     <%comments= helper_get_student_comments(student)%>
                     <%= link_to "讲师评语(#{comments.count})",training_class_student_comments_path(@training_class,student)%>
 
+                      </li>
+                      <li>
                     <%= link_to "真实成绩统计",index_with_all_examinations_student_real_scores_path(student,training_class_id:@training_class) %>
-
+                      </li>
+                    </ul>
                 <%end%>
               </div>
             </div>

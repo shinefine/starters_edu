@@ -10,8 +10,13 @@ img#image_photo_preview{
 
 //学员照片区域的大小
 img.student_photo.middle.image{
-  height:105px;
-  width:105px;
+  height:128px;
+  width:128px;
+}
+
+img.photo.table_list{
+  height: 64px;
+  width: 64px;
 }
 
 
@@ -69,9 +74,15 @@ div {
   }
 }
 
-.ui.items > .item {
-  width: 120px;
-  min-height: 240px;
+.ui.items.student_list > .item {
+  width: 150px;
+
+  min-height: 300px;
+
+}
+
+ul.pagination li{
+  display: inline;
 }
 #notice {
   color: green;

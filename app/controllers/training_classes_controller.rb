@@ -14,7 +14,7 @@ class TrainingClassesController < ApplicationController
 
       @training_classes_grid = initialize_grid(@student.training_classes,
                                                order: 'training_classes.start_date',
-                                               order_direction: 'desc')
+                                               order_direction: 'desc',per_page: 10)
 
     end
 

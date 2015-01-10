@@ -18,6 +18,7 @@ class EmployeesController < ApplicationController
   def new
     @employee = Employee.new
     @employee.user =User.new
+    @user = @employee.user
   end
 
   # GET /employees/1/edit
@@ -75,12 +76,13 @@ class EmployeesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
       @employee = Employee.find(params[:id])
+      @user = @employee.user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:admin,user_attributes: [:name,:phone_number,:id,:email, :qq_number,
-                                                                :tinypost_number,
+                                                                :tinypost_number, :photo,
                                                                 :identify_card,])
     end
 

@@ -13,19 +13,7 @@
 
           <div class="field">
 
-            <%= user_f.label :photo,'照片' %>
-            <%=
-                if @user.photo?
-                  image_tag @user.photo_url,id:"image_photo_preview"
-                else
-                  image_tag image_path("default_user_photo.png"), id:"image_photo_preview"
-
-                end
-            %>
-
-
-            <%= user_f.file_field :photo %>
-            <%= user_f.hidden_field  :photo_cache %>
+            <%= render 'shared/upload_user_photo', form_builder: user_f%>
 
           </div>
 

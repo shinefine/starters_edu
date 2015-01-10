@@ -17,6 +17,7 @@ class TeachersController < ApplicationController
   def new
     @teacher = Teacher.new
     @teacher.user =User.new
+    @user = @teacher.user
   end
 
   # GET /teachers/1/edit
@@ -75,12 +76,13 @@ class TeachersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher
       @teacher = Teacher.find(params[:id])
+      @user = @teacher.user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
       params.require(:teacher).permit(  user_attributes: [:name,:email,:phone_number,:id, :qq_number,
-                                                          :tinypost_number,
+                                                          :tinypost_number, :photo,
                                                           :identify_card])
     end
 end
