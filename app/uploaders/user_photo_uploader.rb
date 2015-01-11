@@ -19,11 +19,15 @@ class UserPhotoUploader < CarrierWave::Uploader::Base
   version :thumb ,:from_version => :normal  do
     process :resize_to_fill => [64,64]
   end
-
+  #
   def default_url
     "/images/default_user_photo.png"
   end
 
+  #若需要重建各个版本图片,先注释掉 default_url 方法,然后在控制台 使用以下命令
+  #rails c
+  #User.find_each{|u| u.photo.recreate_versions! if  u.photo.url }  #针对只有部分用户上出了图片(某些用户没有上传图片)的情况
+  #User.find_each{|u| u.photo.recreate_versions! }  #针对所有用户都有上传图片的情况
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:

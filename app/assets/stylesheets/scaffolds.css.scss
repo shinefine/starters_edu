@@ -21,28 +21,23 @@ img.photo.table_list{
 
 
 
-body {
-  //background-color: #ffffff;
-  color: #333;
-  //font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-  background:  url(poly_background.svg) repeat-y !important;
-  background-size:cover;
-
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  /* background: #FCFCFC url(../images/bg.jpg) repeat; */
-
-  padding: 0px;
-  color: #555555;
-  min-width: 1024px;
-  min-height: 768px;
+//为了显示背景图片,下面两条样式规则覆盖了semantic-ui的默认规则
+.pushable > .pusher {
+  background:  url(poly_background.svg) repeat !important;
 }
+
+.ui.table thead th {
+
+  background: inherit;
+}
+
+/*
 .main.container
 {
   margin: 0px 20px 0px 20px;
   padding-top: 50px;  //设置padding 值,避免页面内容被导航工具条挡住
 }
+*/
 
 body#home{
   margin: 0px 0px 0px 0px;

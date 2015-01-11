@@ -84,7 +84,7 @@
 
       <div class="ui small items student_list">
         <% @training_class.subjects.each do |sub|  %>
-
+            <% next unless sub.teacher%>
             <div class="item">
               <div class="image">
                 <%=

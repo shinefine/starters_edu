@@ -31,7 +31,9 @@ class TrainingClassesController < ApplicationController
       if current_user.can_set_training_class_info?  #管理员/校长
         @training_classes = TrainingClass.all
 
-        @training_classes_grid = initialize_grid(TrainingClass.all)
+        @training_classes_grid = initialize_grid(TrainingClass.all,
+                                                 order: 'training_classes.start_date',
+                                                 order_direction: 'desc')
       else
         @training_classes =TrainingClass.where(master_teacher_id: current_user.employee.id )
 

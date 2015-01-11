@@ -2,8 +2,12 @@ source 'https://rubygems.org'
 
 #---------------------系统功能---------------------
 
-#图片上传
+#图片上传功能,若需要缩放图片,则需依赖mini_magick gem
 gem 'carrierwave','0.10.0'
+
+#进行图片缩放功能,需要linux系统安装了 imagemagic 库,
+# 使用 apt-get install imagemagick 来安装
+# 用convert -version 查看是否成功安装imagemagic
 gem 'mini_magick' ,'3.3'
 
 #文字对应拼音(汉字排序用)
@@ -36,7 +40,13 @@ gem 'acts-as-taggable-on'
 
 #-------------------View层 界面功能-----------------------
 #css框架
-gem 'semantic-ui-sass','0.16.1.0'
+#gem 'semantic-ui-sass','0.16.1.0'
+
+#版本号不固定,取决于何时bundle install ,当前版本 1.6.2.0
+#需要修改文件
+# .rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/bundler/gems/semantic-ui-sass-0c4dbb3b8657/app/assets/stylesheets/semantic-ui/globals/_site.scss
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass', branch: 'v1.0beta'
+
 
 #表单创建
 gem 'simple_form'
@@ -46,7 +56,11 @@ gem 'kaminari','~> 0.16.1'
 
 # 表格功能增强  bundle install 之后需要 rails g wice_grid:install ，项目内需要引用js文件 //= require wice_grid  （需要jquery支持）
 gem "wice_grid", '3.4.7'
+
+#jquery
 gem 'jquery-ui-rails','5.0.0'
+
+#wice grid 的选择日期功能使用jquery-ui 提供的日期控件 ,效果比较好
 gem 'jquery-ui-themes','0.0.11'
 
 # Use jquery as the JavaScript library

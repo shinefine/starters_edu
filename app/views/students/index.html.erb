@@ -7,7 +7,7 @@
 
 </div>
 
-<br>
+
 <br>
 <div class="ui input">
   <%= form_tag search_students_path, method: 'get' do %>
@@ -28,7 +28,7 @@
       <th>培训班级</th>
       <th>家长联系方式</th>
 
-      <th>联系方式</th>
+
       <th>创建者</th>
       <%if current_user.employee?%>
       <th colspan="2"></th>
@@ -40,10 +40,33 @@
     <% @students.each do |student| %>
       <tr>
         <td>
-          <%= link_to student.user.try(:name), student, {class: 'ui purple button'}%>
-          <br>
-          手机:<%= student.user.try(:phone_number)  %>
+          <div class="ui divided items">
 
+            <div class="item">
+            <div class="ui tiny image">
+              <%=image_tag(student.user.photo.thumb.url) %>
+
+            </div>
+            <div class="content">
+             <%= link_to(student, {class: 'header'}) do %>
+                  <%=student.user.try(:name)%>
+                  <i class="mobile icon large"></i>
+                  <%=student.user.try(:phone_number) %>
+
+             <%end%>
+
+              <div class="description">
+
+                <i class="yellow qq icon large"></i><%= student.user.try(:qq_number) || "(无)" %>
+                <i class="teal wechat icon large"></i><%= student.user.try(:tinypost_number) ||"(无)"  %>
+                <br>
+                <i class="mail outline icon large"></i>:<%= student.user.try(:email) || "(无)" %>
+                <br>
+                身份证:<%= student.user.try(:identify_card) || "(无)" %>
+              </div>
+            </div>
+          </div>
+          </div>
         </td>
         <td>
 
@@ -77,28 +100,7 @@
 
         </td>
 
-        <td>
-          <table class ="ui celled collapsing table segment">
-            <tbody>
-          <tr>
-            <td>身份证</td>
-            <td> <%= student.user.try(:identify_card)  %></td>
-          </tr>
-            <tr>
-              <td>QQ</td>
-              <td> <%= student.user.try(:qq_number)  %></td>
-            </tr>
-            <tr>
-              <td>微信</td>
-              <td> <%= student.user.try(:tinypost_number)  %></td>
-            </tr>
-            <tr>
-              <td>邮箱</td>
-              <td> <%= student.user.try(:email)  %></td>
-            </tr>
-            </tbody>
-          </table>
-         </td>
+
 
         <td><%= student.creator.try(:name) %></td>
         <%if current_user.employee?%>
