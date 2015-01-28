@@ -16,37 +16,3 @@
  *= require_self
  *= require jquery-ui/dark-hive
  */
-
-th {
-    vertical-align:middle;
-    text-align:center;
-}
-
-.ui .checkbox {
-    display: block;
-}
-
-tr .operation_buttons  {
-    visibility: hidden;
-}
-tr:hover .operation_buttons{
-    visibility: visible;
-}
-
-
-fieldset {
-    display: block;
-    -webkit-margin-start: 2px;
-    -webkit-margin-end: 2px;
-    -webkit-padding-before: 0.35em;
-    -webkit-padding-start: 0.75em;
-    -webkit-padding-end: 0.75em;
-    -webkit-padding-after: 0.625em;
-    border: 0px groove threedface;
-    border-image-source: initial;
-    border-image-slice: initial;
-    border-image-width: initial;
-    border-image-outset: initial;
-    border-image-repeat: initial;
-    min-width: -webkit-min-content;
-}
