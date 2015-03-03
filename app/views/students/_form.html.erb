@@ -19,62 +19,64 @@
 
         </div>
           <div class="ui five fields">
-            <div class="field">
-              <%= user_f.input :phone_number,label:"手机号" %>
-            </div>
-          <div class="field">
-            <%= user_f.input :identify_card,label:"身份证号" %>
-          </div>
 
-          <div class="field">
-            <%= user_f.input :email ,label:"Email"%>
-          </div>
+            <%if current_user.can_view_student_personal_info? %>
+                <div class="field">
+                  <%= user_f.input :phone_number,label:"手机号" %>
+                </div>
+              <div class="field">
+                <%= user_f.input :identify_card,label:"身份证号" %>
+              </div>
+
+              <div class="field">
+                <%= user_f.input :email ,label:"Email"%>
+              </div>
 
 
-          <div class="field">
-            <%= user_f.input :tinypost_number ,label:"微信"%>
-          </div>
+              <div class="field">
+                <%= user_f.input :tinypost_number ,label:"微信"%>
+              </div>
 
-          <div class="field">
-            <%= user_f.input :qq_number ,label:"QQ"%>
-          </div>
+              <div class="field">
+                <%= user_f.input :qq_number ,label:"QQ"%>
+              </div>
+            <%end%>
         </div>
 
     <% end %>
 
 
-    <div class="ui five fields">
 
+    <%if current_user.can_view_student_personal_info? %>
+        <div class="ui five fields">
+          <div class="field">
+            <%= f.input :school ,label:"学校"%>
+          </div>
+          <div class="field">
+            <%= f.label "生日" %>
+            <%= f.date_field :birth_day ,{class:'ui tiny input'}%>
 
+          </div>
+        </div>
 
-      <div class="field">
-        <%= f.input :school ,label:"学校"%>
-      </div>
-      <div class="field">
-        <%= f.label "生日" %>
-        <%= f.date_field :birth_day ,{class:'ui tiny input'}%>
+        <div class="ui five fields">
+          <div class="field">
+            <%= f.input :parent_name,label:"家长名称" %>
+          </div>
 
-      </div>
-    </div>
+          <div class="field">
+            <%= f.input :parent_tel ,label:"家长电话"%>
+          </div>
 
-    <div class="ui five fields">
-      <div class="field">
-        <%= f.input :parent_name,label:"家长名称" %>
-      </div>
+          <div class="field">
+            <%= f.input :parent2_name,label:"家长名称2" %>
+          </div>
 
-      <div class="field">
-        <%= f.input :parent_tel ,label:"家长电话"%>
-      </div>
-
-      <div class="field">
-        <%= f.input :parent2_name,label:"家长名称2" %>
-      </div>
-
-      <div class="field">
-        <%= f.input :parent2_tel ,label:"家长电话2"%>
-      </div>
-    </div>
-
+          <div class="field">
+            <%= f.input :parent2_tel ,label:"家长电话2"%>
+          </div>
+        </div>
+    <%end%>
 
 
 
