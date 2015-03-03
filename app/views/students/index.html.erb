@@ -50,20 +50,24 @@
             <div class="content">
              <%= link_to(student, {class: 'header'}) do %>
                   <%=student.user.try(:name)%>
-                  <i class="mobile icon large"></i>
-                  <%=student.user.try(:phone_number) %>
 
+                  <%if current_user.can_view_student_personal_info? %>
+                      <i class="mobile icon large"></i>
+                      <%=student.user.try(:phone_number) %>
+                  <%end%>
              <%end%>
 
-              <div class="description">
+              <%if current_user.can_view_student_personal_info? %>
+                  <div class="description">
 
-                <i class="yellow qq icon large"></i><%= student.user.try(:qq_number) || "(无)" %>
-                <i class="teal wechat icon large"></i><%= student.user.try(:tinypost_number) ||"(无)"  %>
-                <br>
-                <i class="mail outline icon large"></i>:<%= student.user.try(:email) || "(无)" %>
-                <br>
-                身份证:<%= student.user.try(:identify_card) || "(无)" %>
-              </div>
+                    <i class="yellow qq icon large"></i><%= student.user.try(:qq_number) || "(无)" %>
+                    <i class="teal wechat icon large"></i><%= student.user.try(:tinypost_number) ||"(无)"  %>
+                    <br>
+                    <i class="mail outline icon large"></i>:<%= student.user.try(:email) || "(无)" %>
+                    <br>
+                    身份证:<%= student.user.try(:identify_card) || "(无)" %>
+                  </div>
+              <%end%>
             </div>
           </div>
           </div>
@@ -81,22 +85,24 @@
         </td>
         <td>
           <!--家长联系方式 单元表格-->
-          <table class ="ui celled collapsing table segment">
-            <tbody>
-            <% unless student.parent_name.blank? %>
-                <tr>
-                  <td><%=student.parent_name%></td>
-                  <td><%=student.parent_tel%></td>
-                </tr>
-            <%end%>
-            <%unless student.parent2_name.blank?  %>
-                <tr>
-                  <td><%=student.parent2_name%></td>
-                  <td><%=student.parent2_tel%></td>
-                </tr>
-            <%end%>
-            </tbody>
-          </table>
+          <%if current_user.can_view_student_personal_info? %>
+              <table class ="ui celled collapsing table segment">
+                <tbody>
+                <% unless student.parent_name.blank? %>
+                    <tr>
+                      <td><%=student.parent_name%></td>
+                      <td><%=student.parent_tel%></td>
+                    </tr>
+                <%end%>
+                <%unless student.parent2_name.blank?  %>
+                    <tr>
+                      <td><%=student.parent2_name%></td>
+                      <td><%=student.parent2_tel%></td>
+                    </tr>
+                <%end%>
+                </tbody>
+              </table>
+          <%end%>
 
         </td>
 

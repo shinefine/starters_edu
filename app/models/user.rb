@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :photo,UserPhotoUploader
 
+  #返回User 名字的拼音字母字符串
   def pinyin_name
     PinYin.permlink(name)
   end
@@ -42,6 +43,7 @@ class User < ActiveRecord::Base
     return nil
   end
 
+  #无用方法?
   def role_name1
     str_role =''
     str_role<<'[学员]' if self.student?
@@ -51,22 +53,21 @@ class User < ActiveRecord::Base
 
   end
 
-  # accepts_nested_attributes_for :user
 
+  #判断当前user 是否是 学生/讲师/员工/管理员
   def student?
     not self.student.nil?
   end
   def teacher?
     not self.teacher.nil?
   end
-
   def employee?
     not self.employee.nil?
   end
-
   def admin?
      self.employee? && self.employee.admin?
   end
+
 
 
   #判断当前用户是否是指定培训班的班主任(如果当前用户是员工的情况)
@@ -78,33 +79,18 @@ class User < ActiveRecord::Base
     return training_class.master_teacher.id == employee.id
 
   end
+
+
+  #--------------------------------------
   #用户权限判定的函数
+  #--------------------------------------
 
-  #能否查看针对某学员的某条评语信息
-  def can_see_comment?(comment)
-
-
-    return false if self.teacher? && self.teacher.id != comment.teacher.id #老师只能看到自己写的评语
-
-    return true  # 学员,员工(包括管理员) 都能查看所有评语信息
+  #能否看到学生的个人信息
+  def can_view_student_personal_info?()
+    #需求:讲师不能看到学员的电话,qq号,父母电话等个人信息(讲师可以看到学员的成绩)
+    #其它用户(学员,班主任/员工/管理员)可以看到学员的个人信息
+    return !self.teacher?
   end
-
-  def can_set_user_password?(z_user)
-    return can_set_employee_info?(z_user.employee) if  z_user.employee?
-    return can_set_student_info?(z_user.student) if z_user.student?
-    return can_set_teacher_info?(z_user.teacher) if z_user.teacher?
-
-    return false
-  end
-
-  def can_set_student_info?(z_student)
-    return true if employee?
-
-    return z_student == self.student if self.student?
-
-    return false
-  end
-
 
   def can_view_student_info?(z_student)
     return true if employee?
@@ -114,6 +100,33 @@ class User < ActiveRecord::Base
 
     return false
   end
+
+  def can_set_student_info?(z_student)
+
+    return true if employee?
+    return z_student == self.student if self.student?
+    return false
+  end
+
+
+
+  #能否查看针对某学员的某条评语信息
+  def can_see_comment?(comment)
+
+    return false if self.teacher? && self.teacher.id != comment.teacher.id #老师只能看到自己写的评语
+
+    return true  # 学员,员工(包括管理员) 都能查看所有评语信息
+  end
+
+  #能否设置其他用户的登录密码
+  def can_set_user_password?(z_user)
+    return can_set_employee_info?(z_user.employee) if  z_user.employee?
+    return can_set_student_info?(z_user.student) if z_user.student?
+    return can_set_teacher_info?(z_user.teacher) if z_user.teacher?
+
+    return false
+  end
+
 
 
   def can_set_teacher_info?(z_teacher)

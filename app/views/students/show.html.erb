@@ -23,6 +23,7 @@
         <%= @student.name %>
       </p>
 
+      <%if current_user.can_view_student_personal_info? %>
       <p><strong>联系人电话:</strong><%=" #{@student.parent_name}:#{@student.parent_tel} " %></p>
       <p><strong>联系人2电话:</strong><%=" #{@student.parent2_name}:#{@student.parent2_tel} " %></p>
       <p><strong>身份证号:</strong><%= @student.user.try(:identify_card)  %></p>
@@ -30,7 +31,7 @@
       <p><strong>qq:</strong><%= @student.user.try(:qq_number) %></p>
       <p><strong>微信号:</strong><%= @student.user.try(:tinypost_number)  %></p>
       <p><strong>Email:</strong><%= @student.user.try(:email)   %></p>
-      
+      <%end%>
 
     </div>
 

@@ -45,9 +45,6 @@
 
 <div class ="ui raised segment">
 
-
-
-
   <div class="ui small items student_list">
 
 
@@ -157,15 +154,16 @@
             <div class="content">
               <div class="header"><%=student.name %></div>
               <div class="meta">
-                <a class="group"><%=student.name %></a>
+                <a class="group">学员</a>
               </div>
 
               <%if current_user.can_view_student_info?(student)%>
                   <div class="description">
-                  <p >
-                    <%= student.user.phone_number%>
-                  </p>
-
+                  <% if current_user.can_view_student_personal_info? %>
+                      <p>
+                        <%= student.user.phone_number%>
+                      </p>
+                  <%end%>
                   <ul>
                     <li>
                       <%= link_to '个人详细信息' ,student_path(student) %>
