@@ -169,6 +169,10 @@
                       <%= link_to '个人详细信息' ,student_path(student) %>
                     </li>
                     <li>
+                      <%= link_to "真实成绩统计",index_with_all_examinations_student_real_scores_path(student,training_class_id:@training_class) %>
+                    </li>
+
+                    <li>
 
                       <%= link_to "模考成绩统计",training_class_student_scores_path(@training_class,student) %>
                     </li>
@@ -177,9 +181,20 @@
                       <%= link_to "讲师评语(#{comments.count})",training_class_student_comments_path(@training_class,student)%>
 
                     </li>
+
                     <li>
-                      <%= link_to "真实成绩统计",index_with_all_examinations_student_real_scores_path(student,training_class_id:@training_class) %>
+
+
+
+
+                      <%= link_to "考勤统计",training_class_attendances_path(@training_class,student_id:student)%>
                     </li>
+
+                    <li>
+
+                      <%= link_to "听写成绩统计", training_class_dictations_path(@training_class,student_id:student) %>
+                    </li>
+
                   </ul>
                   </div>
               <%end%>

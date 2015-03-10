@@ -1,6 +1,10 @@
 
 <h1></h1>
-<div class="ui green horizontal label"><h2>学员<%=@student.name %>在培训班 <%=@training_class.name %> 的考勤情况</h2></div>
+<div class="ui green horizontal label"><h2>学员<%=@student.name %>在培训班 <%=@training_class.name %> 的考勤情况</h2>
+  <h4>
+    <%= helper__summary_text_attendance_for_student_in_training_class(@student,@training_class) %>
+  </h4>
+</div>
 
 
 <br>
