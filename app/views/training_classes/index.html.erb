@@ -124,11 +124,18 @@
 end %>
 
 <% if current_user.can_manage_basic_data? %>
-    <div class="ui buttons">
-      <%= link_to '新建 SAT 培训班', new_training_class_path(exam_type: 'SAT'), {class:'ui blue button'}  %>
-      <div class="or"></div>
-      <%= link_to '新建 TOEFL 培训班', new_training_class_path(exam_type: 'TOEFL') , {class:'ui blue button'}%>
+
+    <div class="ui bottom right pointing dropdown blue button" tabindex="0">
+      新建培训班
+      <div class="menu transition hidden" tabindex="-1">
+        <div class="ui blue item"><%= link_to 'SAT   培训班', new_training_class_path(exam_type: 'SAT')  %></div>
+        <div class="ui blue item"><%= link_to 'TOEFL 培训班', new_training_class_path(exam_type: 'TOEFL')%></div>
+
+        <div class=" item">(AP 培训班)</div>
+        <div class=" item">(西语 培训班)</div>
+      </div>
     </div>
+
 
 <% end %>
 

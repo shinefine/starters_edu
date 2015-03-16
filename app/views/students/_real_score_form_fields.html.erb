@@ -1,7 +1,7 @@
 <fieldset>
 
 
-  <div class="ui two fields">
+  <div class="ui two fields form segment">
 
     <%= f.input_field :score_type, type:'hidden' %>
     <%= f.input_field :exam_type, type:'hidden' %>
@@ -15,7 +15,7 @@
                                 :first,
                                 :last,
                                 {:include_blank => false},
-                                {class:"select optional ui selection dropdown"} %>
+                                {} %>
 
 
 
@@ -33,7 +33,7 @@
                                 :first,
                                 :last,
                                 {:include_blank => false},
-                                {class:"select optional ui selection dropdown"} %>
+                                {} %>
 
       </div>
       <div class ="field">
